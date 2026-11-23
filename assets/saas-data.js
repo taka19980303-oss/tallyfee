@@ -9,7 +9,8 @@ window.SAAS_DATA = {
    "source": "https://mailchimp.com/pricing/marketing/",
    "free": {
     "name": "Free",
-    "limit": "250 contacts, 500 sends/month"
+    "limit": "250 contacts, 500 sends/month",
+    "limit_ja": "連絡先250件、月500通まで"
    },
    "plans": [
     {
@@ -109,10 +110,16 @@ window.SAAS_DATA = {
     }
    ],
    "annualNote": "Mailchimp publishes no public annual rate card for these plans; monthly billing is the comparable figure.",
+   "annualNote_ja": "Mailchimpはこれらのプランの年額料金表を公開していません。比較の基準は月額課金です。",
    "counting": "Counts every contact in your audience — including unsubscribed and non-subscribed contacts — until you archive them. Your bill is based on the PEAK contact total in the billing period.",
+   "counting_ja": "オーディエンス内のすべての連絡先を数えます — 配信停止済み・未購読の連絡先も、アーカイブするまでは含まれます。請求は、請求期間中の連絡先数のピーク（最大値）が基準です。",
    "overage": "Pass your plan limit and Mailchimp auto-charges for add-on contact blocks (for example $22 per 1,000-contact block on Essentials at the 10,000 tier). Sending is never interrupted.",
+   "overage_ja": "プランの上限を超えると、追加の連絡先ブロックが自動で課金されます（例：10,000件の段階ではEssentialsで1,000件ブロックあたり$22）。配信が止まることはありません。",
    "quirks": [
     "Mailchimp’s own pages disagreed on Premium on the check date: $350/mo on the compare-plans page vs $236.52 shown in the pricing calculator view for bands up to 10,000 contacts. The calculator here uses the pricing-page figures."
+   ],
+   "quirks_ja": [
+    "確認日時点でMailchimp自身のページ間でPremiumの価格が食い違っていました：プラン比較ページでは月額$350、料金計算ビューの10,000件までの帯では$236.52。ここの計算機は料金ページ側の数字を使っています。"
    ]
   },
   "brevo": {
@@ -122,7 +129,8 @@ window.SAAS_DATA = {
    "source": "https://www.brevo.com/pricing/",
    "free": {
     "name": "Free",
-    "limit": "300 emails/day, up to 100,000 contacts stored"
+    "limit": "300 emails/day, up to 100,000 contacts stored",
+    "limit_ja": "1日300通、連絡先は最大100,000件まで保存"
    },
    "plans": [
     {
@@ -203,9 +211,14 @@ window.SAAS_DATA = {
     }
    ],
    "counting": "Brevo is the outlier: it bills on monthly SEND VOLUME, not list size. Every tier shown includes storage for up to 500,000 contacts.",
+   "counting_ja": "Brevoは例外で、リストの大きさではなく月間の送信数で課金します。表示されている全プランに、最大500,000件の連絡先保存が含まれます。",
    "overage": "No per-email overage rate is published. Extra volume is bought as prepaid email credit packs (5,000–1,000,000 emails).",
+   "overage_ja": "1通あたりの超過料金は公開されていません。追加の送信量はプリペイドのメールクレジットパック（5,000〜1,000,000通）で購入します。",
    "quirks": [
     "Plan names changed: the mid plan is now called Standard (there is no “Business” plan anymore)."
+   ],
+   "quirks_ja": [
+    "プラン名が変わりました：中位プランは現在Standardで、「Business」プランはもうありません。"
    ]
   },
   "kit": {
@@ -215,7 +228,8 @@ window.SAAS_DATA = {
    "source": "https://kit.com/pricing",
    "free": {
     "name": "Newsletter (Free)",
-    "limit": "Up to 10,000 subscribers, unlimited sends"
+    "limit": "Up to 10,000 subscribers, unlimited sends",
+    "limit_ja": "購読者10,000件まで、送信無制限"
    },
    "plans": [
     {
@@ -340,9 +354,13 @@ window.SAAS_DATA = {
     }
    ],
    "annualNote": "Annual billing is 17% off the monthly prices (confirmed on the pricing page at 1,000 and 55,000 subscribers).",
+   "annualNote_ja": "年額課金は月額の17%引きです（料金ページで購読者1,000件と55,000件の時点で確認）。",
    "counting": "Counts unique ACTIVE subscribers only — unsubscribes stop counting. Sends are unlimited on every plan.",
+   "counting_ja": "有効な購読者だけを一意に数えます — 配信停止した人は数えません。全プランで送信は無制限です。",
    "overage": "No overage fee. Cross a tier and Kit auto-upgrades you to the next tier. Downgrades are manual: you have to email support after cleaning your list.",
-   "quirks": []
+   "overage_ja": "超過料金はありません。段階を超えると自動で次の段階にアップグレードされます。ダウングレードは手動で、リストを整理したあとサポートへメールが必要です。",
+   "quirks": [],
+   "quirks_ja": []
   },
   "activecampaign": {
    "name": "ActiveCampaign",
@@ -466,10 +484,16 @@ window.SAAS_DATA = {
     }
    ],
    "annualNote": "The pricing page shows annual-billing prices only. Monthly-billing prices are not published there (Starter monthly is $19 at 1,000 contacts per ActiveCampaign’s official blog).",
+   "annualNote_ja": "料金ページは年額課金の価格のみ表示しています。月額課金の価格は同ページでは公開されていません（1,000件でのStarter月額$19はActiveCampaign公式ブログによる）。",
    "counting": "Accounts created on or after Nov 3, 2025 count ALL contacts toward the limit — active, unsubscribed, bounced and unconfirmed alike. Older accounts count active contacts only.",
+   "counting_ja": "2025年11月3日以降に作られたアカウントは、有効・配信停止・バウンス・未確認を含むすべての連絡先が上限にカウントされます。それより前のアカウントは有効な連絡先のみです。",
    "overage": "$0.005 per email sent over the monthly send limit (10×/10×/12×/15× your contact limit by plan). If overage sends reach 3× the limit, sending is switched off until the next month.",
+   "overage_ja": "月間送信上限を超えた分は1通あたり$0.005（上限はプランにより連絡先数の10倍/10倍/12倍/15倍）。超過送信が上限の3倍に達すると、翌月まで送信が停止します。",
    "quirks": [
     "At 25,000 contacts the pricing page displayed Starter ($391) costing MORE than Plus ($389) — the calculator keeps that inversion, because it is what the page showed."
+   ],
+   "quirks_ja": [
+    "25,000件の時点で、料金ページではStarter（$391）がPlus（$389）より高く表示されていました — ページの表示どおり、この逆転を計算機にも残しています。"
    ]
   },
   "mailerlite": {
@@ -479,7 +503,8 @@ window.SAAS_DATA = {
    "source": "https://www.mailerlite.com/pricing",
    "free": {
     "name": "Free",
-    "limit": "Up to 250 active subscribers, 2,500 emails/month"
+    "limit": "Up to 250 active subscribers, 2,500 emails/month",
+    "limit_ja": "有効な購読者250件まで、月2,500通"
    },
    "plans": [
     {
@@ -784,9 +809,14 @@ window.SAAS_DATA = {
     }
    ],
    "counting": "Counts ACTIVE subscribers only — but cumulatively within a billing cycle: an address that was active at any point in the cycle counts, even if you delete it later.",
+   "counting_ja": "有効な購読者のみを数えます — ただし請求サイクル内の累積です：サイクル中に一度でも有効だったアドレスは、あとで削除してもカウントされます。",
    "overage": "No per-contact fee. Cross your tier and MailerLite auto-upgrades you to the next tier and charges the card (with an in-account warning first).",
+   "overage_ja": "連絡先ごとの料金はありません。段階を超えると次の段階へ自動アップグレードされ、カードに請求されます（まずアカウント内に警告が出ます）。",
    "quirks": [
     "Plans were renamed in June 2026: Comfort was “Growing Business”, Power was “Advanced”."
+   ],
+   "quirks_ja": [
+    "プラン名は2026年6月に変更されました：Comfortは旧「Growing Business」、Powerは旧「Advanced」です。"
    ]
   },
   "constantcontact": {
@@ -918,10 +948,16 @@ window.SAAS_DATA = {
     }
    ],
    "annualNote": "Annual figures apply the published prepay discount of up to 15% (the 0–500 tier confirms exactly 15%: $12 → $10.20).",
+   "annualNote_ja": "年額の数字は、公開されている前払い割引（最大15%）を適用したものです（0〜500件の段階でちょうど15%：$12 → $10.20 で確認）。",
    "counting": "Tiered by contact count; send allowance is 10×/12×/24× your contacts per month by plan.",
+   "counting_ja": "連絡先数で段階が決まります。送信上限はプランにより連絡先数の月間10倍/12倍/24倍です。",
    "overage": "$0.002 per email sent over the monthly allowance ($2 per 1,000 sends). Sends are never blocked.",
+   "overage_ja": "月間上限を超えた送信は1通あたり$0.002（1,000通あたり$2）。送信がブロックされることはありません。",
    "quirks": [
     "No free plan — trial only. Above 50,000 contacts every plan is “Contact Sales”."
+   ],
+   "quirks_ja": [
+    "無料プランはなく、トライアルのみ。連絡先50,000件超は全プラン「Contact Sales」（要問い合わせ）です。"
    ]
   }
  },
@@ -952,12 +988,18 @@ window.SAAS_DATA = {
    ],
    "free": {
     "name": "Free CRM",
-    "limit": "Up to 2 users, unlimited contacts"
+    "limit": "Up to 2 users, unlimited contacts",
+    "limit_ja": "ユーザー2人まで、連絡先無制限"
    },
    "counting": "Two seat types: the prices here are Sales Seats. Cheaper Core Seats ($50/mo on Professional, $75 on Enterprise) exist for users who do not need the full sales tools — so your real bill depends on the seat MIX, not just headcount.",
+   "counting_ja": "席には2種類あります：ここでの価格はSales Seatsです。営業ツール一式が不要なユーザー向けに安いCore Seats（Professionalで月$50、Enterpriseで月$75）があり、実際の請求は人数ではなく席の組み合わせで決まります。",
    "overage": "Professional and Enterprise carry a mandatory one-time onboarding fee ($1,500 / $3,500), included in the year-1 totals in the calculator.",
+   "overage_ja": "ProfessionalとEnterpriseには必須の初期導入費用（$1,500 / $3,500）が一度だけかかります。計算機の初年度合計には含まれています。",
    "quirks": [
     "HubSpot’s own pages disagreed on Starter on the check date: the pricing guide shows $9/seat/mo billed annually, while the official Product & Services Catalog lists a $20/mo list rate per Core Seat. The calculator uses the pricing-page rates."
+   ],
+   "quirks_ja": [
+    "確認日時点でHubSpot自身のページ間でStarterの価格が食い違っていました：料金ガイドでは年額課金で席あたり月$9、公式のProduct & Services CatalogではCore Seatの定価が月$20。計算機は料金ページ側の料率を使っています。"
    ]
   },
   "pipedrive": {
@@ -988,8 +1030,11 @@ window.SAAS_DATA = {
    ],
    "free": null,
    "counting": "Straight per-seat pricing, VAT excluded. No seat minimum was shown on the pricing page.",
+   "counting_ja": "シンプルな席課金で、価格はVAT別。料金ページに最低席数の表示はありませんでした。",
    "overage": "The upsell is add-ons: LeadBooster, Campaigns and Web Visitors are priced separately and are not on the pricing page.",
-   "quirks": []
+   "overage_ja": "アップセルはアドオンです：LeadBooster、Campaigns、Web Visitorsは別料金で、料金ページには載っていません。",
+   "quirks": [],
+   "quirks_ja": []
   },
   "zoho": {
    "name": "Zoho CRM",
@@ -1014,12 +1059,17 @@ window.SAAS_DATA = {
    ],
    "free": {
     "name": "Free",
-    "limit": "Forever free for up to 3 users"
+    "limit": "Forever free for up to 3 users",
+    "limit_ja": "ユーザー3人まで永久無料"
    },
    "annualNote": "Zoho’s USD pricing page confirms annual-billing rates; monthly-billing USD rates and the Ultimate edition’s USD price could not be confirmed on the official page (its Japanese page lists Ultimate at ¥9,200/mo monthly-billed). Ultimate is therefore not in the calculator.",
+   "annualNote_ja": "Zohoの米ドル料金ページで確認できるのは年額課金の料率です。月額課金の米ドル料率とUltimate版の米ドル価格は公式ページで確認できませんでした（日本語ページではUltimateは月額課金で月¥9,200）。そのためUltimateは計算機に入れていません。",
    "counting": "Per user. Watch the bundle trap: Zoho One’s “All Employee Pricing” requires licensing every employee on payroll (a Flexible User option exists).",
+   "counting_ja": "ユーザー単位の課金。バンドルの罠に注意：Zoho Oneの「All Employee Pricing」は給与対象の全従業員分のライセンスが必要です（Flexible Userオプションもあります）。",
    "overage": "",
-   "quirks": []
+   "overage_ja": "",
+   "quirks": [],
+   "quirks_ja": []
   },
   "freshsales": {
    "name": "Freshsales",
@@ -1044,9 +1094,14 @@ window.SAAS_DATA = {
    ],
    "free": null,
    "counting": "Per user. No free plan on the current pricing page — 21-day trial only.",
+   "counting_ja": "ユーザー単位の課金。現在の料金ページに無料プランはなく、21日間のトライアルのみです。",
    "overage": "Metered add-ons sit on top: Freddy AI Agent sessions ($49 per 100 sessions after a one-time 500 free) and Branded Documents ($19/user/mo).",
+   "overage_ja": "従量制のアドオンが上乗せされます：Freddy AI Agentのセッション（初回500回無料のあと100セッションあたり$49）とBranded Documents（ユーザーあたり月$19）。",
    "quirks": [
     "Monthly prices are from Freshworks’ official pricing-plan document dated Jun 13, 2025; annual prices were read on the live pricing page on the check date."
+   ],
+   "quirks_ja": [
+    "月額価格はFreshworks公式の料金プラン文書（2025年6月13日付）によるものです。年額価格は確認日にライブの料金ページで読みました。"
    ]
   },
   "close": {
@@ -1078,8 +1133,11 @@ window.SAAS_DATA = {
    ],
    "free": null,
    "counting": "Per user. Solo is restricted to a single user and 10,000 leads.",
+   "counting_ja": "ユーザー単位の課金。Soloは1ユーザー・リード10,000件までに制限されます。",
    "overage": "The seat price is not the whole bill: calling and SMS are usage-billed (about $0.02/min outbound), the Call Assistant add-on is $50/mo per account, and extra organizations are $50/mo each.",
-   "quirks": []
+   "overage_ja": "席料金が請求の全てではありません：通話とSMSは従量課金（発信は約$0.02/分）で、Call Assistantアドオンはアカウントあたり月$50、追加の組織は1つ月$50です。",
+   "quirks": [],
+   "quirks_ja": []
   }
  }
 };
