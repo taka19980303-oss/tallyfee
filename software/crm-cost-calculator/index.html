@@ -26,15 +26,10 @@
 <header class="site-header"><div class="in">
 <a class="brand" href="/">Fee<span>Calculator</span>Suite</a>
 <nav class="site-nav">
-<a href="/marketplace-fees-compared/">Compare all 8</a>
-<a href="/ebay-vs-etsy-fees/">eBay vs Etsy</a>
-<a href="/fee-changes/">Fee changes</a>
-<a href="/kdp/">KDP</a>
-<a href="/software/">Software</a>
-<a href="/guides/ebay-fees-explained/">Guides</a>
-<a href="/ja/">日本語</a>
+<div class="nav-item has-drop"><a class="nav-top" href="/marketplace-fees-compared/">Marketplace fees<span class="caret">▾</span></a><div class="drop"><a href="/">All fee calculators</a><a href="/marketplace-fees-compared/">Compare all 8 platforms</a><a href="/ebay-vs-etsy-fees/">eBay vs Etsy fees</a><a href="/batch-fee-calculator/">Batch calculator + CSV</a><a href="/fee-changes/">Fee-change history</a></div></div><div class="nav-item has-drop"><a class="nav-top" href="/kdp/">KDP<span class="caret">▾</span></a><div class="drop"><a href="/kdp/">All KDP calculators</a><a href="/kdp-cover-calculator/">Cover size calculator</a><a href="/kdp-print-cost-calculator/">Printing cost calculator</a><a href="/kdp-royalty-calculator/">Royalty calculator</a><a href="/guides/kdp-royalties-explained/">KDP royalties explained</a></div></div><div class="nav-item has-drop"><a class="nav-top active" href="/software/">Software pricing<span class="caret">▾</span></a><div class="drop"><a href="/software/">Software cost hub</a><a href="/software/email-marketing/">Email marketing compared</a><a href="/software/email-marketing-cost-calculator/">Email cost calculator</a><a href="/software/crm/">CRM compared</a><a href="/software/crm-cost-calculator/">CRM cost calculator</a><a href="/software/guides/per-seat-pricing-explained/">Per-seat pricing explained</a></div></div><div class="nav-item has-drop"><a class="nav-top" href="/guides/ebay-fees-explained/">Guides<span class="caret">▾</span></a><div class="drop"><a href="/guides/ebay-fees-explained/">eBay fees explained</a><a href="/guides/etsy-fees-explained/">Etsy fees explained</a><a href="/guides/mercari-fees-explained/">Mercari fees explained</a><a href="/guides/kdp-royalties-explained/">KDP royalties explained</a><a href="/software/guides/per-seat-pricing-explained/">Per-seat pricing explained</a></div></div><a class="nav-top" href="/ja/">日本語</a>
 </nav></div></header>
 <main class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">›</span><a href="/software/">Software pricing</a><span class="sep">›</span><a href="/software/crm/">CRM</a><span class="sep">›</span><span aria-current="page">CRM cost calculator</span></nav>
 
 <div class="hero"><h1>CRM cost calculator</h1>
 <p class="lede">Enter your team size. The calculator prices the <strong>cheapest fitting plan</strong> on five CRMs — per month, year one (with mandatory onboarding fees included), and three years — from prices verified on the vendors' official pricing pages.</p>
@@ -42,17 +37,25 @@
 </div>
 <div class="card">
 <div class="field" style="max-width:280px"><label for="in-seats">Team size (seats)</label><div class="input-wrap"><input id="in-seats" type="number" min="1" step="1" value="5"></div></div>
+<div class="preset-row" role="group" aria-label="Team-size presets"><button type="button" data-seats="1">Solo · 1 seat</button><button type="button" data-seats="5">Small team · 5 seats</button><button type="button" data-seats="10">10 seats</button><button type="button" data-seats="25">25 seats</button></div>
 <div class="mode-toggle"><button data-billing="monthly" aria-pressed="false">Monthly billing</button><button data-billing="annual" aria-pressed="true">Annual billing</button></div>
 <p class="hint">Annual billing is the default because every one of these vendors discounts it per seat. Switch to monthly to see month-to-month prices — where the vendor publishes them; annual-only plans say so instead of borrowing the annual figure.</p>
 <table class="fees"><tr><th>CRM</th><th class="num">Per month</th><th class="num">Year one</th><th class="num">3 years</th></tr><tbody id="results"></tbody></table>
 <div class="cmp-verdict" id="verdict" aria-live="polite"></div>
+<p class="hint">All prices in US dollars. The 3-year column repeats today's prices for three years — no price rises are modelled.</p>
 <p class="privacy-note">Nothing you type leaves your browser — every calculation runs on this page, on your device.</p>
 <p><button class="btn ghost" type="button" onclick="window.print()">Print or save this comparison</button></p>
 </div>
 <h2>Starting free instead?</h2>
 <p>This calculator prices <strong>paid plans</strong> — but two of the five CRMs have a free tier worth starting on: <a href="/software/hubspot-pricing/">HubSpot Sales Hub</a> — Up to 2 users, unlimited contacts · <a href="/software/zoho-pricing/">Zoho CRM</a> — Forever free for up to 3 users. Pipedrive, Freshsales, Close are trial-only. At one to three seats, the free tiers may be all you need for now.</p>
 <h2>Compare by team size</h2>
-<p>The <a href="/software/crm/">CRM comparison</a> tabulates year-one totals at 1 / 5 / 10 / 25 seats. Head-to-head: <a href="/software/vs/hubspot-vs-pipedrive/">HubSpot vs Pipedrive</a> · <a href="/software/vs/pipedrive-vs-zoho/">Pipedrive vs Zoho</a> · <a href="/software/vs/hubspot-vs-close/">HubSpot vs Close</a>.</p>
+<p>The <a href="/software/crm/">CRM comparison</a> tabulates year-one totals at 1 / 5 / 10 / 25 seats. Head-to-head: <a href="/software/vs/hubspot-vs-pipedrive/">HubSpot vs Pipedrive</a> · <a href="/software/vs/pipedrive-vs-zoho/">Pipedrive vs Zoho</a> · <a href="/software/vs/hubspot-vs-close/">HubSpot vs Close</a>. Choosing your first CRM? <a href="/software/best-crm-for-small-business/">Best CRM for a small business, by the numbers</a>.</p>
+<h2>Words that matter</h2>
+<div class="glossary">
+<p><strong>Seat.</strong> One team member's licence. The totals multiply the per-seat price by your team size, respecting each plan's seat minimums and caps.</p>
+<p><strong>Onboarding fee.</strong> A mandatory one-time setup charge — HubSpot takes $1,500 on Professional and $3,500 on Enterprise. It is already included in the year-one and 3-year totals above.</p>
+<p><strong>Cheapest fitting plan.</strong> The lowest-priced plan that allows your team size. Close Solo, for example, caps at one user — enter 2 seats and it drops out.</p>
+</div>
 <h2>What the seat price leaves out</h2>
 <p><strong>Onboarding.</strong> HubSpot charges a mandatory one-time onboarding fee on Professional ($1,500) and Enterprise ($3,500). It is included in the year-one and 3-year totals above — most comparison sites leave it out.</p>
 <p><strong>Seat types.</strong> HubSpot sells cheaper Core Seats alongside Sales Seats, so a mixed team pays less than the all-Sales-Seat figure here. Close's Solo plan is limited to one user, so the calculator skips it as soon as you enter 2+ seats.</p>
@@ -75,6 +78,9 @@
     });
   });
   seats.addEventListener('input', render);
+  document.querySelectorAll('[data-seats]').forEach(function(b){
+    b.addEventListener('click', function(){ seats.value = b.getAttribute('data-seats'); render(); });
+  });
   function render(){
     var s = Math.max(1, parseInt(seats.value||'1',10));
     var rows = ids.map(function(id){
@@ -138,5 +144,6 @@
 </nav>
 <p class="disclaimer"><strong>Disclaimer:</strong> Results are estimates for planning only. Prices change, and vendors run promotions that are not modelled here. Always confirm the final price on the vendor's official pricing page before subscribing. Software prices on this page were verified on the vendors' official pricing pages on November 23, 2026.</p>
 </div></footer>
+<script src="/assets/nav.js" defer></script>
 </body>
 </html>

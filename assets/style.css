@@ -190,3 +190,42 @@ table.batch tfoot td{font-weight:800;border-top:2px solid var(--line);border-bot
 .cd-front{background:#2f6fb2;color:#e8f2fb}
 .cd-spine{background:#b97d10;color:#fff8e6;font-size:11.5px}
 .cd-cap{font-size:13px;color:var(--panel-muted);margin-bottom:6px}
+
+/* Tree navigation: dropdown header + breadcrumbs */
+.site-nav{align-items:center}
+.nav-item{position:relative}
+.nav-top{display:inline-flex;align-items:center;gap:5px}
+.nav-top .caret{font-size:11px;color:var(--muted)}
+.nav-item .drop{display:none;position:absolute;top:100%;right:0;background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 32px rgba(20,35,27,.14);padding:8px;min-width:252px;z-index:60}
+.nav-item .drop a{display:block;padding:7px 10px;border-radius:8px;color:var(--ink);font-size:14.5px;font-weight:600;white-space:nowrap}
+.nav-item .drop a:hover{background:#e9f5ee;color:var(--accent-dark)}
+@media (hover:hover) and (min-width:761px){
+  .nav-item:hover .drop,.nav-item:focus-within .drop{display:block}
+}
+.nav-item.open .drop{display:block}
+.site-nav .nav-top.active{color:var(--accent-dark);box-shadow:inset 0 -2px 0 var(--accent)}
+.crumbs{display:flex;flex-wrap:wrap;gap:7px;align-items:center;font-size:13.5px;color:var(--muted);padding-top:16px}
+.crumbs a{color:var(--muted);text-decoration:none;font-weight:600}
+.crumbs a:hover{color:var(--accent-dark)}
+.crumbs .sep{color:var(--muted);opacity:.6}
+.crumbs [aria-current="page"]{color:var(--ink);font-weight:700}
+.preset-row{display:flex;gap:8px;flex-wrap:wrap;margin:2px 0 14px}
+.preset-row button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 13px;font:inherit;font-size:13.5px;font-weight:600;color:var(--muted);cursor:pointer}
+.preset-row button:hover{border-color:var(--accent);color:var(--accent-dark)}
+.glossary{background:#f2f5f2;border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:18px 0}
+.glossary p{margin:0 0 8px;font-size:14.5px}
+.glossary p:last-child{margin-bottom:0}
+@media (max-width:760px){
+  .site-nav{gap:9px 12px}
+  .nav-item .drop{min-width:min(252px,86vw)}
+  .nav-item .drop a{white-space:normal}
+  .crumbs{font-size:12.5px}
+}
+.cmp-inputs.cmp-2{grid-template-columns:1fr 1fr}
+table.fees td .hint{white-space:normal}
+@media (max-width:760px){
+  .cmp-inputs,.cmp-inputs.cmp-2{grid-template-columns:1fr}
+  table.fees{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table.fees th,table.fees td{white-space:nowrap}
+  table.fees td .hint{white-space:normal}
+}

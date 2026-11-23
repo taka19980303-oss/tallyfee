@@ -26,37 +26,40 @@
 <header class="site-header"><div class="in">
 <a class="brand" href="/">Fee<span>Calculator</span>Suite</a>
 <nav class="site-nav">
-<a href="/marketplace-fees-compared/">Compare all 8</a>
-<a href="/ebay-vs-etsy-fees/">eBay vs Etsy</a>
-<a href="/fee-changes/">Fee changes</a>
-<a href="/kdp/">KDP</a>
-<a href="/software/">Software</a>
-<a href="/guides/ebay-fees-explained/">Guides</a>
-<a href="/ja/">日本語</a>
+<div class="nav-item has-drop"><a class="nav-top" href="/marketplace-fees-compared/">Marketplace fees<span class="caret">▾</span></a><div class="drop"><a href="/">All fee calculators</a><a href="/marketplace-fees-compared/">Compare all 8 platforms</a><a href="/ebay-vs-etsy-fees/">eBay vs Etsy fees</a><a href="/batch-fee-calculator/">Batch calculator + CSV</a><a href="/fee-changes/">Fee-change history</a></div></div><div class="nav-item has-drop"><a class="nav-top" href="/kdp/">KDP<span class="caret">▾</span></a><div class="drop"><a href="/kdp/">All KDP calculators</a><a href="/kdp-cover-calculator/">Cover size calculator</a><a href="/kdp-print-cost-calculator/">Printing cost calculator</a><a href="/kdp-royalty-calculator/">Royalty calculator</a><a href="/guides/kdp-royalties-explained/">KDP royalties explained</a></div></div><div class="nav-item has-drop"><a class="nav-top active" href="/software/">Software pricing<span class="caret">▾</span></a><div class="drop"><a href="/software/">Software cost hub</a><a href="/software/email-marketing/">Email marketing compared</a><a href="/software/email-marketing-cost-calculator/">Email cost calculator</a><a href="/software/crm/">CRM compared</a><a href="/software/crm-cost-calculator/">CRM cost calculator</a><a href="/software/guides/per-seat-pricing-explained/">Per-seat pricing explained</a></div></div><div class="nav-item has-drop"><a class="nav-top" href="/guides/ebay-fees-explained/">Guides<span class="caret">▾</span></a><div class="drop"><a href="/guides/ebay-fees-explained/">eBay fees explained</a><a href="/guides/etsy-fees-explained/">Etsy fees explained</a><a href="/guides/mercari-fees-explained/">Mercari fees explained</a><a href="/guides/kdp-royalties-explained/">KDP royalties explained</a><a href="/software/guides/per-seat-pricing-explained/">Per-seat pricing explained</a></div></div><a class="nav-top" href="/ja/">日本語</a>
 </nav></div></header>
 <main class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">›</span><a href="/software/">Software pricing</a><span class="sep">›</span><a href="/software/email-marketing/">Email marketing</a><span class="sep">›</span><span aria-current="page">Email cost calculator</span></nav>
 
 <div class="hero"><h1>Email marketing cost calculator</h1>
 <p class="lede">Enter your list size and how much you actually send. The calculator prices the <strong>cheapest fitting plan</strong> on each of the six tools — monthly, year one, and three years — from prices verified on the vendors' own pricing pages.</p>
 <div class="badge-band"><span class="pill">✓ Prices verified</span><span><strong>November 23, 2026</strong> — every price on this page was read on the vendor's official pricing page. Promotional prices are never used as the list price.</span></div>
 </div>
 <div class="card">
-<div class="cmp-inputs" style="grid-template-columns:repeat(2,1fr)">
+<div class="cmp-inputs cmp-2">
 <div class="field" style="margin:0"><label for="in-contacts">Contacts / subscribers</label><div class="input-wrap"><input id="in-contacts" type="number" min="0" step="100" value="5000"></div><p class="hint">Used for Mailchimp, Kit, ActiveCampaign, MailerLite and Constant Contact.</p></div>
 <div class="field" style="margin:0"><label for="in-sends">Emails sent per month</label><div class="input-wrap"><input id="in-sends" type="number" min="0" step="1000" value="20000"></div><p class="hint">Used for Brevo, which bills on send volume instead of list size.</p></div>
 </div>
+<div class="preset-row" role="group" aria-label="List-size presets"><button type="button" data-preset="500,2000">Just starting · 500 contacts</button><button type="button" data-preset="5000,20000">Growing · 5,000 contacts</button><button type="button" data-preset="25000,100000">Established · 25,000 contacts</button></div>
 <div class="mode-toggle" style="margin-top:16px"><button data-billing="monthly" aria-pressed="false">Monthly billing</button><button data-billing="annual" aria-pressed="true">Annual billing</button></div>
 <p class="hint">Annual billing is the default because most of these vendors discount it. Switch to monthly to see month-to-month prices — where the vendor publishes them; annual-only tools say so instead of borrowing the annual figure.</p>
 <table class="fees"><tr><th>Tool</th><th class="num">Per month</th><th class="num">Year one</th><th class="num">3 years</th></tr><tbody id="results"></tbody></table>
 <div class="cmp-verdict" id="verdict" aria-live="polite"></div>
 <p class="hint" id="mismatch" aria-live="polite"></p>
+<p class="hint">All prices in US dollars. The 3-year column repeats today's prices for three years — no price rises are modelled.</p>
 <p class="privacy-note">Nothing you type leaves your browser — every calculation runs on this page, on your device.</p>
 <p><button class="btn ghost" type="button" onclick="window.print()">Print or save this comparison</button></p>
 </div>
 <h2>Starting free instead?</h2>
 <p>This calculator compares <strong>paid plans only</strong> — but four of the six tools have a free tier worth starting on: <a href="/software/mailchimp-pricing/">Mailchimp</a> — 250 contacts, 500 sends/month · <a href="/software/brevo-pricing/">Brevo</a> — 300 emails/day, up to 100,000 contacts stored · <a href="/software/kit-pricing/">Kit</a> — Up to 10,000 subscribers, unlimited sends · <a href="/software/mailerlite-pricing/">MailerLite</a> — Up to 250 active subscribers, 2,500 emails/month. ActiveCampaign and Constant Contact offer a free trial only.</p>
 <h2>Compare by growth stage</h2>
-<p>The <a href="/software/email-marketing/">email tools comparison</a> tabulates all six tools at 1,000 / 5,000 / 25,000 contacts side by side. Head-to-head: <a href="/software/vs/mailchimp-vs-mailerlite/">Mailchimp vs MailerLite</a> · <a href="/software/vs/mailchimp-vs-kit/">Mailchimp vs Kit</a> · <a href="/software/vs/kit-vs-mailerlite/">Kit vs MailerLite</a>.</p>
+<p>The <a href="/software/email-marketing/">email tools comparison</a> tabulates all six tools at 1,000 / 5,000 / 25,000 contacts side by side. Head-to-head: <a href="/software/vs/mailchimp-vs-mailerlite/">Mailchimp vs MailerLite</a> · <a href="/software/vs/mailchimp-vs-kit/">Mailchimp vs Kit</a> · <a href="/software/vs/kit-vs-mailerlite/">Kit vs MailerLite</a>. Not sure which fits a beginner? <a href="/software/best-email-marketing-for-small-business/">Best email marketing for a small business, by the numbers</a>.</p>
+<h2>Words that matter</h2>
+<div class="glossary">
+<p><strong>Contact.</strong> One billable person on your list — and each tool counts them differently: Mailchimp bills for unsubscribed contacts until you archive them, while MailerLite and Kit count active subscribers only.</p>
+<p><strong>Cheapest fitting plan.</strong> The lowest-priced plan whose limits cover the numbers you entered. Cross a limit and the price jumps to the next tier — the table prices the tier you would actually land in.</p>
+<p><strong>Send volume.</strong> How many emails you send per month. Brevo bills on this instead of list size, which is why it has its own input above.</p>
+</div>
 <h2>What this calculator knows that headline prices don't</h2>
 <p><strong>Contact counting differs.</strong> Mailchimp bills for unsubscribed contacts until you archive them, and bills on your peak list size in the period. ActiveCampaign counts every contact — including bounced and unconfirmed — for accounts created on or after November 3, 2025. MailerLite and Kit count active subscribers only. The same “5,000 contacts” is therefore not the same billable number on every tool; the tier each tool puts you in is what this calculator prices.</p>
 <p><strong>Tier jumps are the price.</strong> Most of these tools auto-upgrade you the moment you cross a tier — there is no per-contact overage to model, just the next tier's price. Constant Contact and ActiveCampaign instead charge per-send overage fees on top of a send allowance; Mailchimp auto-charges for contact blocks. The plan prices here are the list prices before any overage.</p>
@@ -78,6 +81,12 @@
     });
   });
   [contacts, sends].forEach(function(el){ el.addEventListener('input', render); });
+  document.querySelectorAll('[data-preset]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var p = b.getAttribute('data-preset').split(',');
+      contacts.value = p[0]; sends.value = p[1]; render();
+    });
+  });
   function render(){
     var c = Math.max(0, parseInt(contacts.value||'0',10)), s = Math.max(0, parseInt(sends.value||'0',10));
     var rows = ids.map(function(id){
@@ -146,5 +155,6 @@
 </nav>
 <p class="disclaimer"><strong>Disclaimer:</strong> Results are estimates for planning only. Prices change, and vendors run promotions that are not modelled here. Always confirm the final price on the vendor's official pricing page before subscribing. Software prices on this page were verified on the vendors' official pricing pages on November 23, 2026.</p>
 </div></footer>
+<script src="/assets/nav.js" defer></script>
 </body>
 </html>
