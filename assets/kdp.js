@@ -43,6 +43,28 @@
     };
   };
 
+  /* Template geometry for the downloadable cover template, in inches,
+     origin at the top-left of the full cover file (bleed included).
+     Pure function — the canvas renderer below consumes it, and the
+     Node tests verify it against coverCalc. */
+  E.coverTemplateGeom = function (trimW, trimH, pages, ink) {
+    var c = E.coverCalc(trimW, trimH, pages, ink);
+    var b = E.BLEED;
+    var back = { x: b, y: b, w: trimW, h: trimH };
+    var spine = { x: b + trimW, y: b, w: c.spine, h: trimH };
+    var front = { x: b + trimW + c.spine, y: b, w: trimW, h: trimH };
+    var safe = function (p) { return { x: p.x + 0.25, y: p.y + 0.25, w: p.w - 0.5, h: p.h - 0.5 }; };
+    var barcode = (trimW >= 2.5 && trimH >= 2)
+      ? { x: back.x + back.w - 0.25 - 2.0, y: back.y + back.h - 0.25 - 1.2, w: 2.0, h: 1.2 }
+      : null;
+    return {
+      calc: c, bleed: b, W: c.width, H: c.height, pxW: c.pxW, pxH: c.pxH,
+      back: back, spine: spine, front: front,
+      backSafe: safe(back), frontSafe: safe(front), barcode: barcode,
+      spineTextRect: c.spineText ? { x: spine.x + 0.0625, y: b, w: Math.max(0, c.spine - 0.125), h: trimH } : null
+    };
+  };
+
   /* ---------------- Printing cost ---------------- */
   /* Print marketplaces. dec = royalty rounding decimals. */
   E.MARKETS = {
@@ -368,10 +390,104 @@
     summaries.kr = "KDP " + inp.format + " royalty — list " + money(m2.sym, list, m2.dec) + ", " + inp.pages + " pages, " + m2.name + ": printing " + money(m2.sym, rr.print.cost, 2) + ", royalty " + money(m2.sym, rr.royalty, m2.dec) + " per sale at the " + Math.round(rr.rate * 100) + "% rate. Via tallyfee.com/kdp-royalty-calculator/";
   }
 
+  /* Draws the full-size 300 DPI cover template (bleed, trim, fold lines,
+     safe areas, barcode box, labels) from coverTemplateGeom and downloads
+     it as a PNG. Everything is drawn client-side; nothing is uploaded. */
+  function downloadCoverTemplate() {
+    var tw, th;
+    if (val("kc-trim") === "custom") { tw = num("kc-tw", 6); th = num("kc-th", 9); }
+    else { var p = val("kc-trim").split("x"); tw = parseFloat(p[0]); th = parseFloat(p[1]); }
+    var pages = Math.max(1, Math.round(num("kc-pages", 200)));
+    var ink = val("kc-ink");
+    var g = E.coverTemplateGeom(tw, th, pages, ink);
+    var S = 300; /* px per inch */
+    var cv = document.createElement("canvas");
+    cv.width = g.pxW; cv.height = g.pxH;
+    var ctx = cv.getContext("2d");
+    if (!ctx) return;
+    var X = function (v) { return v * S; };
+    function rect(r, fill, stroke, dash, lw) {
+      ctx.beginPath();
+      ctx.rect(X(r.x), X(r.y), X(r.w), X(r.h));
+      if (fill) { ctx.fillStyle = fill; ctx.fill(); }
+      if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = lw || 3; ctx.setLineDash(dash || []); ctx.stroke(); ctx.setLineDash([]); }
+    }
+    function label(text, cx, cy, sizeIn, color, bold) {
+      ctx.fillStyle = color; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+      ctx.font = (bold ? "700 " : "400 ") + Math.round(sizeIn * S) + "px Arial, Helvetica, sans-serif";
+      ctx.fillText(text, X(cx), X(cy));
+    }
+    /* Base + bleed zone */
+    ctx.fillStyle = "#ffffff"; ctx.fillRect(0, 0, cv.width, cv.height);
+    rect({ x: 0, y: 0, w: g.W, h: g.H }, "#fdecec");
+    rect(g.back, "#eef4fb"); rect(g.spine, "#fdf3e0"); rect(g.front, "#edf7ee");
+    /* Safe areas */
+    rect(g.backSafe, null, "#7a8a7f", [14, 10], 2.5);
+    rect(g.frontSafe, null, "#7a8a7f", [14, 10], 2.5);
+    /* Trim + fold lines */
+    rect(g.back, null, "#333333", [18, 12], 3.5);
+    rect(g.front, null, "#333333", [18, 12], 3.5);
+    ctx.strokeStyle = "#555555"; ctx.lineWidth = 4;
+    [g.spine.x, g.spine.x + g.spine.w].forEach(function (fx) {
+      ctx.beginPath(); ctx.moveTo(X(fx), 0); ctx.lineTo(X(fx), cv.height); ctx.stroke();
+    });
+    rect({ x: 0, y: 0, w: g.W, h: g.H }, null, "#c0392b", [], 5);
+    /* Barcode box on the back cover */
+    if (g.barcode) {
+      rect(g.barcode, "#ffffff", "#c0392b", [], 4);
+      label("BARCODE AREA", g.barcode.x + g.barcode.w / 2, g.barcode.y + 0.38, 0.21, "#c0392b", true);
+      label("KDP prints your ISBN barcode here", g.barcode.x + g.barcode.w / 2, g.barcode.y + 0.68, 0.15, "#c0392b");
+      label("Keep this area clear", g.barcode.x + g.barcode.w / 2, g.barcode.y + 0.92, 0.15, "#c0392b");
+    }
+    /* Panel labels */
+    label("BACK COVER", g.back.x + g.back.w / 2, g.back.y + 0.85, 0.34, "#5b7ba5", true);
+    label("FRONT COVER", g.front.x + g.front.w / 2, g.front.y + 0.85, 0.34, "#4e7a55", true);
+    label("Trim " + tw + " x " + th + " in", g.back.x + g.back.w / 2, g.back.y + 1.3, 0.19, "#5b7ba5");
+    label("Trim " + tw + " x " + th + " in", g.front.x + g.front.w / 2, g.front.y + 1.3, 0.19, "#4e7a55");
+    label("Dashed line = safe area — keep text inside", g.front.x + g.front.w / 2, g.front.y + g.front.h - 0.55, 0.16, "#7a8a7f");
+    /* Spine labels (only when the spine is wide enough to hold them) */
+    if (g.spine.w >= 0.22) {
+      ctx.save();
+      ctx.translate(X(g.spine.x + g.spine.w / 2), X(g.spine.y + g.spine.h / 2));
+      ctx.rotate(-Math.PI / 2);
+      ctx.fillStyle = "#9a7b2d"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+      ctx.font = "700 " + Math.round(0.2 * S) + "px Arial, Helvetica, sans-serif";
+      ctx.fillText("SPINE — " + g.calc.spine.toFixed(3) + " in wide", 0, 0);
+      ctx.restore();
+      if (g.spineTextRect) rect({ x: g.spineTextRect.x, y: g.spineTextRect.y + 0.3, w: g.spineTextRect.w, h: g.spineTextRect.h - 0.6 }, null, "#9a7b2d", [10, 8], 2);
+    }
+    if (!g.calc.spineText) {
+      label("No spine text at " + g.calc.evenPages + " pages (needs 80+)", g.back.x + g.back.w / 2, g.back.y + 1.75, 0.16, "#c0392b");
+    }
+    /* Header + credit inside the bleed (trimmed away in print) */
+    label("FULL COVER " + g.W.toFixed(3) + " x " + g.H.toFixed(3) + " in — " + g.pxW.toLocaleString("en-US") + " x " + g.pxH.toLocaleString("en-US") + " px at 300 DPI — red edge = bleed boundary (0.125 in)", g.W / 2, 0.0625, 0.115, "#c0392b", true);
+    ctx.textAlign = "left";
+    ctx.fillStyle = "#999999";
+    ctx.font = Math.round(0.11 * S) + "px Arial, Helvetica, sans-serif";
+    ctx.fillText("Template by tallyfee.com — KDP paperback, " + tw + " x " + th + " in trim, " + g.calc.evenPages + " pages. Design over this layer, then hide it before upload.", X(0.03), X(g.H - 0.045));
+    var name = "kdp-cover-template-" + tw + "x" + th + "in-" + g.calc.evenPages + "pp.png";
+    function save(href) {
+      var a = document.createElement("a");
+      a.href = href; a.download = name;
+      document.body.appendChild(a); a.click(); a.remove();
+    }
+    if (cv.toBlob) {
+      cv.toBlob(function (blob) {
+        if (!blob) { save(cv.toDataURL("image/png")); return; }
+        var url = URL.createObjectURL(blob);
+        save(url);
+        setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+      }, "image/png");
+    } else {
+      save(cv.toDataURL("image/png"));
+    }
+  }
+
   function init() {
     if ($("kc-trim")) {
       ["kc-trim", "kc-ink"].forEach(function (id) { on(id, "change", function () { var cw = $("kc-custom"); if (cw) cw.style.display = val("kc-trim") === "custom" ? "" : "none"; calcCover(); }); });
       ["kc-pages", "kc-tw", "kc-th"].forEach(function (id) { on(id, "input", calcCover); });
+      on("kc-template", "click", downloadCoverTemplate);
       bindCopy("kc"); calcCover();
     }
     if ($("kp-pages")) {
