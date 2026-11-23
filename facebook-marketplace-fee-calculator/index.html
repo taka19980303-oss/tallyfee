@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Facebook Marketplace Fee Calculator — 10% Selling Fee on Checkout Orders, $0 Local | Fee Calculator Suite</title>
+<meta name="description" content="Free Facebook Marketplace fee calculator: shipped orders sold through Marketplace checkout pay Meta's Selling Fee — 10% of the whole transaction (item + shipping + tax), $0.80 minimum. Local pickup sales pay no fee. Rates verified November 23, 2026 on Meta's official policy page.">
+<link rel="canonical" href="https://tallyfee.com/facebook-marketplace-fee-calculator/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+<header class="site-header"><div class="in">
+<a class="brand" href="/">Fee<span>Calculator</span>Suite</a>
+<nav class="site-nav">
+<a href="/marketplace-fees-compared/">Compare all 8</a>
+<a href="/ebay-vs-etsy-fees/">eBay vs Etsy</a>
+<a href="/fee-changes/">Fee changes</a>
+<a href="/kdp/">KDP</a>
+<a href="/guides/ebay-fees-explained/">Guides</a>
+</nav></div></header>
+<main class="wrap">
+
+<div class="hero"><h1>Facebook Marketplace Fee Calculator</h1>
+<p class="lede">Marketplace has two fee worlds. Sell <strong>locally, paid in person</strong>, and Meta charges <strong>nothing</strong>. Sell with <strong>shipping through Marketplace checkout</strong> and Meta takes its <strong>Selling Fee: 10% of the entire transaction</strong> — item price, shipping and tax included — with a <strong>$0.80 minimum</strong>. No listing fee, no separate processing line for individual sellers.</p>
+<div class="badge-band"><span class="pill">✓ Rates verified</span>
+<span><strong>November 23, 2026</strong> — checked against Meta’s official policy page. Source: <a href="https://www.facebook.com/legal/merchant_policies" target="_blank" rel="noopener">Meta — Marketplace Seller Protection Policy / Commerce Payments Terms</a></span></div>
+</div>
+<div class="calc-grid">
+<div class="card"><h2>Your sale</h2>
+<div class="field"><label for="fb-type">How is it sold? <span>decides whether any fee applies</span></label>
+<div class="input-wrap"><select id="fb-type">
+<option value="shipped" selected>Shipped — sold through Marketplace checkout · 10% Selling Fee</option>
+<option value="local">Local pickup — paid in person · no fee</option>
+</select></div>
+<p class="hint">The Selling Fee in Meta’s policy applies to transactions processed through its checkout. A local sale you arrange and are paid for in person is not a checkout transaction.</p></div>
+<div class="field"><label for="fb-price">Item price</label>
+<div class="input-wrap"><span class="prefix">$</span><input id="fb-price" type="number" inputmode="decimal" min="0" step="0.01" value="50"></div></div>
+<div class="field"><label for="fb-ship">Shipping charged to buyer <span>included in the fee base</span></label>
+<div class="input-wrap"><span class="prefix">$</span><input id="fb-ship" type="number" inputmode="decimal" min="0" step="0.01" value="5"></div></div>
+<div class="field"><label for="fb-tax">Sales tax collected <span>included in the fee base, passed through to the state</span></label>
+<div class="input-wrap"><span class="prefix">$</span><input id="fb-tax" type="number" inputmode="decimal" min="0" step="0.01" value="0"></div>
+<p class="hint">Meta collects the tax and remits it — it is not your revenue — but Meta’s wording includes applicable taxes in the amount the 10% is calculated on, so it slightly raises the fee.</p></div>
+<div class="field"><label for="fb-cost">Item cost (what you paid) </label>
+<div class="input-wrap"><span class="prefix">$</span><input id="fb-cost" type="number" inputmode="decimal" min="0" step="0.01" value="20"></div></div>
+<div class="field"><label for="fb-shipcost">Your shipping cost </label>
+<div class="input-wrap"><span class="prefix">$</span><input id="fb-shipcost" type="number" inputmode="decimal" min="0" step="0.01" value="6"></div></div>
+<p class="privacy-note">Nothing you type leaves your browser — every calculation runs on this page, on your device.</p></div>
+<div class="result-panel" aria-live="polite">
+<div class="result-hero" id="fb-hero"><div class="label">Net profit</div><div class="big mono" id="fb-profit">$0.00</div><div id="fb-margin-line"></div></div>
+<div class="compbar"><div class="bar">
+<div class="seg profit" id="fb-bar-profit"></div><div class="seg fees" id="fb-bar-fees"></div><div class="seg costs" id="fb-bar-costs"></div>
+</div><div class="legend">
+<span><i style="background:var(--pos)"></i>Profit <b class="mono" id="fb-bar-profit-v">$0.00</b></span>
+<span><i style="background:var(--fee)"></i>Fees <b class="mono" id="fb-bar-fees-v">$0.00</b></span>
+<span><i style="background:var(--cost)"></i>Your costs <b class="mono" id="fb-bar-costs-v">$0.00</b></span>
+</div></div>
+<div class="kv "><span class="k">Your revenue (price + buyer-paid shipping)</span><span class="v mono" id="fb-gross">$0.00</span></div>
+<div class="kv "><span class="k">Transaction total (fee base, incl. tax)</span><span class="v mono" id="fb-total">$0.00</span></div>
+<div class="kv "><span class="k" id="fb-fee-label">Selling Fee</span><span class="v mono" id="fb-fee">$0.00</span></div>
+<div class="kv total"><span class="k">Total Facebook fees</span><span class="v mono" id="fb-fees">$0.00</span></div>
+<div class="kv "><span class="k">You keep after fees (before your costs)</span><span class="v mono" id="fb-keep">$0.00</span></div>
+<div class="kv "><span class="k">Item cost + your shipping cost</span><span class="v mono" id="fb-costs">$0.00</span></div>
+<div class="kv "><span class="k">Effective fee rate (fees ÷ revenue)</span><span class="v mono" id="fb-eff">$0.00</span></div>
+<div class="breakeven">Break-even item price: <b class="mono" id="fb-be">$0.00</b><br>Solved for the sale type selected above.</div>
+<div class="copy-row"><button type="button" class="btn small ghost copy-btn" data-prefix="fb">Copy result</button><span class="copy-msg" data-for="fb"></span></div>
+</div>
+</div>
+<h2>How Facebook Marketplace fees work</h2>
+<p class="rate-line">Rates verified: <strong>November 23, 2026</strong> on Meta’s official policy page (Marketplace Seller Protection Policy / Commerce Payments Terms — Merchant Policies). Meta’s wording: it charges Individual Sellers “a fee of 10% per transaction, with a minimum fee of $0.80”, and “the Selling Fee is calculated based on the total transaction amount, including the item price, shipping fees, and applicable taxes.” The 10% rate took effect <strong>April 15, 2024</strong> (previously 5% with a $0.40 minimum). Shipped checkout orders must use Meta’s prepaid shipping labels to qualify for seller protection.</p>
+<p><strong>Why so many pages still say 5%:</strong> the doubling to 10% in April 2024 was easy to miss — it changed inside Meta’s payments terms rather than with a headline announcement — and pre-2024 guides and calculators are still the top results in places. If a page quotes 5% for shipped Marketplace sales, it is working from the old schedule.</p>
+<h2>Frequently asked questions</h2><div class="faq">
+<details><summary>How much does Facebook Marketplace charge sellers?</summary><p>For shipped orders sold through Marketplace checkout: 10% of the entire transaction amount — item price plus shipping plus applicable taxes — with a minimum fee of $0.80 per transaction. For local pickup sales paid in person: nothing. There is no listing fee.</p></details>
+<details><summary>Is the fee charged on shipping and tax too?</summary><p>Yes. Meta’s policy calculates the Selling Fee on the total transaction amount, explicitly including shipping fees and applicable taxes. On a $50 item with $5 shipping and no tax, the fee is 10% of $55 = $5.50 — not 10% of the item alone. Because the tax is included in the base, the fee runs slightly above 10% of the money that is actually yours.</p></details>
+<details><summary>What is the $0.80 minimum?</summary><p>A floor, not an extra charge: Meta takes whichever is larger, 10% of the transaction or $0.80. On a $5 shipped item, 10% would be $0.50, so the $0.80 minimum applies instead — cheap shipped items lose a much larger effective percentage.</p></details>
+<details><summary>Does the fee apply to local pickup sales?</summary><p>No. The Selling Fee belongs to transactions processed through Meta’s checkout — shipped orders paid inside Marketplace. A local sale arranged in chat and paid in person (cash or your own payment app) is not such a transaction, so no Selling Fee applies.</p></details>
+<details><summary>Is there a payment processing fee on top?</summary><p>Not for individual sellers in the policy text: the Selling Fee is the transaction charge Meta defines for Marketplace checkout sales, and no separate processing percentage appears alongside it in the Merchant Policies.</p></details>
+</div>
+<h2>Related tools</h2><ul><li><a href="/marketplace-fees-compared/">Compare 8 other platforms on the same item</a></li><li><a href="/tiktok-shop-fee-calculator/">TikTok Shop fee calculator</a></li><li><a href="/fee-changes/">Fee-change history — the April 2024 doubling to 10%</a></li><li><a href="/mercari-fee-calculator/">Mercari fee calculator — the other flat-10% platform</a></li></ul>
+<p class="src-list">Source: Meta — <a href="https://www.facebook.com/legal/merchant_policies" target="_blank" rel="noopener">Marketplace Seller Protection Policy / Commerce Payments Terms (Merchant Policies)</a>, “Selling fees” section. Rates verified November 23, 2026.</p>
+
+</main>
+<footer class="site-footer"><div class="in">
+<h2>All calculators in this suite</h2>
+<nav class="foot-links">
+<a href="/ebay-fee-calculator/">eBay fee calculator</a>
+<a href="/ebay-profit-calculator/">eBay profit calculator</a>
+<a href="/etsy-fee-calculator/">Etsy fee calculator</a>
+<a href="/poshmark-fee-calculator/">Poshmark fee calculator</a>
+<a href="/mercari-fee-calculator/">Mercari fee calculator</a>
+<a href="/amazon-referral-fee-calculator/">Amazon referral fee calculator</a>
+<a href="/depop-fee-calculator/">Depop fee calculator</a>
+<a href="/vinted-fee-calculator/">Vinted fee calculator</a>
+<a href="/whatnot-fee-calculator/">Whatnot fee calculator</a>
+<a href="/tiktok-shop-fee-calculator/">TikTok Shop fee calculator</a>
+<a href="/facebook-marketplace-fee-calculator/">Facebook Marketplace fee calculator</a>
+<a href="/marketplace-fees-compared/">Compare all 8 platforms</a>
+<a href="/batch-fee-calculator/">Batch fee calculator + CSV</a>
+<a href="/ebay-vs-etsy-fees/">eBay vs Etsy fees</a>
+<a href="/fee-changes/">Fee-change history</a>
+<a href="/guides/ebay-fees-explained/">eBay fees explained</a>
+<a href="/guides/etsy-fees-explained/">Etsy fees explained</a>
+<a href="/guides/mercari-fees-explained/">Mercari fees explained</a>
+<a href="/kdp/">KDP calculators</a>
+<a href="/kdp-cover-calculator/">KDP cover size calculator</a>
+<a href="/kdp-print-cost-calculator/">KDP printing cost calculator</a>
+<a href="/kdp-royalty-calculator/">KDP royalty calculator</a>
+<a href="/guides/kdp-royalties-explained/">KDP royalties explained</a>
+</nav>
+<p class="disclaimer"><strong>Disclaimer:</strong> Results are estimates for planning only. Fees vary by category, seller country, store subscription and promotions. Always confirm the final fee on the platform's official fee page before listing. Rates on this site were verified on the platforms' official pages (marketplace rates November 18, 2026; TikTok Shop and Facebook Marketplace November 23, 2026).</p>
+</div></footer>
+<script src="/assets/engines.js"></script>
+<script src="/assets/calc.js"></script>
+</body>
+</html>

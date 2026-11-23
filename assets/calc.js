@@ -248,6 +248,27 @@
       " on a fee base of " + f.fmt(r.base) + ", net profit " + f.fmt(r.profit) + " (margin " + E.pct(r.revenue > 0 ? r.profit / r.revenue * 100 : 0) + "). Rates verified November 23, 2026.";
   }
 
+  /* ================= Facebook Marketplace ================= */
+  function calcFacebook() {
+    if (!$("fb-price")) return;
+    var price = num("fb-price"), ship = num("fb-ship"), tax = num("fb-tax"), cost = num("fb-cost"), sc = num("fb-shipcost");
+    var shipped = $("fb-type").value === "shipped";
+    var r = E.fbCalc(price, ship, tax, cost, sc, shipped);
+    var f = setResult("fb", r);
+    $("fb-gross").textContent = f.fmt(r.revenue);
+    $("fb-total").textContent = f.fmt(r.total);
+    $("fb-fee-label").textContent = shipped ? "Selling Fee — 10% of the transaction total, $0.80 minimum" : "Selling Fee — none for local pickup";
+    $("fb-fee").textContent = f.nfmt(r.fees);
+    $("fb-fees").textContent = f.nfmt(r.fees);
+    $("fb-keep").textContent = f.fmt(r.keep);
+    $("fb-costs").textContent = f.nfmt(r.costs);
+    $("fb-eff").textContent = E.pct(r.revenue > 0 ? r.fees / r.revenue * 100 : 0);
+    var be = E.breakEven(function (p) { return E.fbCalc(p, ship, tax, cost, sc, shipped).profit; });
+    $("fb-be").textContent = be === null ? "—" : f.fmt(be);
+    summaries.fb = "Facebook Marketplace (US, " + (shipped ? "shipped checkout" : "local pickup") + "): price " + f.fmt(price) + " + shipping " + f.fmt(ship) + " → selling fee " + f.fmt(r.fees) +
+      ", net profit " + f.fmt(r.profit) + " (margin " + E.pct(r.revenue > 0 ? r.profit / r.revenue * 100 : 0) + "). Rates verified November 23, 2026.";
+  }
+
   /* ================= Comparison ================= */
   var CMP_DEFS = [
     { key: "ebay", name: "eBay", href: "/ebay-fee-calculator/", feeLabel: "13.6% up to $7,500, then 2.35% · + per-order fee" },
@@ -384,6 +405,8 @@
   bind(["wn-cat"], "change", calcWhatnot);
   bind(["tt-price", "tt-ship", "tt-discount", "tt-tax", "tt-cost", "tt-shipcost"], "input", calcTiktok);
   bind(["tt-cat"], "change", calcTiktok);
+  bind(["fb-price", "fb-ship", "fb-tax", "fb-cost", "fb-shipcost"], "input", calcFacebook);
+  bind(["fb-type"], "change", calcFacebook);
   bind(["cmp-price", "cmp-ship", "cmp-cost", "cmp-shipcost"], "input", calcCompare);
   bind(["rev-target", "rev-ship", "rev-cost", "rev-shipcost"], "input", calcReverse);
   on("rev-mode-amt", "click", function () { revMode = "amt"; $("rev-mode-amt").setAttribute("aria-pressed", "true"); $("rev-mode-margin").setAttribute("aria-pressed", "false"); $("rev-target-label").textContent = "Target profit per sale"; $("rev-target-prefix").textContent = "$"; calcReverse(); });
@@ -393,11 +416,11 @@
     b.addEventListener("click", function () {
       var map = JSON.parse(b.getAttribute("data-v"));
       Object.keys(map).forEach(function (id) { var el = $(id); if (el) el.value = map[id]; });
-      [calcEbay, calcEtsy, calcPoshmark, calcMercari, calcAmazon, calcDepop, calcVinted, calcWhatnot, calcTiktok].forEach(function (fn) { fn(); });
+      [calcEbay, calcEtsy, calcPoshmark, calcMercari, calcAmazon, calcDepop, calcVinted, calcWhatnot, calcTiktok, calcFacebook].forEach(function (fn) { fn(); });
     });
   });
 
-  calcEbay(); calcEtsy(); calcPoshmark(); calcMercari(); calcAmazon(); calcDepop(); calcVinted(); calcWhatnot(); calcTiktok();
+  calcEbay(); calcEtsy(); calcPoshmark(); calcMercari(); calcAmazon(); calcDepop(); calcVinted(); calcWhatnot(); calcTiktok(); calcFacebook();
   calcCompare(); calcReverse(); calcVs();
   bindCopy();
 })();

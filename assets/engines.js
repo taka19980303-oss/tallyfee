@@ -234,6 +234,24 @@
     return { revenue: revenue, base: base, rate: rate, fees: fee, keep: keep, costs: r2(cost + shipcost), profit: profit };
   }
 
+  /* ---- Facebook Marketplace (US) Selling Fee — Meta Commerce Payments
+     Terms, Merchant Policies: Individual Sellers pay 10% per transaction,
+     minimum $0.80, calculated on the entire transaction amount (sale
+     price + shipping fees + applicable taxes). Applies to shipped orders
+     sold through Marketplace checkout; local pickup sales are not
+     checkout transactions and carry no Selling Fee. Sales tax is
+     collected by Meta and passed through, so it raises the fee base but
+     is not seller revenue here. Deliberately NOT added to platformCalc
+     (the fee depends on checkout vs pickup). ---- */
+  function fbCalc(price, ship, tax, cost, shipcost, shipped) {
+    var revenue = r2(price + ship);
+    var total = r2(price + ship + tax);
+    var fee = (shipped && total > 0) ? Math.max(0.80, r2(total * 0.10)) : 0;
+    var keep = r2(revenue - fee);
+    var profit = r2(keep - cost - shipcost);
+    return { revenue: revenue, total: total, fees: fee, keep: keep, costs: r2(cost + shipcost), profit: profit };
+  }
+
   /* ---- Unified engine for comparison / reverse pricing ----
      Defaults: eBay no tax, no promo, no TRP, US location; Etsy US seller,
      no Offsite Ads; Poshmark ignores the shipping-charged column (buyer-paid
@@ -253,7 +271,7 @@
   var api = { r2: r2, money: money, neg: neg, pct: pct, verdictFor: verdictFor, breakEven: breakEven,
               ebayCalc: ebayCalc, etsyCalc: etsyCalc, poshCalc: poshCalc, mercariCalc: mercariCalc,
               amazonReferral: amazonReferral, amazonCalc: amazonCalc, depopCalc: depopCalc,
-              vintedCalc: vintedCalc, whatnotCalc: whatnotCalc, tiktokCalc: tiktokCalc, platformCalc: platformCalc,
+              vintedCalc: vintedCalc, whatnotCalc: whatnotCalc, tiktokCalc: tiktokCalc, fbCalc: fbCalc, platformCalc: platformCalc,
               PLATFORM_NAMES: PLATFORM_NAMES };
   global.FeeEngines = api;
   if (typeof module !== "undefined" && module.exports) { module.exports = api; }
