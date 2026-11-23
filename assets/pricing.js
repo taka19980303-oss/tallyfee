@@ -76,7 +76,8 @@
 
   function fmt(n) {
     if (n === null || n === undefined) return '—';
-    return '$' + (Math.round(n * 100) / 100).toLocaleString('en-US', { maximumFractionDigits: 2 });
+    var r = Math.round(n * 100) / 100;
+    return '$' + r.toLocaleString('en-US', { minimumFractionDigits: (r % 1 !== 0 ? 2 : 0), maximumFractionDigits: 2 });
   }
 
   window.PricingEngine = { tierFor: tierFor, planPriceAt: planPriceAt, toolCost: toolCost, compareTools: compareTools, breakEven: breakEven, fmt: fmt };

@@ -1,0 +1,19 @@
+# Guessed nested software URLs -> real flat URLs (Cloudflare Pages)
+/software/email-marketing/mailchimp-pricing/ /software/mailchimp-pricing/ 301
+/software/email-marketing/brevo-pricing/ /software/brevo-pricing/ 301
+/software/email-marketing/kit-pricing/ /software/kit-pricing/ 301
+/software/email-marketing/activecampaign-pricing/ /software/activecampaign-pricing/ 301
+/software/email-marketing/mailerlite-pricing/ /software/mailerlite-pricing/ 301
+/software/email-marketing/constantcontact-pricing/ /software/constantcontact-pricing/ 301
+/software/crm/hubspot-pricing/ /software/hubspot-pricing/ 301
+/software/crm/pipedrive-pricing/ /software/pipedrive-pricing/ 301
+/software/crm/zoho-pricing/ /software/zoho-pricing/ 301
+/software/crm/freshsales-pricing/ /software/freshsales-pricing/ 301
+/software/crm/close-pricing/ /software/close-pricing/ 301
+/software/crm/monday-pricing/ /software/monday-pricing/ 301
+/software/email-marketing/mailchimp-vs-mailerlite/ /software/vs/mailchimp-vs-mailerlite/ 301
+/software/email-marketing/mailchimp-vs-kit/ /software/vs/mailchimp-vs-kit/ 301
+/software/email-marketing/kit-vs-mailerlite/ /software/vs/kit-vs-mailerlite/ 301
+/software/crm/hubspot-vs-pipedrive/ /software/vs/hubspot-vs-pipedrive/ 301
+/software/crm/pipedrive-vs-zoho/ /software/vs/pipedrive-vs-zoho/ 301
+/software/crm/hubspot-vs-close/ /software/vs/hubspot-vs-close/ 301

@@ -46,10 +46,17 @@
 <div class="field" style="margin:0"><label for="in-sends">Emails sent per month</label><div class="input-wrap"><input id="in-sends" type="number" min="0" step="1000" value="20000"></div><p class="hint">Used for Brevo, which bills on send volume instead of list size.</p></div>
 </div>
 <div class="mode-toggle" style="margin-top:16px"><button data-billing="monthly" aria-pressed="false">Monthly billing</button><button data-billing="annual" aria-pressed="true">Annual billing</button></div>
+<p class="hint">Annual billing is the default because most of these vendors discount it. Switch to monthly to see month-to-month prices — where the vendor publishes them; annual-only tools say so instead of borrowing the annual figure.</p>
 <table class="fees"><tr><th>Tool</th><th class="num">Per month</th><th class="num">Year one</th><th class="num">3 years</th></tr><tbody id="results"></tbody></table>
 <div class="cmp-verdict" id="verdict" aria-live="polite"></div>
+<p class="hint" id="mismatch" aria-live="polite"></p>
 <p class="privacy-note">Nothing you type leaves your browser — every calculation runs on this page, on your device.</p>
+<p><button class="btn ghost" type="button" onclick="window.print()">Print or save this comparison</button></p>
 </div>
+<h2>Starting free instead?</h2>
+<p>This calculator compares <strong>paid plans only</strong> — but four of the six tools have a free tier worth starting on: <a href="/software/mailchimp-pricing/">Mailchimp</a> — 250 contacts, 500 sends/month · <a href="/software/brevo-pricing/">Brevo</a> — 300 emails/day, up to 100,000 contacts stored · <a href="/software/kit-pricing/">Kit</a> — Up to 10,000 subscribers, unlimited sends · <a href="/software/mailerlite-pricing/">MailerLite</a> — Up to 250 active subscribers, 2,500 emails/month. ActiveCampaign and Constant Contact offer a free trial only.</p>
+<h2>Compare by growth stage</h2>
+<p>The <a href="/software/email-marketing/">email tools comparison</a> tabulates all six tools at 1,000 / 5,000 / 25,000 contacts side by side. Head-to-head: <a href="/software/vs/mailchimp-vs-mailerlite/">Mailchimp vs MailerLite</a> · <a href="/software/vs/mailchimp-vs-kit/">Mailchimp vs Kit</a> · <a href="/software/vs/kit-vs-mailerlite/">Kit vs MailerLite</a>.</p>
 <h2>What this calculator knows that headline prices don't</h2>
 <p><strong>Contact counting differs.</strong> Mailchimp bills for unsubscribed contacts until you archive them, and bills on your peak list size in the period. ActiveCampaign counts every contact — including bounced and unconfirmed — for accounts created on or after November 3, 2025. MailerLite and Kit count active subscribers only. The same “5,000 contacts” is therefore not the same billable number on every tool; the tier each tool puts you in is what this calculator prices.</p>
 <p><strong>Tier jumps are the price.</strong> Most of these tools auto-upgrade you the moment you cross a tier — there is no per-contact overage to model, just the next tier's price. Constant Contact and ActiveCampaign instead charge per-send overage fees on top of a send allowance; Mailchimp auto-charges for contact blocks. The plan prices here are the list prices before any overage.</p>
@@ -76,20 +83,36 @@
     var rows = ids.map(function(id){
       var t = Object.assign({id:id}, D[id]);
       var usage = t.model === 'send_volume' ? s : c;
-      var cost = E.toolCost(t, usage, 1, billing), fb = false;
-      if (!cost) { cost = E.toolCost(t, usage, 1, billing === 'annual' ? 'monthly' : 'annual'); fb = !!cost; }
-      return { name: t.name, id: id, cost: cost, fallback: fb };
+      var cost = E.toolCost(t, usage, 1, billing), fb = null;
+      if (!cost && billing === 'annual') { var altM = E.toolCost(t, usage, 1, 'monthly'); if (altM) { cost = altM; fb = 'monthly'; } }
+      if (!cost && billing === 'monthly') { var altA = E.toolCost(t, usage, 1, 'annual'); if (altA) fb = altA; }
+      return { name: t.name, id: id, cost: cost, fb: fb };
     });
     rows.sort(function(a,b){ if(!a.cost) return 1; if(!b.cost) return -1; return a.cost.annualTotal - b.cost.annualTotal; });
+    var minAnnual = null;
+    rows.forEach(function(r){ if (r.cost && (minAnnual === null || r.cost.annualTotal < minAnnual)) minAnnual = r.cost.annualTotal; });
     var tb = document.getElementById('results');
-    tb.innerHTML = rows.map(function(r, i){
-      if (!r.cost) return '<tr><td><strong>'+r.name+'</strong></td><td colspan="4">No published price for this size / billing period — see its <a href="/software/'+r.id+'-pricing/">pricing page</a></td></tr>';
-      return '<tr'+(i===0?' class="best"':'')+'><td><a href="/software/'+r.id+'-pricing/"><strong>'+r.name+'</strong></a><br><span class="hint">'+r.cost.plan+' plan'+(r.fallback ? ' · '+(billing==='annual'?'monthly':'annual')+' billing (no published '+billing+' price)' : '')+'</span></td>' +
+    tb.innerHTML = rows.map(function(r){
+      if (!r.cost) {
+        var note = r.fb ? 'Annual billing only — from '+E.fmt(r.fb.monthly)+'/month billed annually ('+r.fb.plan+'). No published monthly price.' : 'No published price for this size / billing period.';
+        return '<tr><td><a href="/software/'+r.id+'-pricing/"><strong>'+r.name+'</strong></a></td><td colspan="3" class="hint">'+note+' See its <a href="/software/'+r.id+'-pricing/">pricing page</a>.</td></tr>';
+      }
+      var isBest = minAnnual !== null && Math.abs(r.cost.annualTotal - minAnnual) < 0.005;
+      return '<tr'+(isBest?' class="best"':'')+'><td><a href="/software/'+r.id+'-pricing/"><strong>'+r.name+'</strong></a><br><span class="hint">'+r.cost.plan+' plan'+(r.fb === 'monthly' ? ' · billed monthly (no published annual price)' : '')+'</span></td>' +
         '<td class="num">'+E.fmt(r.cost.monthly)+'</td><td class="num">'+E.fmt(r.cost.annualTotal)+'</td><td class="num">'+E.fmt(r.cost.threeYear)+'</td></tr>';
     }).join('');
-    var best = rows[0];
-    document.getElementById('verdict').innerHTML = best && best.cost ?
-      'Cheapest at this size: <strong>'+best.name+'</strong> ('+best.cost.plan+') at <strong>'+E.fmt(best.cost.monthly)+'/month</strong> — '+E.fmt(best.cost.annualTotal)+' in year one.' : '';
+    var winners = rows.filter(function(r){ return r.cost && minAnnual !== null && Math.abs(r.cost.annualTotal - minAnnual) < 0.005; });
+    var v = document.getElementById('verdict');
+    if (!winners.length) { v.innerHTML = ''; }
+    else if (winners.length > 1) {
+      v.innerHTML = 'Cheapest at this size — a tie: ' + winners.map(function(w){ return '<strong>'+w.name+'</strong>'; }).join(' and ') + ' at <strong>'+E.fmt(winners[0].cost.monthly)+'/month</strong> — '+E.fmt(winners[0].cost.annualTotal)+' in year one.';
+    } else {
+      v.innerHTML = 'Cheapest at this size: <strong>'+winners[0].name+'</strong> ('+winners[0].cost.plan+') at <strong>'+E.fmt(winners[0].cost.monthly)+'/month</strong> — '+E.fmt(winners[0].cost.annualTotal)+' in year one.';
+    }
+    var mw = document.getElementById('mismatch');
+    if (c > 0 && s > 0 && s < c) mw.innerHTML = 'Heads up: that is fewer emails per month than contacts — you could not email everyone on your list even once. Brevo’s row will look unusually cheap.';
+    else if (c > 0 && s > c * 30) mw.innerHTML = 'Heads up: that is more than 30 emails per contact per month. If that is not really your sending pattern, Brevo’s row will look unusually expensive — Brevo bills on sends.';
+    else mw.innerHTML = '';
   }
   render();
 })();
@@ -106,10 +129,20 @@
 <a href="/software/">Software cost hub</a>
 <a href="/software/email-marketing-cost-calculator/">Email marketing cost calculator</a>
 <a href="/software/crm-cost-calculator/">CRM cost calculator</a>
+<a href="/software/email-marketing/">Email tools compared</a>
+<a href="/software/crm/">CRMs compared</a>
 <a href="/software/mailchimp-pricing/">Mailchimp pricing</a>
 <a href="/software/brevo-pricing/">Brevo pricing</a>
+<a href="/software/kit-pricing/">Kit pricing</a>
+<a href="/software/activecampaign-pricing/">ActiveCampaign pricing</a>
+<a href="/software/mailerlite-pricing/">MailerLite pricing</a>
+<a href="/software/constantcontact-pricing/">Constant Contact pricing</a>
 <a href="/software/hubspot-pricing/">HubSpot pricing</a>
 <a href="/software/pipedrive-pricing/">Pipedrive pricing</a>
+<a href="/software/zoho-pricing/">Zoho CRM pricing</a>
+<a href="/software/freshsales-pricing/">Freshsales pricing</a>
+<a href="/software/close-pricing/">Close pricing</a>
+<a href="/software/monday-pricing/">monday CRM pricing</a>
 </nav>
 <p class="disclaimer"><strong>Disclaimer:</strong> Results are estimates for planning only. Prices change, and vendors run promotions that are not modelled here. Always confirm the final price on the vendor's official pricing page before subscribing. Software prices on this page were verified on the vendors' official pricing pages on November 23, 2026.</p>
 </div></footer>

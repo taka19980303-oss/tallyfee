@@ -43,14 +43,20 @@
 <div class="card">
 <div class="field" style="max-width:280px"><label for="in-seats">Team size (seats)</label><div class="input-wrap"><input id="in-seats" type="number" min="1" step="1" value="5"></div></div>
 <div class="mode-toggle"><button data-billing="monthly" aria-pressed="false">Monthly billing</button><button data-billing="annual" aria-pressed="true">Annual billing</button></div>
+<p class="hint">Annual billing is the default because every one of these vendors discounts it per seat. Switch to monthly to see month-to-month prices — where the vendor publishes them; annual-only plans say so instead of borrowing the annual figure.</p>
 <table class="fees"><tr><th>CRM</th><th class="num">Per month</th><th class="num">Year one</th><th class="num">3 years</th></tr><tbody id="results"></tbody></table>
 <div class="cmp-verdict" id="verdict" aria-live="polite"></div>
 <p class="privacy-note">Nothing you type leaves your browser — every calculation runs on this page, on your device.</p>
+<p><button class="btn ghost" type="button" onclick="window.print()">Print or save this comparison</button></p>
 </div>
+<h2>Starting free instead?</h2>
+<p>This calculator prices <strong>paid plans</strong> — but two of the five CRMs have a free tier worth starting on: <a href="/software/hubspot-pricing/">HubSpot Sales Hub</a> — Up to 2 users, unlimited contacts · <a href="/software/zoho-pricing/">Zoho CRM</a> — Forever free for up to 3 users. Pipedrive, Freshsales, Close are trial-only. At one to three seats, the free tiers may be all you need for now.</p>
+<h2>Compare by team size</h2>
+<p>The <a href="/software/crm/">CRM comparison</a> tabulates year-one totals at 1 / 5 / 10 / 25 seats. Head-to-head: <a href="/software/vs/hubspot-vs-pipedrive/">HubSpot vs Pipedrive</a> · <a href="/software/vs/pipedrive-vs-zoho/">Pipedrive vs Zoho</a> · <a href="/software/vs/hubspot-vs-close/">HubSpot vs Close</a>.</p>
 <h2>What the seat price leaves out</h2>
 <p><strong>Onboarding.</strong> HubSpot charges a mandatory one-time onboarding fee on Professional ($1,500) and Enterprise ($3,500). It is included in the year-one and 3-year totals above — most comparison sites leave it out.</p>
 <p><strong>Seat types.</strong> HubSpot sells cheaper Core Seats alongside Sales Seats, so a mixed team pays less than the all-Sales-Seat figure here. Close's Solo plan is limited to one user, so the calculator skips it as soon as you enter 2+ seats.</p>
-<p><strong>Unpublished prices stay unpublished.</strong> Zoho's monthly-billing USD rates and HubSpot Enterprise's monthly rate are not on the vendors' pricing pages — pick monthly billing and those tools price their cheapest plan that does publish one, or say so.</p>
+<p><strong>Unpublished prices stay unpublished.</strong> Zoho's monthly-billing USD rates and HubSpot Enterprise's monthly rate are not on the vendors' pricing pages — pick monthly billing and those rows show no monthly figure at all, just a note with the annual-billing price for reference.</p>
 <p><strong>monday CRM</strong> prices by billing country and showed yen pricing from Japan, so it is not in this USD calculator; its full regional table is on the <a href="/software/monday-pricing/">monday pricing page</a>.</p>
 
 <script src="/assets/saas-data.js"></script>
@@ -73,20 +79,32 @@
     var s = Math.max(1, parseInt(seats.value||'1',10));
     var rows = ids.map(function(id){
       var t = Object.assign({id:id}, D[id]);
-      var cost = E.toolCost(t, 0, s, billing), fb = false;
-      if (!cost) { cost = E.toolCost(t, 0, s, billing === 'annual' ? 'monthly' : 'annual'); fb = !!cost; }
-      return { name: t.name, id: id, cost: cost, fallback: fb };
+      var cost = E.toolCost(t, 0, s, billing), fb = null;
+      if (!cost && billing === 'annual') { var altM = E.toolCost(t, 0, s, 'monthly'); if (altM) { cost = altM; fb = 'monthly'; } }
+      if (!cost && billing === 'monthly') { var altA = E.toolCost(t, 0, s, 'annual'); if (altA) fb = altA; }
+      return { name: t.name, id: id, cost: cost, fb: fb };
     });
     rows.sort(function(a,b){ if(!a.cost) return 1; if(!b.cost) return -1; return a.cost.annualTotal - b.cost.annualTotal; });
-    document.getElementById('results').innerHTML = rows.map(function(r, i){
-      if (!r.cost) return '<tr><td><strong>'+r.name+'</strong></td><td colspan="4">No published price for this billing period — see its <a href="/software/'+r.id+'-pricing/">pricing page</a></td></tr>';
+    var minAnnual = null;
+    rows.forEach(function(r){ if (r.cost && (minAnnual === null || r.cost.annualTotal < minAnnual)) minAnnual = r.cost.annualTotal; });
+    document.getElementById('results').innerHTML = rows.map(function(r){
+      if (!r.cost) {
+        var note = r.fb ? 'Annual billing only — from '+E.fmt(r.fb.monthly)+'/month billed annually ('+r.fb.plan+'). No published monthly price.' : 'No published price for this billing period.';
+        return '<tr><td><a href="/software/'+r.id+'-pricing/"><strong>'+r.name+'</strong></a></td><td colspan="3" class="hint">'+note+' See its <a href="/software/'+r.id+'-pricing/">pricing page</a>.</td></tr>';
+      }
+      var isBest = minAnnual !== null && Math.abs(r.cost.annualTotal - minAnnual) < 0.005;
       var note = r.cost.oneTime ? '<br><span class="hint">incl. '+E.fmt(r.cost.oneTime)+' one-time onboarding</span>' : '';
-      return '<tr'+(i===0?' class="best"':'')+'><td><a href="/software/'+r.id+'-pricing/"><strong>'+r.name+'</strong></a><br><span class="hint">'+r.cost.plan+' plan'+(r.fallback ? ' · '+(billing==='annual'?'monthly':'annual')+' billing (no published '+billing+' price)' : '')+'</span></td>' +
+      return '<tr'+(isBest?' class="best"':'')+'><td><a href="/software/'+r.id+'-pricing/"><strong>'+r.name+'</strong></a><br><span class="hint">'+r.cost.plan+' plan'+(r.fb === 'monthly' ? ' · billed monthly (no published annual price)' : '')+'</span></td>' +
         '<td class="num">'+E.fmt(r.cost.monthly)+'</td><td class="num">'+E.fmt(r.cost.annualTotal)+note+'</td><td class="num">'+E.fmt(r.cost.threeYear)+'</td></tr>';
     }).join('');
-    var best = rows[0];
-    document.getElementById('verdict').innerHTML = best && best.cost ?
-      'Cheapest for '+s+' seat'+(s>1?'s':'')+': <strong>'+best.name+'</strong> ('+best.cost.plan+') at <strong>'+E.fmt(best.cost.monthly)+'/month</strong> — '+E.fmt(best.cost.annualTotal)+' in year one.' : '';
+    var winners = rows.filter(function(r){ return r.cost && minAnnual !== null && Math.abs(r.cost.annualTotal - minAnnual) < 0.005; });
+    var v = document.getElementById('verdict');
+    if (!winners.length) { v.innerHTML = ''; }
+    else if (winners.length > 1) {
+      v.innerHTML = 'Cheapest for '+s+' seat'+(s>1?'s':'')+' — a tie: ' + winners.map(function(w){ return '<strong>'+w.name+'</strong>'; }).join(' and ') + ' at <strong>'+E.fmt(winners[0].cost.monthly)+'/month</strong> — '+E.fmt(winners[0].cost.annualTotal)+' in year one.';
+    } else {
+      v.innerHTML = 'Cheapest for '+s+' seat'+(s>1?'s':'')+': <strong>'+winners[0].name+'</strong> ('+winners[0].cost.plan+') at <strong>'+E.fmt(winners[0].cost.monthly)+'/month</strong> — '+E.fmt(winners[0].cost.annualTotal)+' in year one.';
+    }
   }
   render();
 })();
@@ -103,10 +121,20 @@
 <a href="/software/">Software cost hub</a>
 <a href="/software/email-marketing-cost-calculator/">Email marketing cost calculator</a>
 <a href="/software/crm-cost-calculator/">CRM cost calculator</a>
+<a href="/software/email-marketing/">Email tools compared</a>
+<a href="/software/crm/">CRMs compared</a>
 <a href="/software/mailchimp-pricing/">Mailchimp pricing</a>
 <a href="/software/brevo-pricing/">Brevo pricing</a>
+<a href="/software/kit-pricing/">Kit pricing</a>
+<a href="/software/activecampaign-pricing/">ActiveCampaign pricing</a>
+<a href="/software/mailerlite-pricing/">MailerLite pricing</a>
+<a href="/software/constantcontact-pricing/">Constant Contact pricing</a>
 <a href="/software/hubspot-pricing/">HubSpot pricing</a>
 <a href="/software/pipedrive-pricing/">Pipedrive pricing</a>
+<a href="/software/zoho-pricing/">Zoho CRM pricing</a>
+<a href="/software/freshsales-pricing/">Freshsales pricing</a>
+<a href="/software/close-pricing/">Close pricing</a>
+<a href="/software/monday-pricing/">monday CRM pricing</a>
 </nav>
 <p class="disclaimer"><strong>Disclaimer:</strong> Results are estimates for planning only. Prices change, and vendors run promotions that are not modelled here. Always confirm the final price on the vendor's official pricing page before subscribing. Software prices on this page were verified on the vendors' official pricing pages on November 23, 2026.</p>
 </div></footer>
