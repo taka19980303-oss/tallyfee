@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Email Marketing Cost Calculator — True Cost of 6 Tools | Fee Calculator Suite</title>
+<meta name="description" content="Free calculator: total monthly, yearly and 3-year cost of Mailchimp, Brevo, Kit, ActiveCampaign, MailerLite and Constant Contact at your list size. Prices verified on official pricing pages.">
+<link rel="canonical" href="https://tallyfee.com/software/email-marketing-cost-calculator/">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="stylesheet" href="/assets/style.css">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Fee Calculator Suite">
+<meta property="og:title" content="Email Marketing Cost Calculator — True Cost of 6 Tools | Fee Calculator Suite">
+<meta property="og:description" content="Free calculator: total monthly, yearly and 3-year cost of Mailchimp, Brevo, Kit, ActiveCampaign, MailerLite and Constant Contact at your list size. Prices verified on official pricing pages.">
+<meta property="og:url" content="https://tallyfee.com/software/email-marketing-cost-calculator/">
+<meta property="og:image" content="https://tallyfee.com/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Email Marketing Cost Calculator — True Cost of 6 Tools | Fee Calculator Suite">
+<meta name="twitter:description" content="Free calculator: total monthly, yearly and 3-year cost of Mailchimp, Brevo, Kit, ActiveCampaign, MailerLite and Constant Contact at your list size. Prices verified on official pricing pages.">
+<meta name="twitter:image" content="https://tallyfee.com/assets/og.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Email Marketing Cost Calculator", "url": "https://tallyfee.com/software/email-marketing-cost-calculator/", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}</script>
+</head>
+<body>
+<header class="site-header"><div class="in">
+<a class="brand" href="/">Fee<span>Calculator</span>Suite</a>
+<nav class="site-nav">
+<a href="/marketplace-fees-compared/">Compare all 8</a>
+<a href="/ebay-vs-etsy-fees/">eBay vs Etsy</a>
+<a href="/fee-changes/">Fee changes</a>
+<a href="/kdp/">KDP</a>
+<a href="/software/">Software</a>
+<a href="/guides/ebay-fees-explained/">Guides</a>
+<a href="/ja/">日本語</a>
+</nav></div></header>
+<main class="wrap">
+
+<div class="hero"><h1>Email marketing cost calculator</h1>
+<p class="lede">Enter your list size and how much you actually send. The calculator prices the <strong>cheapest fitting plan</strong> on each of the six tools — monthly, year one, and three years — from prices verified on the vendors' own pricing pages.</p>
+<div class="badge-band"><span class="pill">✓ Prices verified</span><span><strong>November 23, 2026</strong> — every price on this page was read on the vendor's official pricing page. Promotional prices are never used as the list price.</span></div>
+</div>
+<div class="card">
+<div class="cmp-inputs" style="grid-template-columns:repeat(2,1fr)">
+<div class="field" style="margin:0"><label for="in-contacts">Contacts / subscribers</label><div class="input-wrap"><input id="in-contacts" type="number" min="0" step="100" value="5000"></div><p class="hint">Used for Mailchimp, Kit, ActiveCampaign, MailerLite and Constant Contact.</p></div>
+<div class="field" style="margin:0"><label for="in-sends">Emails sent per month</label><div class="input-wrap"><input id="in-sends" type="number" min="0" step="1000" value="20000"></div><p class="hint">Used for Brevo, which bills on send volume instead of list size.</p></div>
+</div>
+<div class="mode-toggle" style="margin-top:16px"><button data-billing="monthly" aria-pressed="false">Monthly billing</button><button data-billing="annual" aria-pressed="true">Annual billing</button></div>
+<table class="fees"><tr><th>Tool</th><th class="num">Per month</th><th class="num">Year one</th><th class="num">3 years</th></tr><tbody id="results"></tbody></table>
+<div class="cmp-verdict" id="verdict" aria-live="polite"></div>
+<p class="privacy-note">Nothing you type leaves your browser — every calculation runs on this page, on your device.</p>
+</div>
+<h2>What this calculator knows that headline prices don't</h2>
+<p><strong>Contact counting differs.</strong> Mailchimp bills for unsubscribed contacts until you archive them, and bills on your peak list size in the period. ActiveCampaign counts every contact — including bounced and unconfirmed — for accounts created on or after November 3, 2025. MailerLite and Kit count active subscribers only. The same “5,000 contacts” is therefore not the same billable number on every tool; the tier each tool puts you in is what this calculator prices.</p>
+<p><strong>Tier jumps are the price.</strong> Most of these tools auto-upgrade you the moment you cross a tier — there is no per-contact overage to model, just the next tier's price. Constant Contact and ActiveCampaign instead charge per-send overage fees on top of a send allowance; Mailchimp auto-charges for contact blocks. The plan prices here are the list prices before any overage.</p>
+<p><strong>“Not published” is an answer too.</strong> ActiveCampaign does not publish monthly-billing prices, and Mailchimp publishes no annual rate card — switch the billing toggle and those rows say so instead of inventing a number.</p>
+
+<script src="/assets/saas-data.js"></script>
+<script src="/assets/pricing.js"></script>
+<script>
+(function(){
+  var D = window.SAAS_DATA.email, E = window.PricingEngine;
+  var ids = ['mailchimp','brevo','kit','activecampaign','mailerlite','constantcontact'];
+  var contacts = document.getElementById('in-contacts'), sends = document.getElementById('in-sends');
+  var billing = 'annual';
+  document.querySelectorAll('[data-billing]').forEach(function(b){
+    b.addEventListener('click', function(){
+      billing = b.getAttribute('data-billing');
+      document.querySelectorAll('[data-billing]').forEach(function(x){ x.setAttribute('aria-pressed', x===b ? 'true' : 'false'); });
+      render();
+    });
+  });
+  [contacts, sends].forEach(function(el){ el.addEventListener('input', render); });
+  function render(){
+    var c = Math.max(0, parseInt(contacts.value||'0',10)), s = Math.max(0, parseInt(sends.value||'0',10));
+    var rows = ids.map(function(id){
+      var t = Object.assign({id:id}, D[id]);
+      var usage = t.model === 'send_volume' ? s : c;
+      var cost = E.toolCost(t, usage, 1, billing), fb = false;
+      if (!cost) { cost = E.toolCost(t, usage, 1, billing === 'annual' ? 'monthly' : 'annual'); fb = !!cost; }
+      return { name: t.name, id: id, cost: cost, fallback: fb };
+    });
+    rows.sort(function(a,b){ if(!a.cost) return 1; if(!b.cost) return -1; return a.cost.annualTotal - b.cost.annualTotal; });
+    var tb = document.getElementById('results');
+    tb.innerHTML = rows.map(function(r, i){
+      if (!r.cost) return '<tr><td><strong>'+r.name+'</strong></td><td colspan="4">No published price for this size / billing period — see its <a href="/software/'+r.id+'-pricing/">pricing page</a></td></tr>';
+      return '<tr'+(i===0?' class="best"':'')+'><td><a href="/software/'+r.id+'-pricing/"><strong>'+r.name+'</strong></a><br><span class="hint">'+r.cost.plan+' plan'+(r.fallback ? ' · '+(billing==='annual'?'monthly':'annual')+' billing (no published '+billing+' price)' : '')+'</span></td>' +
+        '<td class="num">'+E.fmt(r.cost.monthly)+'</td><td class="num">'+E.fmt(r.cost.annualTotal)+'</td><td class="num">'+E.fmt(r.cost.threeYear)+'</td></tr>';
+    }).join('');
+    var best = rows[0];
+    document.getElementById('verdict').innerHTML = best && best.cost ?
+      'Cheapest at this size: <strong>'+best.name+'</strong> ('+best.cost.plan+') at <strong>'+E.fmt(best.cost.monthly)+'/month</strong> — '+E.fmt(best.cost.annualTotal)+' in year one.' : '';
+  }
+  render();
+})();
+</script>
+
+</main>
+<footer class="site-footer"><div class="in">
+<h2>All calculators</h2>
+<nav class="foot-links">
+<a href="/ebay-fee-calculator/">eBay fee calculator</a>
+<a href="/etsy-fee-calculator/">Etsy fee calculator</a>
+<a href="/marketplace-fees-compared/">Compare all 8 platforms</a>
+<a href="/kdp/">KDP calculators</a>
+<a href="/software/">Software cost hub</a>
+<a href="/software/email-marketing-cost-calculator/">Email marketing cost calculator</a>
+<a href="/software/crm-cost-calculator/">CRM cost calculator</a>
+<a href="/software/mailchimp-pricing/">Mailchimp pricing</a>
+<a href="/software/brevo-pricing/">Brevo pricing</a>
+<a href="/software/hubspot-pricing/">HubSpot pricing</a>
+<a href="/software/pipedrive-pricing/">Pipedrive pricing</a>
+</nav>
+<p class="disclaimer"><strong>Disclaimer:</strong> Results are estimates for planning only. Prices change, and vendors run promotions that are not modelled here. Always confirm the final price on the vendor's official pricing page before subscribing. Software prices on this page were verified on the vendors' official pricing pages on November 23, 2026.</p>
+</div></footer>
+</body>
+</html>
