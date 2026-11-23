@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KDP Royalty Calculator — Paperback, Hardcover &amp; eBook Royalties, Verified Nov 2026 | Fee Calculator Suite</title>
+<meta name="description" content="Free KDP royalty calculator: paperback and hardcover royalties with the 60%/50% price tiers and printing costs, plus Kindle eBook 70%/35% royalties with delivery costs and the 2026 price band. Verified November 23, 2026.">
+<link rel="canonical" href="https://tallyfee.com/kdp-royalty-calculator/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+<header class="site-header"><div class="in">
+<a class="brand" href="/">Fee<span>Calculator</span>Suite</a>
+<nav class="site-nav">
+<a href="/marketplace-fees-compared/">Compare all 8</a>
+<a href="/ebay-vs-etsy-fees/">eBay vs Etsy</a>
+<a href="/fee-changes/">Fee changes</a>
+<a href="/kdp/">KDP</a>
+<a href="/guides/ebay-fees-explained/">Guides</a>
+</nav></div></header>
+<main class="wrap">
+
+<div class="hero"><h1>KDP Royalty Calculator</h1>
+<p class="lede">What you actually keep per sale. Print books pay <strong>(royalty rate × list price) − printing cost</strong>, and the rate itself depends on your price: <strong>60%</strong> at or above $9.99 on Amazon.com, <strong>50%</strong> below it. eBooks pay 70% or 35%. Pick your format.</p>
+<div class="badge-band"><span class="pill">✓ Rates verified</span>
+<span><strong>November 23, 2026</strong> — checked against KDP’s official royalty and pricing pages. Sources: <a href="https://kdp.amazon.com/help?topicId=A1OYGQ0E1L4WBS" target="_blank" rel="noopener">Paperback Royalty</a> · <a href="https://kdp.amazon.com/help?topicId=A30F3VI2TH1FR8" target="_blank" rel="noopener">eBook Royalties</a> · <a href="https://kdp.amazon.com/help?topicId=G200634560" target="_blank" rel="noopener">eBook List Price Requirements</a></span></div>
+</div>
+<div class="mode-toggle" id="kr-modes">
+<button type="button" data-mode="paperback" aria-pressed="true">Paperback</button>
+<button type="button" data-mode="hardcover" aria-pressed="false">Hardcover</button>
+<button type="button" data-mode="ebook" aria-pressed="false">Kindle eBook</button>
+</div>
+<div class="calc-grid">
+<div class="card"><h2>Your book</h2>
+<div class="field"><label for="kr-list">List price <span>in the marketplace’s currency</span></label>
+<div class="input-wrap"><input id="kr-list" type="number" inputmode="decimal" min="0" step="0.01" value="14.99"></div></div>
+<div id="kr-print-inputs">
+<div class="field"><label for="kr-channel">Sales channel</label>
+<div class="input-wrap"><select id="kr-channel">
+<option value="amazon" selected>Amazon marketplace — 60% / 50% by price</option>
+<option value="ed">Expanded Distribution — 40%</option>
+</select></div>
+<p class="hint" id="kr-channel-hint" style="display:none">Hardcovers are not eligible for Expanded Distribution — Amazon sales only.</p></div>
+<div class="field"><label for="kr-ink">Ink &amp; paper</label>
+<div class="input-wrap"><select id="kr-ink"></select></div></div>
+<div class="field"><label for="kr-market">Marketplace</label>
+<div class="input-wrap"><select id="kr-market"></select></div></div>
+<div class="field"><label for="kr-trim">Trim size</label>
+<div class="input-wrap"><select id="kr-trim"></select></div></div>
+<div id="kr-custom" style="display:none">
+<div class="field"><label for="kr-tw">Trim width <span>inches</span></label>
+<div class="input-wrap"><input id="kr-tw" type="number" inputmode="decimal" min="4" max="8.5" step="0.01" value="6"></div></div>
+<div class="field"><label for="kr-th">Trim height <span>inches</span></label>
+<div class="input-wrap"><input id="kr-th" type="number" inputmode="decimal" min="4" max="11.69" step="0.01" value="9"></div></div>
+</div>
+<div class="field"><label for="kr-pages">Page count</label>
+<div class="input-wrap"><input id="kr-pages" type="number" inputmode="numeric" min="24" max="828" step="1" value="300"></div></div>
+</div>
+<div id="kr-ebook-inputs" style="display:none">
+<div class="field"><label for="kr-emarket">Kindle store</label>
+<div class="input-wrap"><select id="kr-emarket">
+<option value="US" selected>Amazon.com (USD)</option>
+<option value="UK">Amazon.co.uk (GBP)</option>
+<option value="EU">Amazon.de / .fr / .es / .it / .nl (EUR)</option>
+<option value="CA">Amazon.ca (CAD)</option>
+<option value="AU">Amazon.com.au (AUD)</option>
+<option value="JP">Amazon.co.jp (JPY)</option>
+<option value="IN">Amazon.in (INR)</option>
+<option value="BR">Amazon.com.br (BRL)</option>
+<option value="MX">Amazon.com.mx (MXN)</option>
+</select></div>
+<p class="hint">In the Brazil, Japan, Mexico and India stores, the 70% option also requires KDP Select enrollment.</p></div>
+<div class="field"><label for="kr-mb">eBook file size <span>megabytes — delivery cost is charged per MB under the 70% option</span></label>
+<div class="input-wrap"><input id="kr-mb" type="number" inputmode="decimal" min="0" step="0.1" value="1"></div></div>
+<div class="field"><label for="kr-vat">VAT included in the list price <span>% — 0 for the US store; EU/UK list prices include VAT</span></label>
+<div class="input-wrap"><input id="kr-vat" type="number" inputmode="decimal" min="0" max="30" step="0.5" value="0"><span class="suffix">%</span></div></div>
+</div>
+<p class="privacy-note">Nothing you type leaves your browser — every calculation runs on this page, on your device.</p></div>
+<div class="result-panel" aria-live="polite">
+<div class="result-hero"><div class="label" id="kr-hero-label">Royalty per sale</div><div class="big mono" id="kr-amount">—</div><div id="kr-verdict"></div></div>
+<div id="kr-print-rows">
+<div class="kv"><span class="k">Royalty rate applied</span><span class="v mono" id="kr-rate">—</span></div>
+<div class="kv"><span class="k">Rate × list price</span><span class="v mono" id="kr-share">—</span></div>
+<div class="kv"><span class="k">Printing cost per copy</span><span class="v mono" id="kr-printcost">—</span></div>
+<div class="kv total"><span class="k">Minimum list price for this book</span><span class="v mono" id="kr-minlist">—</span></div>
+</div>
+<div id="kr-ebook-rows" style="display:none">
+<div class="kv"><span class="k">Royalty at the 70% option</span><span class="v mono" id="kr-r70">—</span></div>
+<div class="kv"><span class="k">Royalty at the 35% option</span><span class="v mono" id="kr-r35">—</span></div>
+<div class="kv"><span class="k">Delivery cost (70% option only)</span><span class="v mono" id="kr-delivery">—</span></div>
+<div class="kv total"><span class="k">List price after VAT</span><span class="v mono" id="kr-net">—</span></div>
+</div>
+<div class="copy-row"><button type="button" class="btn small ghost copy-btn" data-prefix="kr">Copy result</button><span class="copy-msg" data-for="kr"></span></div>
+</div>
+</div>
+<h2>How KDP royalties work</h2>
+<p class="rate-line">Rates verified: <strong>November 23, 2026</strong> on KDP’s official Help · Print: <strong>(rate × list price) − printing cost</strong>, rate <strong>60%</strong> at/above the marketplace threshold, <strong>50%</strong> below, <strong>40%</strong> on Expanded Distribution · eBook 70% band on Amazon.com: <strong>$2.99–$12.99</strong> since July 7, 2026.</p>
+<p><strong>The $9.99 cliff is real.</strong> KDP changed print royalties in June 2025: the rate is no longer a flat 60%. Price a 300-page black-ink paperback at $9.99 and you earn 0.60 × $9.99 − $4.60 = <strong>$1.39</strong>. Price it one cent lower, at $9.98, and the 50% rate applies: 0.50 × $9.98 − $4.60 = <strong>$0.39</strong>. One cent of list price moves the royalty by a dollar. This calculator flags the cliff whenever your price sits below the threshold.</p>
+<p><strong>Thresholds by marketplace</strong> (list price at or above which 60% applies): Amazon.com $9.99 · Amazon.co.uk £7.99 · EU stores €9.99 · Amazon.ca C$13.99 · Amazon.com.au A$13.99 · Amazon.co.jp ¥1,000 · Amazon.pl 40 PLN · Amazon.se 110 SEK. Hardcovers use the same rates and formula, with their own higher printing costs — and no Expanded Distribution.</p>
+<p><strong>eBooks: the band widened in 2026.</strong> The 70% option requires a list price inside the store’s band — on Amazon.com, <strong>$2.99–$12.99</strong> since July 7, 2026 (the cap was $9.99 from 2007 until then). Inside the band you earn 70% of the price after VAT, minus a delivery cost charged per megabyte of file size ($0.15/MB on Amazon.com, £0.10 in the UK, €0.12 in the EU stores, ¥1 in Japan — and no delivery cost at all in Japan for files of 10 MB or more). Outside the band, or for public-domain titles, the 35% option applies with no delivery cost. The 70% price must also sit at least 20% below any print edition’s price.</p>
+<h2>Frequently asked questions</h2><div class="faq">
+<details><summary>How much does KDP pay per book sold?</summary><p>For print: (royalty rate × list price) − printing cost. A 300-page black-ink paperback at $14.99 on Amazon.com earns 0.60 × $14.99 − $4.60 = $4.39 per sale. For eBooks: 70% of the price after VAT and delivery costs inside the price band, otherwise 35% of the price after VAT.</p></details>
+<details><summary>Why did my paperback royalty drop below $9.99?</summary><p>Since June 2025 the print royalty rate is tiered: 60% at or above $9.99 on Amazon.com, 50% below it. A book priced at $9.98 earns the 50% rate on the whole price — not a blend — which is why one cent can cost about a dollar per sale on a mid-length book.</p></details>
+<details><summary>What is the KDP minimum list price?</summary><p>Printing cost ÷ royalty rate, worked out so the royalty always covers printing. Because the rate changes at the threshold, the minimum can sit in either tier — this calculator determines which tier applies and shows the exact figure.</p></details>
+<details><summary>How are eBook delivery costs calculated?</summary><p>File size in megabytes × the store’s per-MB rate, under the 70% option only: $0.15/MB on Amazon.com, £0.10 on Amazon.co.uk, €0.12 in the euro stores, ¥1 on Amazon.co.jp (waived there for files of 10 MB or more), with a minimum of $0.01 (¥1 in Japan). The 35% option has no delivery cost.</p></details>
+<details><summary>Do hardcovers earn the same royalty as paperbacks?</summary><p>The formula and the 60%/50% tiers are the same, but hardcover printing costs are much higher — a 300-page black-ink hardcover costs $9.25 to print against the paperback’s $4.60 — so the same list price pays noticeably less. Hardcovers also have no Expanded Distribution channel.</p></details>
+</div>
+<h2>Related tools</h2><ul><li><a href="/kdp-print-cost-calculator/">KDP printing cost calculator — the cost side of the formula</a></li><li><a href="/kdp-cover-calculator/">KDP cover size calculator — spine width and full cover size</a></li><li><a href="/guides/kdp-royalties-explained/">Guide: KDP royalties and printing costs explained</a></li><li><a href="/kdp/">All KDP calculators</a></li></ul>
+<p class="src-list">Sources: KDP Help — <a href="https://kdp.amazon.com/help?topicId=A1OYGQ0E1L4WBS" target="_blank" rel="noopener">Paperback Royalty</a> · <a href="https://kdp.amazon.com/help?topicId=A30F3VI2TH1FR8" target="_blank" rel="noopener">eBook Royalties</a> · <a href="https://kdp.amazon.com/help?topicId=G200634500" target="_blank" rel="noopener">Digital Book Pricing Page</a> · <a href="https://kdp.amazon.com/help?topicId=G200634560" target="_blank" rel="noopener">eBook List Price Requirements</a>. Rates verified November 23, 2026.</p>
+
+</main>
+<footer class="site-footer"><div class="in">
+<h2>All calculators in this suite</h2>
+<nav class="foot-links">
+<a href="/ebay-fee-calculator/">eBay fee calculator</a>
+<a href="/ebay-profit-calculator/">eBay profit calculator</a>
+<a href="/etsy-fee-calculator/">Etsy fee calculator</a>
+<a href="/poshmark-fee-calculator/">Poshmark fee calculator</a>
+<a href="/mercari-fee-calculator/">Mercari fee calculator</a>
+<a href="/amazon-referral-fee-calculator/">Amazon referral fee calculator</a>
+<a href="/depop-fee-calculator/">Depop fee calculator</a>
+<a href="/vinted-fee-calculator/">Vinted fee calculator</a>
+<a href="/whatnot-fee-calculator/">Whatnot fee calculator</a>
+<a href="/marketplace-fees-compared/">Compare all 8 platforms</a>
+<a href="/ebay-vs-etsy-fees/">eBay vs Etsy fees</a>
+<a href="/fee-changes/">Fee-change history</a>
+<a href="/guides/ebay-fees-explained/">eBay fees explained</a>
+<a href="/guides/etsy-fees-explained/">Etsy fees explained</a>
+<a href="/guides/mercari-fees-explained/">Mercari fees explained</a>
+<a href="/kdp/">KDP calculators</a>
+<a href="/kdp-cover-calculator/">KDP cover size calculator</a>
+<a href="/kdp-print-cost-calculator/">KDP printing cost calculator</a>
+<a href="/kdp-royalty-calculator/">KDP royalty calculator</a>
+<a href="/guides/kdp-royalties-explained/">KDP royalties explained</a>
+</nav>
+<p class="disclaimer"><strong>Disclaimer:</strong> Results are estimates for planning only, calculated from the formulas and tables on Amazon KDP’s official Help pages, verified November 23, 2026. KDP’s own Printing Cost &amp; Royalty Calculator and your Bookshelf show the binding figures for your title. Fee Calculator Suite is not affiliated with Amazon.com, Inc. or Kindle Direct Publishing; KDP and Kindle are trademarks of Amazon.com, Inc. or its affiliates, used here only to describe compatibility.</p>
+</div></footer>
+<script src="/assets/kdp.js"></script>
+</body>
+</html>

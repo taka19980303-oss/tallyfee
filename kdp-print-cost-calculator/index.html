@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KDP Printing Cost Calculator — Paperback &amp; Hardcover, All Marketplaces, Verified Nov 2026 | Fee Calculator Suite</title>
+<meta name="description" content="Free KDP printing cost calculator for paperbacks and hardcovers: fixed + per-page costs by ink, paper, trim size and marketplace, straight from KDP's official printing-cost tables. Verified November 23, 2026.">
+<link rel="canonical" href="https://tallyfee.com/kdp-print-cost-calculator/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+<header class="site-header"><div class="in">
+<a class="brand" href="/">Fee<span>Calculator</span>Suite</a>
+<nav class="site-nav">
+<a href="/marketplace-fees-compared/">Compare all 8</a>
+<a href="/ebay-vs-etsy-fees/">eBay vs Etsy</a>
+<a href="/fee-changes/">Fee changes</a>
+<a href="/kdp/">KDP</a>
+<a href="/guides/ebay-fees-explained/">Guides</a>
+</nav></div></header>
+<main class="wrap">
+
+<div class="hero"><h1>KDP Printing Cost Calculator</h1>
+<p class="lede">KDP prints each copy on demand and takes the printing cost out of your royalty. The cost is a <strong>fixed cost plus a per-page cost</strong> — and for short books, a flat rate with no per-page charge at all. Pick your format, ink, marketplace and page count.</p>
+<div class="badge-band"><span class="pill">✓ Rates verified</span>
+<span><strong>November 23, 2026</strong> — every figure checked against KDP’s official printing-cost tables. Sources: <a href="https://kdp.amazon.com/en_US/help/topic/G201834340" target="_blank" rel="noopener">Paperback Printing Cost</a> · <a href="https://kdp.amazon.com/en_US/help/topic/GHT976ZKSKUXBB6H" target="_blank" rel="noopener">Hardcover Printing Cost</a></span></div>
+</div>
+<div class="calc-grid">
+<div class="card"><h2>Your book</h2>
+<div class="field"><label for="kp-format">Format</label>
+<div class="input-wrap"><select id="kp-format">
+<option value="paperback" selected>Paperback</option>
+<option value="hardcover">Hardcover</option>
+</select></div></div>
+<div class="field"><label for="kp-ink">Ink &amp; paper</label>
+<div class="input-wrap"><select id="kp-ink"></select></div></div>
+<div class="field"><label for="kp-market">Marketplace <span>where the copy is sold — each store charges in its own currency</span></label>
+<div class="input-wrap"><select id="kp-market"></select></div></div>
+<div class="field"><label for="kp-trim">Trim size <span>sets regular vs large trim pricing</span></label>
+<div class="input-wrap"><select id="kp-trim"></select></div></div>
+<div id="kp-custom" style="display:none">
+<div class="field"><label for="kp-tw">Trim width <span>inches</span></label>
+<div class="input-wrap"><input id="kp-tw" type="number" inputmode="decimal" min="4" max="8.5" step="0.01" value="6"></div></div>
+<div class="field"><label for="kp-th">Trim height <span>inches</span></label>
+<div class="input-wrap"><input id="kp-th" type="number" inputmode="decimal" min="4" max="11.69" step="0.01" value="9"></div></div>
+</div>
+<div class="field"><label for="kp-pages">Page count</label>
+<div class="input-wrap"><input id="kp-pages" type="number" inputmode="numeric" min="24" max="828" step="1" value="300"></div>
+<p class="hint">Paperbacks run 24–828 pages (standard color 72–600); hardcovers 75–550. A trim wider than 6.12 in or taller than 9 in is priced as a large trim.</p></div>
+<p class="privacy-note">Nothing you type leaves your browser — every calculation runs on this page, on your device.</p></div>
+<div class="result-panel" aria-live="polite">
+<div class="result-hero"><div class="label">Printing cost per copy</div><div class="big mono" id="kp-cost">—</div><div id="kp-verdict"></div></div>
+<div class="kv"><span class="k">How KDP calculates it</span><span class="v mono" id="kp-mode">—</span></div>
+<div class="kv"><span class="k">Trim class</span><span class="v mono" id="kp-trimclass">—</span></div>
+<div class="kv"><span class="k">Marketplace</span><span class="v mono" id="kp-market-name">—</span></div>
+<div class="kv total"><span class="k">Minimum list price at this cost</span><span class="v mono" id="kp-minlist">—</span></div>
+<div class="breakeven">KDP will not let you price below the minimum list price — it is set so the royalty always covers the printing cost. To see what you actually earn at a given price, use the <a href="/kdp-royalty-calculator/" style="color:#3ddc84">royalty calculator</a>.</div>
+<div class="copy-row"><button type="button" class="btn small ghost copy-btn" data-prefix="kp">Copy result</button><span class="copy-msg" data-for="kp"></span></div>
+</div>
+</div>
+<h2>How KDP printing costs work</h2>
+<p class="rate-line">Rates verified: <strong>November 23, 2026</strong> on KDP’s official printing-cost pages · Printing cost = <strong>fixed cost + (page count × per-page cost)</strong> · Short books pay the <strong>fixed cost only</strong>: black-ink paperbacks up to 110 pages, groundwood up to 112, premium color up to 40, black-ink hardcovers up to 108.</p>
+<p><strong>The flat band is free pages.</strong> A black-ink paperback sold on Amazon.com costs $2.30 to print whether it has 24 pages or 110 — every page up to 110 costs nothing extra. Above the band, the fixed cost drops and a per-page charge takes over: a 300-page book costs $1.00 + 300 × $0.012 = <strong>$4.60</strong>. That example is KDP’s own, and the defaults above are set to it so you can check the arithmetic.</p>
+<p><strong>Ink is the biggest lever.</strong> On Amazon.com at regular trim, each page costs $0.012 in black ink, $0.0255 in standard color and $0.065 in premium color — premium color pages cost more than five times black. Groundwood paper undercuts white/cream by about 5% per page. Trim size matters too: anything wider than 6.12 in or taller than 9 in pays the large-trim rate on every copy.</p>
+<p><strong>Scope, stated plainly.</strong> Paperback costs are modelled for all eight marketplaces in KDP’s table (US, Canada, UK, EU stores, Poland, Sweden, Australia, Japan). Standard color is not offered on Amazon.com.au, so it is not modelled there. Hardcover costs are modelled for Amazon.com, Amazon.co.uk and the EU stores — the marketplaces whose full hardcover tables we verified; KDP does not sell hardcovers on Amazon.co.jp at all.</p>
+<h2>Frequently asked questions</h2><div class="faq">
+<details><summary>How much does it cost to print a 300-page paperback on KDP?</summary><p>On Amazon.com, in black ink at a regular trim size: $1.00 fixed + 300 × $0.012 per page = $4.60 per copy. The same book as a hardcover costs $9.25 — the per-page rate is identical, the fixed cost is $4.65 higher.</p></details>
+<details><summary>Why does my 100-page book cost the same as a 24-page book?</summary><p>Black-ink paperbacks from 24 to 110 pages pay only the fixed cost ($2.30 on Amazon.com, regular trim) — there is no per-page charge inside the band. Shortening a 100-page book to 90 pages saves nothing per copy.</p></details>
+<details><summary>What is the minimum list price KDP allows?</summary><p>Printing cost ÷ royalty rate. Because the print royalty rate is 60% at or above the marketplace threshold ($9.99 on Amazon.com) and 50% below it, the minimum is whichever of the two calculations lands in its own price range — this calculator works out which one applies.</p></details>
+<details><summary>Do bleed or cover finish change the printing cost?</summary><p>No. KDP states that bleed settings and cover finish (glossy or matte) do not affect printing cost. Page count, ink, paper, trim class and marketplace are the only inputs.</p></details>
+<details><summary>Does KDP charge printing cost upfront?</summary><p>No. There is no upfront charge and no inventory: each copy is printed when ordered, and the printing cost is subtracted from that sale’s royalty.</p></details>
+</div>
+<h2>Related tools</h2><ul><li><a href="/kdp-royalty-calculator/">KDP royalty calculator — what you keep per sale</a></li><li><a href="/kdp-cover-calculator/">KDP cover size calculator — spine width and full cover size</a></li><li><a href="/guides/kdp-royalties-explained/">Guide: KDP royalties and printing costs explained</a></li><li><a href="/kdp/">All KDP calculators</a></li></ul>
+<p class="src-list">Sources: KDP Help — <a href="https://kdp.amazon.com/en_US/help/topic/G201834340" target="_blank" rel="noopener">Paperback Printing Cost</a> · <a href="https://kdp.amazon.com/en_US/help/topic/GHT976ZKSKUXBB6H" target="_blank" rel="noopener">Hardcover Printing Cost</a>. Rates verified November 23, 2026.</p>
+
+</main>
+<footer class="site-footer"><div class="in">
+<h2>All calculators in this suite</h2>
+<nav class="foot-links">
+<a href="/ebay-fee-calculator/">eBay fee calculator</a>
+<a href="/ebay-profit-calculator/">eBay profit calculator</a>
+<a href="/etsy-fee-calculator/">Etsy fee calculator</a>
+<a href="/poshmark-fee-calculator/">Poshmark fee calculator</a>
+<a href="/mercari-fee-calculator/">Mercari fee calculator</a>
+<a href="/amazon-referral-fee-calculator/">Amazon referral fee calculator</a>
+<a href="/depop-fee-calculator/">Depop fee calculator</a>
+<a href="/vinted-fee-calculator/">Vinted fee calculator</a>
+<a href="/whatnot-fee-calculator/">Whatnot fee calculator</a>
+<a href="/marketplace-fees-compared/">Compare all 8 platforms</a>
+<a href="/ebay-vs-etsy-fees/">eBay vs Etsy fees</a>
+<a href="/fee-changes/">Fee-change history</a>
+<a href="/guides/ebay-fees-explained/">eBay fees explained</a>
+<a href="/guides/etsy-fees-explained/">Etsy fees explained</a>
+<a href="/guides/mercari-fees-explained/">Mercari fees explained</a>
+<a href="/kdp/">KDP calculators</a>
+<a href="/kdp-cover-calculator/">KDP cover size calculator</a>
+<a href="/kdp-print-cost-calculator/">KDP printing cost calculator</a>
+<a href="/kdp-royalty-calculator/">KDP royalty calculator</a>
+<a href="/guides/kdp-royalties-explained/">KDP royalties explained</a>
+</nav>
+<p class="disclaimer"><strong>Disclaimer:</strong> Results are estimates for planning only, calculated from the formulas and tables on Amazon KDP’s official Help pages, verified November 23, 2026. KDP’s own Printing Cost &amp; Royalty Calculator and your Bookshelf show the binding figures for your title. Fee Calculator Suite is not affiliated with Amazon.com, Inc. or Kindle Direct Publishing; KDP and Kindle are trademarks of Amazon.com, Inc. or its affiliates, used here only to describe compatibility.</p>
+</div></footer>
+<script src="/assets/kdp.js"></script>
+</body>
+</html>
