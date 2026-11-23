@@ -12,7 +12,7 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="stylesheet" href="/assets/style.css?v=batch20261123">
+<link rel="stylesheet" href="/assets/style.css?v=now20261123">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Fee Calculator Suite">
 <meta property="og:title" content="CRM Cost Calculator — Per-Seat Totals for 5 CRMs | Fee Calculator Suite">
@@ -32,6 +32,7 @@
 <div class="nav-item has-drop"><a class="nav-top" href="/marketplace-fees-compared/">Marketplace fees<span class="caret">▾</span></a><div class="drop"><a href="/">All fee calculators</a><a href="/marketplace-fees-compared/">Compare all 8 platforms</a><a href="/ebay-vs-etsy-fees/">eBay vs Etsy fees</a><a href="/batch-fee-calculator/">Batch calculator + CSV</a><a href="/fee-changes/">Fee-change history</a></div></div><div class="nav-item has-drop"><a class="nav-top" href="/kdp/">KDP<span class="caret">▾</span></a><div class="drop"><a href="/kdp/">All KDP calculators</a><a href="/kdp-cover-calculator/">Cover size calculator</a><a href="/kdp-print-cost-calculator/">Printing cost calculator</a><a href="/kdp-royalty-calculator/">Royalty calculator</a><a href="/guides/kdp-royalties-explained/">KDP royalties explained</a></div></div><div class="nav-item has-drop"><a class="nav-top active" href="/software/">Software pricing<span class="caret">▾</span></a><div class="drop"><a href="/software/">Software cost hub</a><a href="/software/email-marketing/">Email marketing compared</a><a href="/software/email-marketing-cost-calculator/">Email cost calculator</a><a href="/software/crm/">CRM compared</a><a href="/software/crm-cost-calculator/">CRM cost calculator</a><a href="/software/guides/per-seat-pricing-explained/">Per-seat pricing explained</a></div></div><div class="nav-item has-drop"><a class="nav-top" href="/guides/ebay-fees-explained/">Guides<span class="caret">▾</span></a><div class="drop"><a href="/guides/ebay-fees-explained/">eBay fees explained</a><a href="/guides/etsy-fees-explained/">Etsy fees explained</a><a href="/guides/mercari-fees-explained/">Mercari fees explained</a><a href="/guides/kdp-royalties-explained/">KDP royalties explained</a><a href="/software/guides/per-seat-pricing-explained/">Per-seat pricing explained</a></div></div><a class="nav-top" href="/ja/software/crm-cost-calculator/">日本語</a>
 </nav></div></header>
 <main class="wrap">
+<div class="ad-banner" data-affiliate-banner data-active="false"><strong>Advertising disclosure:</strong> This page contains affiliate links. If you sign up or buy through them, we may earn a commission from the vendor — at no extra cost to you. Commissions never change the prices we list, our rankings or our verdicts: every figure is read on the vendor's official page and stamped with the date it was checked.</div>
 <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">›</span><a href="/software/">Software pricing</a><span class="sep">›</span><a href="/software/crm/">CRM</a><span class="sep">›</span><span aria-current="page">CRM cost calculator</span></nav>
 
 <div class="hero"><h1>CRM cost calculator</h1>
@@ -45,6 +46,7 @@
 <p class="hint">Annual billing is the default because every one of these vendors discounts it per seat. Switch to monthly to see month-to-month prices — where the vendor publishes them; annual-only plans say so instead of borrowing the annual figure.</p>
 <table class="fees"><tr><th>CRM</th><th class="num">Per month</th><th class="num">Year one</th><th class="num">3 years</th></tr><tbody id="results"></tbody></table>
 <div class="cmp-verdict" id="verdict" aria-live="polite"></div>
+<div id="vendor-cta"></div>
 <details class="advanced"><summary>All plans at this team size</summary><div id="allplans"></div></details>
 <p class="hint">All prices in US dollars. The 3-year column repeats today's prices for three years — no price rises are modelled.</p>
 <p class="privacy-note">Nothing you type leaves your browser — every calculation runs on this page, on your device.</p>
@@ -66,8 +68,8 @@
 <p><strong>Unpublished prices stay unpublished.</strong> Zoho's monthly-billing USD rates and HubSpot Enterprise's monthly rate are not on the vendors' pricing pages — pick monthly billing and those rows show no monthly figure at all, just a note with the annual-billing price for reference.</p>
 <p><strong>monday CRM</strong> prices by billing country and showed yen pricing from Japan, so it is not in this USD calculator; its full regional table is on the <a href="/software/monday-pricing/">monday pricing page</a>.</p>
 
-<script src="/assets/saas-data.js?v=batch20261123"></script>
-<script src="/assets/pricing.js?v=batch20261123"></script>
+<script src="/assets/saas-data.js?v=now20261123"></script>
+<script src="/assets/pricing.js?v=now20261123"></script>
 <script>
 (function(){
   var D = window.SAAS_DATA.crm, E = window.PricingEngine;
@@ -108,7 +110,7 @@
       var cost = E.toolCost(t, 0, s, billing), fb = null;
       if (!cost && billing === 'annual') { var altM = E.toolCost(t, 0, s, 'monthly'); if (altM) { cost = altM; fb = 'monthly'; } }
       if (!cost && billing === 'monthly') { var altA = E.toolCost(t, 0, s, 'annual'); if (altA) fb = altA; }
-      return { name: t.name, id: id, cost: cost, fb: fb };
+      return { name: t.name, id: id, cost: cost, fb: fb, source: t.source };
     });
     rows.sort(function(a,b){ if(!a.cost) return 1; if(!b.cost) return -1; return a.cost.annualTotal - b.cost.annualTotal; });
     var minAnnual = null;
@@ -135,6 +137,7 @@
       }).join('');
     }
     var winners = rows.filter(function(r){ return r.cost && minAnnual !== null && Math.abs(r.cost.annualTotal - minAnnual) < 0.005; });
+    var tfDetail = winners.length ? { name: winners[0].name, id: winners[0].id, source: winners[0].source } : null; window.__tfVerdict = tfDetail; document.dispatchEvent(new CustomEvent('tallyfee:verdict', { detail: tfDetail }));
     var v = document.getElementById('verdict');
     if (!winners.length) { v.innerHTML = ''; }
     else if (winners.length > 1) {
@@ -174,9 +177,14 @@
 <a href="/software/close-pricing/">Close pricing</a>
 <a href="/software/monday-pricing/">monday CRM pricing</a>
 <a href="/about/">About &amp; how we verify</a>
+<a href="/disclosure/">Advertising disclosure</a>
+<a href="/privacy/">Privacy policy</a>
 </nav>
 <p class="disclaimer"><strong>Disclaimer:</strong> Results are estimates for planning only. Prices change, and vendors run promotions that are not modelled here. Always confirm the final price on the vendor's official pricing page before subscribing. Software prices on this page were verified on the vendors' official pricing pages on November 23, 2026.</p>
+<p class="disclaimer site-legal"><strong>Not affiliated:</strong> This site is not affiliated with eBay, Etsy, Amazon or any other platform or vendor named on it; all product and company names are trademarks of their respective owners.</p>
+<p class="disclaimer site-legal">Operated by Takahiro Ogura （小倉 貴大） as an independent individual project.</p>
 </div></footer>
-<script src="/assets/nav.js?v=batch20261123" defer></script>
+<script src="/assets/nav.js?v=now20261123" defer></script>
+<script src="/assets/events.js?v=now20261123" defer></script>
 </body>
 </html>

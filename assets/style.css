@@ -318,3 +318,20 @@ a,.btn,.tile,.preset,.preset-row button,.quick-chip,.mode-toggle button,.row-del
   table.fees{break-inside:avoid}
   a{color:var(--ink);text-decoration:none}
 }
+
+/* Monetization mechanics (batch ③): CTA component + disclosure slots.
+   The page-top banner and the (Ad) label ship INACTIVE — they render
+   only when their data-active flag is flipped to "true", which happens
+   in the same change that swaps vendor links to affiliate links. */
+.ad-banner{display:none;background:#fff8e6;border:1px solid #e8cf8a;border-radius:12px;
+  padding:10px 14px;margin:14px 0 4px;font-size:14.5px}
+.ad-banner[data-active="true"]{display:block}
+.vendor-cta{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;justify-content:space-between;
+  background:#e9f5ee;border:1px solid #bfe3cf;border-radius:var(--radius);padding:14px 18px;margin:16px 0}
+.vendor-cta-body{flex:1 1 320px;font-size:15.5px}
+.vendor-cta-action{display:flex;align-items:center;gap:10px}
+.ad-label{display:none;font-size:13px;font-weight:700;color:var(--warn)}
+.ad-label[data-active="true"]{display:inline}
+.cta-note{flex-basis:100%;font-size:13px;color:var(--muted);margin:0}
+.site-legal{margin-top:10px}
+@media print{.vendor-cta,.ad-banner{display:none !important}}

@@ -6,7 +6,7 @@
 - 料率・価格はすべて各プラットフォーム／ベンダーの公式ページで確認済みのものだけを実装。確認できないものは推測で入れていない。確認日は各ページに明記。
 - 全ページに英日ツインがある（`/ja/` 以下）。ソフトウェアセクションは生成、残りは手書き（後述）。
 
-## 構成一覧（107ページ = sitemap 106 URL + 404）
+## 構成一覧（111ページ = sitemap 110 URL + 404）
 
 ### マーケットプレイス（手書き、EN/JA）
 | パス | 内容 |
@@ -42,7 +42,7 @@
 `/software/` 以下は **`~/workspace/tallyfee-saas-build/gen.py` が単一ソースで生成**する。データは `~/workspace/tallyfee-saas-data/` → `convert.py` → `assets/saas-data.js`。メール配信（6ツール）／CRM（5ツール＋monday地域価格）の料金ページ・比較・vs・計算機2本・best系・ガイド。手で編集しないこと（gen.py を直して再生成する）。
 
 ### 共通
-`/about/`（検証方法・運営）、`robots.txt` / `sitemap.xml` / `404.html` / `favicon.svg` / favicon一式、`_redirects`（推測URL→実URLの301）。
+`/about/`（検証方法・運営）、`/disclosure/`（広告・アフィリエイト開示。文案は法務監査の確定稿で、冒頭バナー＋CTA直近ラベルの有効化手順つき）、`/privacy/`（プライバシーポリシー）— いずれも英日、`robots.txt` / `sitemap.xml` / `404.html` / `favicon.svg` / favicon一式、`_redirects`（推測URL→実URLの301）。
 
 ### アセット
 | ファイル | 内容 |
@@ -52,13 +52,14 @@
 | `/assets/kdp.js` | KDP計算エンジン＋配線（料率表はデータテーブル構造） |
 | `/assets/pricing.js` + `/assets/saas-data.js` | ソフトウェア料金エンジン＋データ（計算機ページのみ読込） |
 | `/assets/batch.js` / `/assets/nav.js` | 一括計算／タッチ用ドロップダウン |
+| `/assets/events.js` | 計測の受け口：外部リンクのクリックと計算完了をメモリ内キュー（`window.__tallyfeeEvents`）に記録するだけの第一者レイヤ。送信なし・クッキーなし。Cloudflare Web Analytics のビーコンはファイル冒頭の定数 `CLOUDFLARE_WEB_ANALYTICS_TOKEN` にトークンを貼ったときだけ読み込まれる（現在は空＝無効） |
 | `/assets/style.css` | 共通スタイル（白基調。結果パネルのみ濃色） |
 
 各計算機ページの共通仕様：初期値プリセットで開いた瞬間に結果表示／判定ラベル＋根拠1文／構成比バー／検証日バッジ＋公式出典リンク／詳細設定は折りたたみ／結果コピー機能／損益分岐価格／入力の永続化（URLパラメータ優先、次に localStorage `tf-calc:<path>`。共有リンクで再現可能）／「入力はブラウザ外に出ない」明記。フッターには手数料の免責に加えて税金注記（結果は税引前である旨）を併記。
 
 ## キャッシュとアセットトークン（重要）
 
-Cloudflare は style.css 等を max-age 14400（4時間）でキャッシュするため、**全アセットURLに `?v=<トークン>` を付けている**。現在のトークンは **`batch20261123`**。CSS/JS を1文字でも変えたら、トークンを新しい値に全ページ＋gen.py テンプレートで一括置換すること（漏れると古いJS/CSSが訪問者のキャッシュに残る。過去に実際に踏んだ事故パターン）。
+Cloudflare は style.css 等を max-age 14400（4時間）でキャッシュするため、**全アセットURLに `?v=<トークン>` を付けている**。現在のトークンは **`now20261123`**。CSS/JS を1文字でも変えたら、トークンを新しい値に全ページ＋gen.py テンプレートで一括置換すること（漏れると古いJS/CSSが訪問者のキャッシュに残る。過去に実際に踏んだ事故パターン）。
 
 ```bash
 grep -rho '?v=[a-zA-Z0-9]*' . | sort | uniq -c   # 1種類だけになっていること
@@ -78,7 +79,9 @@ grep -rho '?v=[a-zA-Z0-9]*' . | sort | uniq -c   # 1種類だけになってい�
 | `audit2.py` | アンカー・資産・sitemap↔ファイル双射・`_redirects` 対象（TOTAL: 0 が合格。コメント行は読み飛ばす） |
 | `test-engine.js` | ソフトウェア料金エンジン（pricing.js）の回帰テスト 20件 |
 | `test-engines.js` | **マーケットプレイスエンジン（engines.js）の回帰テスト 20件**。下記の期待値を実行可能な形で照合する |
-| `gen.py` | ソフトウェアセクション生成（2026-11-23 にバイトコードから復元・検証済み。経緯は同フォルダの `GEN_PY_RECOVERY.md`） |
+| `gen.py` | ソフトウェアセクション生成（2026-11-23 にバイトコードから復元・検証済み。経緯は同フォルダの `GEN_PY_RECOVERY.md`）。CTAコンポーネント（`vendor_cta()`）と開示バナー枠（`disclosure_banner()`）もここが単一ソース |
+| `smoke-check.js` | 本番スモークチェック：ライブの engines.js を取得して期待値20件を再実行＋主要ページの料率表記（13.6%等）と想定外リダイレクトを照合する改ざん探知機。push直後と日次で実行 |
+| `pre-push-check.py` | push前のファイル一覧ゲート：0バイト・残置ファイル（*.new等）・許可外拡張子があれば失敗する |
 | `convert.py` / `transform_nav.py` | データ変換／手書きページのヘッダー一括置換（完全一致置換。置換漏れは監査で検出） |
 
 ### engines.js 期待値20件（test-engines.js が実行）
@@ -113,6 +116,7 @@ PASS Reverse round-trip profit = 50
 ## 運用ルール
 
 - 料率は月1回公式ページで再確認し、変更があれば計算機・履歴・該当記事・feed.xml を同時更新。**検証日は実際に再確認したときだけ更新する**（日付だけの付け替えはしない）。
+- 収益化の有効化手順（アフィリエイト開始時）：①ベンダーリンクをアフィリエイトURLに差し替え ②同じ変更で開示バナーとCTA直近ラベルの `data-active="false"` を `"true"` に反転（`/software/` は gen.py の `disclosure_banner()` / `vendor_cta()` と events.js の動的CTA、本文ページは各ページ冒頭のバナー枠）③`smoke-check.js` にアフィリエイトhrefの許可リスト照合を追加。**②を欠いたリンク差し替えはステマ規制違反になるので絶対に分けない。**
 - 料率改定の手順：①engines.js（または kdp.js の表／saas-data）→ ②該当ページ本文・実例・JSON-LD（EN/JA）→ ③calc.js のラベル・検証日文字列 → ④fee-changes＋feed.xml → ⑤テスト・監査 → ⑥トークン差し替え → push。
 
 ## 既知の制限（ページ内に明記済みのもの）
@@ -122,4 +126,4 @@ PASS Reverse round-trip profit = 50
 - **Whatnot のティア制**（Standard 以外）：未モデル化。Standard 前提をページ内に明記済み。
 - **eBay 国際手数料のボリューム割引ティア**（日本／Rest of APAC）：未モデル化。ページ内に明記済み。
 - **eBay のカテゴリ別料率**：本計算機は「most categories（Store なし）」前提。Books/Music 等の 15.3% カテゴリはページ内で注記のみ。
-- **アクセス解析**：未設置（Cloudflare Web Analytics 等は別バッチで検討）。
+- **アクセス解析**：受け口（`assets/events.js`）のみ設置済み。キューはブラウザのメモリ内で完結し外部送信しない。Cloudflare Web Analytics のビーコントークンは未設定（運営者がダッシュボードで取得し `events.js` の定数に貼ると有効化）。
