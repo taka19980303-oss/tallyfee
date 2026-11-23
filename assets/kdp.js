@@ -197,7 +197,7 @@
 
   /* ================= Page wiring ================= */
   var $ = function (id) { return document.getElementById(id); };
-  function num(id, dflt) { var el = $(id); if (!el) return dflt || 0; var v = parseFloat(el.value); return isNaN(v) ? (dflt || 0) : v; }
+  function num(id, dflt) { var el = $(id); if (!el) return dflt || 0; var v = parseFloat(el.value); return isNaN(v) || v < 0 ? (dflt || 0) : v; }
   function val(id) { var el = $(id); return el ? el.value : ""; }
   function on(id, ev, fn) { var el = $(id); if (el) el.addEventListener(ev, fn); }
   function money(sym, v, dec) {
@@ -569,6 +569,16 @@
           if (royaltyMode !== "ebook") formatOverride = royaltyMode;
           calcRoyalty();
         });
+      });
+      /* Store-linked VAT preset (eBook mode): list prices in these stores
+         are quoted tax-inclusive, so changing the store seeds the VAT
+         field; the reader can still type over it. JP = 10% consumption
+         tax; UK e-books are zero-rated; EU uses the German reduced e-book
+         rate as the preset for the combined .de/.fr/.es/.it/.nl store. */
+      var EBOOK_VAT = { US: 0, UK: 0, EU: 7, CA: 0, AU: 0, JP: 10, IN: 0, BR: 0, MX: 0 };
+      on("kr-emarket", "change", function () {
+        var vatEl = $("kr-vat"), mkt = val("kr-emarket");
+        if (vatEl && Object.prototype.hasOwnProperty.call(EBOOK_VAT, mkt)) vatEl.value = EBOOK_VAT[mkt];
       });
       ["kr-format", "kr-ink", "kr-market", "kr-trim", "kr-channel", "kr-emarket"].forEach(function (id) { on(id, "change", calcRoyalty); });
       ["kr-pages", "kr-tw", "kr-th", "kr-list", "kr-mb", "kr-vat"].forEach(function (id) { on(id, "input", calcRoyalty); });

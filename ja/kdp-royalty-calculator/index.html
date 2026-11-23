@@ -13,7 +13,7 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="stylesheet" href="/assets/style.css?v=mobile20261123">
+<link rel="stylesheet" href="/assets/style.css?v=batch20261123">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Fee Calculator Suite">
 <meta property="og:title" content="KDPロイヤルティ計算機 — ペーパーバック、ハードカバー＆電子書籍のロイヤルティ、2026年11月確認">
@@ -90,7 +90,7 @@
 <p class="hint">ブラジル、日本、メキシコ、インドのストアでは、70%オプションにはKDP Selectへの登録も必要です。</p></div>
 <div class="field"><label for="kr-mb">電子書籍のファイルサイズ <span>メガバイト — 70%オプションではMBあたりの配信コストがかかります</span></label>
 <div class="input-wrap"><input id="kr-mb" type="number" inputmode="decimal" min="0" step="0.1" value="1"></div></div>
-<div class="field"><label for="kr-vat">定価に含まれる消費税（VAT）<span>% — 米国ストアでは0；EU／英国の定価にはVATが含まれます</span></label>
+<div class="field"><label for="kr-vat">定価に含まれる消費税・VAT（税）<span>% — ストア連動で自動設定（日本10%・英国0%・EU目安7%）。変更もできます</span></label>
 <div class="input-wrap"><input id="kr-vat" type="number" inputmode="decimal" min="0" max="30" step="0.5" value="0"><span class="suffix">%</span></div></div>
 </div>
 <p class="privacy-note">入力した内容はブラウザの外に出ません — 計算はすべてこのページ上で行われます。</p></div>
@@ -111,6 +111,7 @@
 <div class="copy-row"><button type="button" class="btn small ghost copy-btn" data-prefix="kr">結果をコピー</button><span class="copy-msg" data-for="kr"></span></div>
 </div>
 </div>
+<p class="tax-note"><strong>源泉徴収について：</strong>表示されるロイヤルティは、KDPが計算する税引前の額です。日本在住の方がKDPの税務情報（W-8BEN）を提出していない場合、Amazon.comでの売上には30%の米国源泉徴収がかかります。W-8BENで日米租税条約の適用を申請すると0%になります（3年ごとに更新が必要）。また、ロイヤルティは日本でも雑所得または事業所得として課税対象となり、確定申告が必要になる場合があります。詳しくはKDP公式の税務情報ページをご確認ください。</p>
 <h2>KDPロイヤルティの仕組み</h2>
 <p class="rate-line">料率確認：<strong>2026年11月23日</strong>、KDP公式ヘルプ · 印刷本：<strong>（料率 × 定価）− 印刷コスト</strong>、料率はマーケットプレイスのしきい値以上で<strong>60%</strong>、未満で<strong>50%</strong>、Expanded Distributionで<strong>40%</strong> · 電子書籍の70%帯（Amazon.com）：2026年7月7日以降<strong>$2.99〜$12.99</strong>。</p>
 <p><strong>$9.99の崖は実在します。</strong>KDPは2025年6月に印刷本のロイヤルティを変更しました：もはや一律60%ではありません。300ページのモノクロインクのペーパーバックを$9.99で価格設定すると、0.60 × $9.99 − $4.60＝<strong>$1.39</strong>を稼ぎます。1セント安い$9.98で価格設定すると、50%の料率が適用され：0.50 × $9.98 − $4.60＝<strong>$0.39</strong>。定価の1セントでロイヤルティが1ドル動きます。この計算機は、価格がしきい値を下回るたびに崖を警告します。</p>
@@ -157,7 +158,7 @@
 </nav>
 <p class="disclaimer"><strong>免責：</strong>結果は計画用の見積もりであり、Amazon KDP公式ヘルプページの計算式と表（2026年11月23日に確認）に基づいて計算しています。あなたのタイトルに適用される正式な数値は、KDP公式の印刷コスト＆ロイヤルティ計算機とあなたの本棚（Bookshelf）で確認してください。Fee Calculator SuiteはAmazon.com, Inc.およびKindle Direct Publishingとは関係がありません。KDPとKindleはAmazon.com, Inc.またはその関連会社の商標であり、ここでは互換性を説明するためにのみ使用しています。</p>
 </div></footer>
-<script src="/assets/kdp.js?v=mobile20261123"></script>
-<script src="/assets/nav.js?v=mobile20261123" defer></script>
+<script src="/assets/kdp.js?v=batch20261123"></script>
+<script src="/assets/nav.js?v=batch20261123" defer></script>
 </body>
 </html>

@@ -126,6 +126,17 @@ tr.best td{background:#e9f5ee;font-weight:700}
 .cmp-inputs>*{min-width:0}
 .cmp-inputs .input-wrap{min-width:0}
 @media (max-width:840px){.cmp-inputs{grid-template-columns:repeat(2,1fr)}}
+/* Sticky comparison input bar: fixed directly under the sticky header,
+   slides in only while the main input card is scrolled out of view. */
+.cmp-sticky{position:fixed;left:0;right:0;top:0;z-index:55;background:var(--card);border-bottom:1px solid var(--line);box-shadow:0 8px 20px rgba(20,40,25,.10);transform:translateY(-110%);visibility:hidden;transition:transform .18s ease,visibility 0s linear .18s}
+.cmp-sticky.on{transform:translateY(0);visibility:visible;transition:transform .18s ease}
+.cmp-sticky-in{max-width:1080px;margin:0 auto;padding:8px 18px;display:flex;align-items:flex-end;gap:10px}
+.cmp-sticky-label{font-size:12px;font-weight:700;color:var(--muted);white-space:nowrap;padding-bottom:8px}
+.cmp-sticky .csf{display:flex;flex-direction:column;gap:2px;flex:1 1 0;min-width:0;margin:0}
+.cmp-sticky .csf>span{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cmp-sticky .input-wrap input{padding:7px 8px;font-size:15px}
+.cmp-sticky .input-wrap .prefix{padding:0 2px 0 8px}
+@media (max-width:560px){.cmp-sticky-in{padding:6px 10px;gap:6px}.cmp-sticky-label{display:none}}
 .bar-row{display:flex;align-items:center;gap:10px;margin:5px 0;font-size:14px}
 .bar-row .nm{width:86px;font-weight:600}
 .bar-row .track{flex:1;background:#e7ece8;border-radius:5px;height:14px;overflow:hidden}
@@ -153,6 +164,7 @@ tr.best td{background:#e9f5ee;font-weight:700}
 .foot-links{display:flex;flex-wrap:wrap;gap:8px 18px;margin-bottom:18px}
 .foot-links a{font-size:14.5px;text-decoration:none;font-weight:600}
 .disclaimer{font-size:13px;color:var(--muted);max-width:70em}
+.tax-note{font-size:13.5px;background:#f2f7f2;border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:14px 0;color:var(--ink)}
 .src-list{font-size:14px;color:var(--muted)}
 .rate-line{font-size:14.5px;color:#33413a;background:#eef3ef;border-radius:10px;padding:10px 14px}
 .mode-toggle{display:flex;gap:8px;margin-bottom:14px}
@@ -297,7 +309,7 @@ a,.btn,.tile,.preset,.preset-row button,.quick-chip,.mode-toggle button,.row-del
 
 /* Audit pass: print — content and results only */
 @media print{
-  .site-header,.site-footer,.crumbs,.preset,.preset-row,.mode-toggle,.copy-row,
+  .site-header,.site-footer,.crumbs,.preset,.preset-row,.mode-toggle,.copy-row,.cmp-sticky,
   .btn,button,input,select,textarea,.privacy-note,.nav-item .drop{display:none !important}
   body{background:#fff;font-size:13.5px}
   .wrap{max-width:none;padding:0}

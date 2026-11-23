@@ -22,7 +22,7 @@
       + '<td data-label="' + (JA ? "仕入価格" : "Item cost") + '"><input class="b-cost" type="number" inputmode="decimal" min="0" step="0.01"></td>'
       + '<td data-label="' + (JA ? "実際の送料" : "Actual shipping") + '"><input class="b-shipcost" type="number" inputmode="decimal" min="0" step="0.01"></td>'
       + '<td class="num mono" data-label="' + (JA ? "手数料合計" : "Total fees") + '">$0.00</td>'
-      + '<td class="num mono" data-label="' + (JA ? "純利益" : "Net profit") + '">$0.00</td>'
+      + '<td class="num mono" data-label="' + (JA ? "純利益（税引前）" : "Net profit") + '">$0.00</td>'
       + '<td class="num mono" data-label="' + (JA ? "利益率" : "Margin") + '">0%</td>'
       + '<td data-label=""><button type="button" class="row-del" aria-label="' + (JA ? "行を削除" : "Remove row") + '">×</button></td>';
     tr.querySelector(".b-name").value = name;
@@ -67,6 +67,7 @@
 
   function csvCell(s) {
     s = String(s);
+    if (/^[=+\-@]/.test(s)) s = "'" + s; // spreadsheet formula-injection guard
     return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
   }
 
@@ -74,7 +75,7 @@
   $("batch-platform").addEventListener("change", calcBatch);
   $("batch-csv").addEventListener("click", function () {
     var key = $("batch-platform").value;
-    var lines = [JA ? "商品名,販売価格,請求送料,仕入価格,実際の送料,売上,手数料合計,純利益,利益率 %" : "Item name,Sale price,Shipping charged,Item cost,Actual shipping,Revenue,Total fees,Net profit,Margin %"];
+    var lines = [JA ? "商品名,販売価格,請求送料,仕入価格,実際の送料,売上,手数料合計,純利益（税引前）,利益率 %" : "Item name,Sale price,Shipping charged,Item cost,Actual shipping,Revenue,Total fees,Net profit,Margin %"];
     var tPrice = 0, tShip = 0, tCost = 0, tShipcost = 0, tRevenue = 0, tFees = 0, tProfit = 0;
     batchBody.querySelectorAll("tr").forEach(function (tr) {
       var name = tr.querySelector(".b-name").value;

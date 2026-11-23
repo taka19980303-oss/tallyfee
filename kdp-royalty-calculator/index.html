@@ -12,7 +12,7 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="stylesheet" href="/assets/style.css?v=mobile20261123">
+<link rel="stylesheet" href="/assets/style.css?v=batch20261123">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Fee Calculator Suite">
 <meta property="og:title" content="KDP Royalty Calculator — Paperback, Hardcover &amp; eBook Royalties, Verified Nov 2026">
@@ -89,7 +89,7 @@
 <p class="hint">In the Brazil, Japan, Mexico and India stores, the 70% option also requires KDP Select enrollment.</p></div>
 <div class="field"><label for="kr-mb">eBook file size <span>megabytes — delivery cost is charged per MB under the 70% option</span></label>
 <div class="input-wrap"><input id="kr-mb" type="number" inputmode="decimal" min="0" step="0.1" value="1"></div></div>
-<div class="field"><label for="kr-vat">VAT included in the list price <span>% — 0 for the US store; EU/UK list prices include VAT</span></label>
+<div class="field"><label for="kr-vat">VAT included in the list price <span>% — auto-set by store (Japan 10%, UK 0%, EU 7% preset); you can override it</span></label>
 <div class="input-wrap"><input id="kr-vat" type="number" inputmode="decimal" min="0" max="30" step="0.5" value="0"><span class="suffix">%</span></div></div>
 </div>
 <p class="privacy-note">Nothing you type leaves your browser — every calculation runs on this page, on your device.</p></div>
@@ -110,6 +110,7 @@
 <div class="copy-row"><button type="button" class="btn small ghost copy-btn" data-prefix="kr">Copy result</button><span class="copy-msg" data-for="kr"></span></div>
 </div>
 </div>
+<p class="tax-note"><strong>Before withholding:</strong> Royalties shown are the amounts KDP calculates, before any tax withholding. If you publish from outside the US and have not completed KDP's tax interview (Form W-8BEN), Amazon withholds 30% on US-store royalties; a tax treaty may reduce this to 0%. Royalties are also taxable income in your country of residence. See KDP's official tax information pages.</p>
 <h2>How KDP royalties work</h2>
 <p class="rate-line">Rates verified: <strong>November 23, 2026</strong> on KDP’s official Help · Print: <strong>(rate × list price) − printing cost</strong>, rate <strong>60%</strong> at/above the marketplace threshold, <strong>50%</strong> below, <strong>40%</strong> on Expanded Distribution · eBook 70% band on Amazon.com: <strong>$2.99–$12.99</strong> since July 7, 2026.</p>
 <p><strong>The $9.99 cliff is real.</strong> KDP changed print royalties in June 2025: the rate is no longer a flat 60%. Price a 300-page black-ink paperback at $9.99 and you earn 0.60 × $9.99 − $4.60 = <strong>$1.39</strong>. Price it one cent lower, at $9.98, and the 50% rate applies: 0.50 × $9.98 − $4.60 = <strong>$0.39</strong>. One cent of list price moves the royalty by a dollar. This calculator flags the cliff whenever your price sits below the threshold.</p>
@@ -156,7 +157,7 @@
 </nav>
 <p class="disclaimer"><strong>Disclaimer:</strong> Results are estimates for planning only, calculated from the formulas and tables on Amazon KDP’s official Help pages, verified November 23, 2026. KDP’s own Printing Cost &amp; Royalty Calculator and your Bookshelf show the binding figures for your title. Fee Calculator Suite is not affiliated with Amazon.com, Inc. or Kindle Direct Publishing; KDP and Kindle are trademarks of Amazon.com, Inc. or its affiliates, used here only to describe compatibility.</p>
 </div></footer>
-<script src="/assets/kdp.js?v=mobile20261123"></script>
-<script src="/assets/nav.js?v=mobile20261123" defer></script>
+<script src="/assets/kdp.js?v=batch20261123"></script>
+<script src="/assets/nav.js?v=batch20261123" defer></script>
 </body>
 </html>

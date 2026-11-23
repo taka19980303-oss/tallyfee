@@ -1,15 +1,17 @@
-# Fee Calculator Suite ― 本番公開用静的サイト
+# Fee Calculator Suite ― 本番公開用静的サイト（tallyfee.com）
 
-マーケットプレイス手数料・利益計算スイートの本番公開用一式。Muse artifact（slug: `shou-shu-liao-li-yi-ji-suan-suito`、v9）の検証済み実装を、設計書（`seo-content-design-fee-suite-2026-11-18.md`）のURL構成で個別ページに分割移植したもの。計算はすべてクライアント側 JavaScript で完結し、入力は外部送信しない。
+マーケットプレイス手数料・KDPロイヤルティ・ソフトウェア料金の計算スイート。**https://tallyfee.com で公開中**。計算はすべてクライアント側 JavaScript で完結し、入力は外部送信しない。
 
-- サイト名は暫定で **「Fee Calculator Suite」**。ドメイン確定後にブランド名を差し替える前提（差し替え箇所は後述）。
-- 料率はすべて 2026-11-18 に各プラットフォーム公式ページで確認済みのものだけを実装。確認できないものは推測で入れていない。
+- リポジトリ：`taka19980303-oss/tallyfee`（GitHub）。このフォルダの中身を push すると Cloudflare Pages が自動デプロイする。
+- 料率・価格はすべて各プラットフォーム／ベンダーの公式ページで確認済みのものだけを実装。確認できないものは推測で入れていない。確認日は各ページに明記。
+- 全ページに英日ツインがある（`/ja/` 以下）。ソフトウェアセクションは生成、残りは手書き（後述）。
 
-## 構成一覧
+## 構成一覧（107ページ = sitemap 106 URL + 404）
 
+### マーケットプレイス（手書き、EN/JA）
 | パス | 内容 |
 |---|---|
-| `/` | ハブ：全計算機タイル（比較デフォルトでの手取り表示）＋比較ウィジェット＋ガイド導線 |
+| `/` | ポータル：3セクションの入口カード＋比較ウィジェット＋全計算機タイル |
 | `/ebay-fee-calculator/` | eBay（段階料率・注文ごと手数料・Top Rated Plus割引・国際手数料・プリセット） |
 | `/ebay-profit-calculator/` | eBay逆算（目標利益／目標利益率 → 必要販売価格、往復検算表示付き） |
 | `/etsy-fee-calculator/` | Etsy（出品料・取引・決済・規制運営費9か国・Offsite Ads上限） |
@@ -19,74 +21,69 @@
 | `/depop-fee-calculator/` | Depop（US/UK切替・販売手数料なし・決済のみ） |
 | `/vinted-fee-calculator/` | Vinted（売り手手数料$0・買い手負担分は参考表示） |
 | `/whatnot-fee-calculator/` | Whatnot（Standard 8%／Coins 4%＋決済2.9%+$0.30） |
-| `/marketplace-fees-compared/` | 8プラットフォーム比較（判定バナー・横棒グラフ・全表・損益分岐） |
+| `/tiktok-shop-fee-calculator/` | TikTok Shop US（カテゴリ群別紹介料率。公式Seller Universityで確認） |
+| `/facebook-marketplace-fee-calculator/` | Facebook Marketplace（発送10%・最低$0.80／対面受取は対象外） |
+| `/marketplace-fees-compared/` | 8プラットフォーム比較（判定バナー・横棒グラフ・全表・損益分岐）。入力カードが画面外に出るとヘッダー下に追従入力バーが出る |
+| `/batch-fee-calculator/` | 一括計算＋CSV出力（数式インジェクション無害化済み） |
 | `/ebay-vs-etsy-fees/` | eBay vs Etsy（同一商品の実例をライブ計算） |
-| `/guides/ebay-fees-explained/` | ガイド：結論先出し→計算機導線→内訳表→照合できる実例→FAQ→出典・検証日 |
-| `/guides/etsy-fees-explained/` | ガイド（同上） |
-| `/guides/mercari-fees-explained/` | ガイド（同上、2025年手数料復活の経緯付き） |
-| `/fee-changes/` | 料金改定履歴（8件・出典付き、現行artifactから移植） |
-| `/assets/engines.js` | 計算エンジン（純関数。Node で単体テスト可能） |
-| `/assets/calc.js` | DOM配線（入力→結果描画・構成比バー・結果コピー・比較・逆算） |
+| `/fee-changes/` | 料金改定履歴（出典付き）＋ `/feed.xml`（RSS。改定エントリ追加時は手動で追記すること） |
+| `/guides/ebay-fees-explained/` `/guides/etsy-fees-explained/` `/guides/mercari-fees-explained/` | ガイド：結論先出し→計算機導線→内訳表→照合できる実例→FAQ→出典・検証日 |
+
+### KDP（手書き、EN/JA）
+| パス | 内容 |
+|---|---|
+| `/kdp/` | KDPハブ |
+| `/kdp-cover-calculator/` | 表紙サイズ計算＋300 DPIテンプレートPNGダウンロード |
+| `/kdp-print-cost-calculator/` | 印刷コスト計算 |
+| `/kdp-royalty-calculator/` | ロイヤルティ計算（印刷本／電子書籍）。電子書籍はストア連動でVAT初期値を自動設定（JP 10%・UK 0%・EU目安7%、上書き可） |
+| `/guides/kdp-royalties-explained/` | KDPロイヤルティ解説ガイド |
+
+### ソフトウェア料金（生成、EN/JA 各28ページ）
+`/software/` 以下は **`~/workspace/tallyfee-saas-build/gen.py` が単一ソースで生成**する。データは `~/workspace/tallyfee-saas-data/` → `convert.py` → `assets/saas-data.js`。メール配信（6ツール）／CRM（5ツール＋monday地域価格）の料金ページ・比較・vs・計算機2本・best系・ガイド。手で編集しないこと（gen.py を直して再生成する）。
+
+### 共通
+`/about/`（検証方法・運営）、`robots.txt` / `sitemap.xml` / `404.html` / `favicon.svg` / favicon一式、`_redirects`（推測URL→実URLの301）。
+
+### アセット
+| ファイル | 内容 |
+|---|---|
+| `/assets/engines.js` | マーケットプレイス計算エンジン（純関数。Node で単体テスト可能） |
+| `/assets/calc.js` | DOM配線（入力→結果描画・構成比バー・結果コピー・比較・逆算・追従入力バー） |
+| `/assets/kdp.js` | KDP計算エンジン＋配線（料率表はデータテーブル構造） |
+| `/assets/pricing.js` + `/assets/saas-data.js` | ソフトウェア料金エンジン＋データ（計算機ページのみ読込） |
+| `/assets/batch.js` / `/assets/nav.js` | 一括計算／タッチ用ドロップダウン |
 | `/assets/style.css` | 共通スタイル（白基調。結果パネルのみ濃色） |
-| `robots.txt` / `sitemap.xml` / `404.html` / `favicon.svg` | 共通ファイル |
 
-各計算機ページの共通仕様：初期値プリセットで開いた瞬間に結果表示／判定ラベル＋根拠1文／構成比バー（利益・手数料・原価）／検証日バッジ（Rates verified: November 18, 2026＋公式出典リンク）／詳細設定は折りたたみ／結果コピー機能／損益分岐価格／「入力はブラウザ外に出ない」明記。追従要素は置いていない（モバイルで内容を隠さないため）。
+各計算機ページの共通仕様：初期値プリセットで開いた瞬間に結果表示／判定ラベル＋根拠1文／構成比バー／検証日バッジ＋公式出典リンク／詳細設定は折りたたみ／結果コピー機能／損益分岐価格／入力の永続化（URLパラメータ優先、次に localStorage `tf-calc:<path>`。共有リンクで再現可能）／「入力はブラウザ外に出ない」明記。フッターには手数料の免責に加えて税金注記（結果は税引前である旨）を併記。
 
-## デプロイ前：ドメインの一括置換（必須）
+## キャッシュとアセットトークン（重要）
 
-ドメイン未確定のため、canonical・sitemap・robots 内のドメインはプレースホルダ `https://tallyfee.com` に統一してある。ドメイン確定後、リポジトリ直下で一括置換すること：
-
-```bash
-# 例：feeradar.com を取得した場合
-grep -rl "tallyfee.com" . | xargs sed -i 's/YOURDOMAIN\.example/feeradar.com/g'
-```
-
-置換対象は各ページの `<link rel="canonical">`、`sitemap.xml`、`robots.txt` の3種。置換漏れ確認：
+Cloudflare は style.css 等を max-age 14400（4時間）でキャッシュするため、**全アセットURLに `?v=<トークン>` を付けている**。現在のトークンは **`batch20261123`**。CSS/JS を1文字でも変えたら、トークンを新しい値に全ページ＋gen.py テンプレートで一括置換すること（漏れると古いJS/CSSが訪問者のキャッシュに残る。過去に実際に踏んだ事故パターン）。
 
 ```bash
-grep -rn "YOURDOMAIN" .   # 何も出なければOK
+grep -rho '?v=[a-zA-Z0-9]*' . | sort | uniq -c   # 1種類だけになっていること
 ```
 
-サイト名を変える場合は、追加で `Fee Calculator Suite` / `FeeCalculatorSuite`（ヘッダーのブランド表記）と各ページの `<title>` 末尾・404/README を置換する。
+## デプロイ手順
 
-## Cloudflare Pages デプロイ手順
+1. このフォルダで変更し、下記の監査・テストを全部通す
+2. `github push-files` でリポジトリ `taka19980303-oss/tallyfee`（main）へ push → Cloudflare Pages が自動デプロイ
+3. ライブで代表ページ（トップ・eBay計算機・比較・KDPロイヤルティ・/software/ 1ページ）を確認
 
-1. Cloudflare ダッシュボード → Workers & Pages → Create → Pages → **Upload assets**（直接アップロード方式が最速。Git連携でも可）
-2. プロジェクト名を入力し、このフォルダ（`fee-suite-prod`）の中身一式をアップロード
-   - ビルド設定：Framework preset = None、Build command = なし、Build output directory = `/`（ルート）
-3. デプロイ完了後、`https://<project>.pages.dev` で表示確認（全計算機が初期値で計算済み表示されること）
-4. Custom domains → Set up a custom domain → 取得したドメインを入力
-   - ドメインを Cloudflare Registrar で取得済みなら DNS は自動設定される
-   - apex（`example.com`）と `www` の両方を向ける場合は、`www` 側に apex へのリダイレクト（Redirect Rules）も設定する
-5. HTTPS は自動（Always Use HTTPS を有効化推奨）
+## 監査・テスト（`~/workspace/tallyfee-saas-build/`）
 
-## Search Console 登録と sitemap 送信
+| ツール | 内容 |
+|---|---|
+| `audit_links.py` | 全ページのリンク・ID・構造監査（107ページ 0件が合格） |
+| `audit2.py` | アンカー・資産・sitemap↔ファイル双射・`_redirects` 対象（TOTAL: 0 が合格。コメント行は読み飛ばす） |
+| `test-engine.js` | ソフトウェア料金エンジン（pricing.js）の回帰テスト 20件 |
+| `test-engines.js` | **マーケットプレイスエンジン（engines.js）の回帰テスト 20件**。下記の期待値を実行可能な形で照合する |
+| `gen.py` | ソフトウェアセクション生成（2026-11-23 にバイトコードから復元・検証済み。経緯は同フォルダの `GEN_PY_RECOVERY.md`） |
+| `convert.py` / `transform_nav.py` | データ変換／手書きページのヘッダー一括置換（完全一致置換。置換漏れは監査で検出） |
 
-1. Google Search Console → プロパティを追加 → **ドメインプロパティ**（`example.com`）
-2. 所有権確認は DNS の TXT レコード（Cloudflare DNS に追加。Search Console の画面に表示される値を貼るだけ）
-3. 確認後、左メニュー「サイトマップ」に `sitemap.xml` を送信
-4. 「URL検査」で `/` と `/ebay-fee-calculator/` を開き、「インデックス登録をリクエスト」
-5. 数日後、カバレッジで16 URL 全件がインデックスされたか確認
+### engines.js 期待値20件（test-engines.js が実行）
 
-運用ルール（設計書より）：料率は月1回公式ページで再確認し、変更があれば計算機・履歴・該当記事を同時更新。**検証日は実際に再確認したときだけ更新する**（日付だけの付け替えはしない）。
-
-## 未移植・未確認事項
-
-- **一括計算（Batch）とCSV出力**：現行 artifact にはあるが、設計書の Phase 1 URL 構成に含まれないため本番一式には未移植。Phase 2（使い方記事とセット）で `/batch-fee-calculator/` 等として追加する想定。
-- **Facebook Marketplace / TikTok Shop**：公式ページで単一の標準料率を一次確認できないため未実装（推測で入れない方針）。サイト内でも「確認できないため提供しない」旨を明記済み。公式に単一料率が公開されたら追加する。
-- **Pro 予告セクション**：artifact にはあるが、申込フォームのない予告は本番ページには置かなかった。Pro 実装時に結果文脈内へ追加する。
-- **結果の共有リンク**：未実装（Copy result のみ）。共有リンクは埋め込み先URLに依存するため、ドメイン確定後に必要なら追加。
-- **アクセス解析・計算イベント計測**：未設置。ドメイン確定後に Cloudflare Web Analytics（無料・プライバシー配慮）等の追加を推奨。
-- **お問い合わせ・運営者ページ**：設計書で「ブログ側と共通化可」とされていたため未作成。
-- **Amazon のカテゴリ**：現行 artifact のセレクタ（17カテゴリ）をそのまま移植。それ以外のカテゴリは未収録（公式ページで確認のうえ追加すること）。
-- **Depop Australia**（2.6% + A$0.30）：計算対象外。ページ内に構造のみ注記。
-- **Whatnot のティア制**（Standard 以外）：未モデル化。Standard 前提をページ内に明記済み。
-- **eBay 国際手数料のボリューム割引ティア**（日本／Rest of APAC）：未モデル化。ページ内に明記済み。
-- **eBay のカテゴリ別料率**：本計算機は「most categories（Store なし）」前提。Books/Music 等の 15.3% カテゴリはページ内で注記のみ。
-
-## テスト結果（2026-11-18 構築時）
-
-`assets/engines.js` を Node で読み込み、検算済みの期待値と照合 ― **20件全件パス**。
+構築時（2026-11-18）に検算済みの期待値。料率改定時はこの表とテストを先に更新し、エンジンと照合する。
 
 ```
 PASS eBay $100+$10 fees = 15.36
@@ -109,7 +106,20 @@ PASS Amazon Clothing $30 fee = 5.1
 PASS Amazon Jewelry $300 fee = 52.5
 PASS Reverse price for $50 target = 103.89
 PASS Reverse round-trip profit = 50
-20 passed, 0 failed
 ```
 
-加えて：両 JS ファイルの構文チェック（`node --check`）通過、全12ページについて calc.js が参照する要素IDの存在チェック通過、HTMLタグバランスチェック通過。再テストは `node` で engines.js を require し、上記の入力・期待値を再実行すればよい。
+2026-11-23 再実行：test-engines.js 20/20、test-engine.js 20/20、audit_links 0件、audit2 TOTAL: 0。
+
+## 運用ルール
+
+- 料率は月1回公式ページで再確認し、変更があれば計算機・履歴・該当記事・feed.xml を同時更新。**検証日は実際に再確認したときだけ更新する**（日付だけの付け替えはしない）。
+- 料率改定の手順：①engines.js（または kdp.js の表／saas-data）→ ②該当ページ本文・実例・JSON-LD（EN/JA）→ ③calc.js のラベル・検証日文字列 → ④fee-changes＋feed.xml → ⑤テスト・監査 → ⑥トークン差し替え → push。
+
+## 既知の制限（ページ内に明記済みのもの）
+
+- **Amazon のカテゴリ**：セレクタ収録は17カテゴリ。それ以外は未収録（公式ページで確認のうえ追加すること）。
+- **Depop Australia**（2.6% + A$0.30）：計算対象外。ページ内に構造のみ注記。
+- **Whatnot のティア制**（Standard 以外）：未モデル化。Standard 前提をページ内に明記済み。
+- **eBay 国際手数料のボリューム割引ティア**（日本／Rest of APAC）：未モデル化。ページ内に明記済み。
+- **eBay のカテゴリ別料率**：本計算機は「most categories（Store なし）」前提。Books/Music 等の 15.3% カテゴリはページ内で注記のみ。
+- **アクセス解析**：未設置（Cloudflare Web Analytics 等は別バッチで検討）。

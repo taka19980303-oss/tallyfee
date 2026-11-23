@@ -422,7 +422,7 @@
       tiles.innerHTML = rows.map(function (x) {
         var m = MONO[x.d.key] || ["?", "#eef1ee", "#33413a"];
         return '<a class="tile' + (x.r.profit === best ? ' best' : '') + '" href="' + cmpHref(x.d) + '"><div class="t-head"><span class="p-chip" style="background:' + m[1] + ';color:' + m[2] + '">' + m[0] + '</span><div class="t-name">' + x.d.name + '</div></div>' +
-          '<div class="t-rate">' + cmpFeeLabel(x.d) + '</div><div class="t-profit">' + (JA ? "純利益" : "Net profit") + ' <b>' + E.money(x.r.profit) + '</b></div></a>';
+          '<div class="t-rate">' + cmpFeeLabel(x.d) + '</div><div class="t-profit">' + (JA ? "純利益（税引前）" : "Net profit") + ' <b>' + E.money(x.r.profit) + '</b></div></a>';
       }).join("");
     }
   }
@@ -529,5 +529,52 @@
 
   calcEbay(); calcEtsy(); calcPoshmark(); calcMercari(); calcAmazon(); calcDepop(); calcVinted(); calcWhatnot(); calcTiktok(); calcFacebook();
   calcCompare(); calcReverse(); calcVs();
+
+  /* ---- Sticky comparison input bar (comparison pages only) ----
+     When the "One item, every platform" input card scrolls out of view,
+     a slim fixed bar under the sticky header mirrors the same four
+     inputs. Bar inputs carry no id, so the persistence layer (which
+     collects input[id]) ignores them; edits are forwarded to the main
+     inputs as real input events, so recalculation, URL params and
+     localStorage behave exactly as if the main card had been used. */
+  (function initCmpSticky() {
+    var bar = $("cmp-sticky");
+    if (!bar) return;
+    var card = document.querySelector(".cmp-inputs");
+    var header = document.querySelector(".site-header");
+    var barInputs = Array.prototype.slice.call(bar.querySelectorAll("input[data-cmp]"));
+    function syncFromMain() {
+      barInputs.forEach(function (bi) {
+        var m = $(bi.getAttribute("data-cmp"));
+        if (m && bi.value !== m.value) bi.value = m.value;
+      });
+    }
+    barInputs.forEach(function (bi) {
+      bi.addEventListener("input", function () {
+        var m = $(bi.getAttribute("data-cmp"));
+        if (m) { m.value = bi.value; m.dispatchEvent(new Event("input", { bubbles: true })); }
+      });
+    });
+    ["cmp-price", "cmp-ship", "cmp-cost", "cmp-shipcost"].forEach(function (id) {
+      on(id, "input", syncFromMain);
+      on(id, "change", syncFromMain);
+    });
+    function place() { if (header) bar.style.top = header.offsetHeight + "px"; }
+    function show(onState) { bar.classList.toggle("on", !!onState); if (onState) { place(); syncFromMain(); } }
+    place();
+    window.addEventListener("resize", place);
+    if (card && "IntersectionObserver" in window) {
+      new IntersectionObserver(function (entries) {
+        var e = entries[0];
+        show(!e.isIntersecting && e.boundingClientRect.top < 0);
+      }, { threshold: 0 }).observe(card);
+    } else if (card) {
+      window.addEventListener("scroll", function () {
+        show(card.getBoundingClientRect().bottom < 0);
+      }, { passive: true });
+    }
+    syncFromMain();
+  })();
+
   bindCopy();
 })();

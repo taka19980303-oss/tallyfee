@@ -12,7 +12,7 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="stylesheet" href="/assets/style.css?v=mobile20261123">
+<link rel="stylesheet" href="/assets/style.css?v=batch20261123">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Fee Calculator Suite">
 <meta property="og:title" content="マーケットプレイス手数料比較 — 8プラットフォーム、同じ商品、確認済み料率">
@@ -31,6 +31,15 @@
 <nav class="site-nav">
 <div class="nav-item has-drop"><a class="nav-top active" href="/ja/">マーケットプレイス手数料<span class="caret">▾</span></a><div class="drop"><a href="/ja/">全計算機</a><a href="/ja/marketplace-fees-compared/">8プラットフォーム比較</a><a href="/ja/ebay-vs-etsy-fees/">eBay vs Etsy 手数料</a><a href="/ja/batch-fee-calculator/">バッチ計算機＋CSV</a><a href="/ja/fee-changes/">料率変更履歴</a></div></div><div class="nav-item has-drop"><a class="nav-top" href="/ja/kdp/">KDP<span class="caret">▾</span></a><div class="drop"><a href="/ja/kdp/">KDP計算機すべて</a><a href="/ja/kdp-cover-calculator/">表紙サイズ計算機</a><a href="/ja/kdp-print-cost-calculator/">印刷コスト計算機</a><a href="/ja/kdp-royalty-calculator/">ロイヤルティ計算機</a><a href="/ja/guides/kdp-royalties-explained/">KDPロイヤルティ解説</a></div></div><div class="nav-item has-drop"><a class="nav-top" href="/ja/software/">ソフトウェア料金<span class="caret">▾</span></a><div class="drop"><a href="/ja/software/">ソフトウェア料金ハブ</a><a href="/ja/software/email-marketing/">メール配信ツール比較</a><a href="/ja/software/email-marketing-cost-calculator/">メール配信コスト計算機</a><a href="/ja/software/crm/">CRM比較</a><a href="/ja/software/crm-cost-calculator/">CRMコスト計算機</a><a href="/ja/software/guides/per-seat-pricing-explained/">席課金とは</a></div></div><div class="nav-item has-drop"><a class="nav-top" href="/ja/guides/ebay-fees-explained/">ガイド<span class="caret">▾</span></a><div class="drop"><a href="/ja/guides/ebay-fees-explained/">eBay手数料ガイド</a><a href="/ja/guides/etsy-fees-explained/">Etsy手数料ガイド</a><a href="/ja/guides/mercari-fees-explained/">Mercari手数料ガイド</a><a href="/ja/guides/kdp-royalties-explained/">KDPロイヤルティ解説</a><a href="/ja/software/guides/per-seat-pricing-explained/">席課金とは</a></div></div><a class="nav-top" href="/marketplace-fees-compared/">English</a>
 </nav></div></header>
+<div class="cmp-sticky" id="cmp-sticky" aria-label="比較入力 — 追従バー">
+<div class="cmp-sticky-in">
+<span class="cmp-sticky-label">同じ商品：</span>
+<label class="csf"><span>商品価格</span><span class="input-wrap"><span class="prefix">$</span><input data-cmp="cmp-price" type="number" inputmode="decimal" min="0" step="0.01"></span></label>
+<label class="csf"><span>送料（請求額）</span><span class="input-wrap"><span class="prefix">$</span><input data-cmp="cmp-ship" type="number" inputmode="decimal" min="0" step="0.01"></span></label>
+<label class="csf"><span>仕入れ値</span><span class="input-wrap"><span class="prefix">$</span><input data-cmp="cmp-cost" type="number" inputmode="decimal" min="0" step="0.01"></span></label>
+<label class="csf"><span>送料の実費</span><span class="input-wrap"><span class="prefix">$</span><input data-cmp="cmp-shipcost" type="number" inputmode="decimal" min="0" step="0.01"></span></label>
+</div>
+</div>
 <main class="wrap">
 <nav class="crumbs" aria-label="Breadcrumb"><a href="/ja/">ホーム</a><span class="sep">›</span><a href="/ja/">マーケットプレイス手数料</a><span class="sep">›</span><span aria-current="page">マーケットプレイス手数料比較 — 全8プラットフォーム</span></nav>
 
@@ -52,10 +61,10 @@
 <p class="hint">8社共通の前提：eBayは税金なし・プロモーションなし・米国の販売者／Etsyは米国の販売者、Offsite Ads経由の売上なし／Amazonは販売手数料のみ、Everything Elseカテゴリ（15%）— 他のカテゴリはAmazonのページで。PoshmarkとVintedは、送料請求分を販売者の売上に含めません（買い手負担）。ただし送料の実費は差し引きます。各手数料の内訳は各プラットフォームの個別ページにあります。</p>
 <p class="privacy-note">入力した内容はブラウザの外に出ません — 計算はすべてこのページ上で行われます。</p></div>
 <div class="cmp-verdict" id="cmp-verdict" aria-live="polite"></div>
-<h2>プラットフォーム別 純利益</h2>
+<h2>プラットフォーム別 純利益（税引前）</h2>
 <div id="cmp-bars"></div>
 <h2>全表</h2>
-<table class="fees"><thead><tr><th>プラットフォームとスケジュール</th><th class="num">手数料合計</th><th class="num">純利益</th><th class="num">利益率</th><th class="num">損益分岐価格</th></tr></thead>
+<table class="fees"><thead><tr><th>プラットフォームとスケジュール</th><th class="num">手数料合計</th><th class="num">純利益（税引前）</th><th class="num">利益率</th><th class="num">損益分岐価格</th></tr></thead>
 <tbody id="cmp-rows"></tbody></table>
 <h2>この表の読み方</h2>
 <p>手数料は判断の半分にすぎません — 客層、売れる速さ、配送プログラムはプラットフォームごとに違い、ここではモデル化していません。正確にモデル化しているのは、各プラットフォームが公表する手数料スケジュールです：eBayの段階制落札手数料、Etsyの4層の手数料、Poshmarkの一律20%、Mercariの一律10%、Amazonのカテゴリ別販売手数料（この比較ではEverything Else、15%）、DepopとVintedの販売者手数料ゼロ、Whatnotのコミッション＋決済手数料。Facebook MarketplaceとTikTok Shopはこの比較に入っていません — Facebookの手数料はチェックアウトか対面かで決まり、TikTokはカテゴリグループ別に動くため、それぞれ専用の計算機があります：<a href="/ja/facebook-marketplace-fee-calculator/">Facebook Marketplace手数料計算機</a> · <a href="/ja/tiktok-shop-fee-calculator/">TikTok Shop手数料計算機</a>。</p>
@@ -91,9 +100,10 @@
 <a href="/ja/about/">このサイトについて・検証方法</a>
 </nav>
 <p class="disclaimer"><strong>免責：</strong>結果は計画用の見積もりです。手数料はカテゴリ・販売者の国・ストア購読・プロモーションにより変わります。出品前に必ず各プラットフォームの公式手数料ページで最終額を確認してください。このサイトの料率は公式ページで確認済みです（マーケットプレイスは2026年11月18日、TikTok ShopとFacebook Marketplaceは2026年11月23日）。</p>
+<p class="disclaimer">税金について：結果はすべて税引前の概算です。本サイトの『純利益』は、プラットフォーム手数料と入力したコストのみを差し引いた額で、所得税・源泉徴収税・消費税は含まれていません。手数料の計算基礎に含まれる売上税は、原則としてプラットフォームが徴収・納付するもので、販売者が納める税金ではありません。本サイトは税務助言を行うものではありません。申告・納税については、税務署または税理士にご確認ください。</p>
 </div></footer>
-<script src="/assets/engines.js?v=mobile20261123"></script>
-<script src="/assets/calc.js?v=mobile20261123"></script>
-<script src="/assets/nav.js?v=mobile20261123" defer></script>
+<script src="/assets/engines.js?v=batch20261123"></script>
+<script src="/assets/calc.js?v=batch20261123"></script>
+<script src="/assets/nav.js?v=batch20261123" defer></script>
 </body>
 </html>

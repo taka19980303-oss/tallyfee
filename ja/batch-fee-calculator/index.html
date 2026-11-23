@@ -12,7 +12,7 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="stylesheet" href="/assets/style.css?v=mobile20261123">
+<link rel="stylesheet" href="/assets/style.css?v=batch20261123">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Fee Calculator Suite">
 <meta property="og:title" content="バッチ手数料計算機 — リスト全体をまとめて価格設定、CSV出力付き">
@@ -60,7 +60,7 @@
 <div class="batch-scroll">
 <table class="batch" aria-label="バッチアイテム">
 <thead><tr>
-<th>商品名</th><th class="num">販売価格</th><th class="num">送料（請求額）</th><th class="num">仕入れ値</th><th class="num">送料の実費</th><th class="num">手数料合計</th><th class="num">純利益</th><th class="num">利益率</th><th></th>
+<th>商品名</th><th class="num">販売価格</th><th class="num">送料（請求額）</th><th class="num">仕入れ値</th><th class="num">送料の実費</th><th class="num">手数料合計</th><th class="num">純利益（税引前）</th><th class="num">利益率</th><th></th>
 </tr></thead>
 <tbody id="batch-body"></tbody>
 <tfoot><tr>
@@ -70,7 +70,7 @@
 <td class="num" data-label="仕入れ値" id="bt-cost">$0.00</td>
 <td class="num" data-label="送料の実費" id="bt-shipcost">$0.00</td>
 <td class="num" data-label="手数料合計" id="bt-fees">-$0.00</td>
-<td class="num" data-label="純利益" id="bt-profit">$0.00</td>
+<td class="num" data-label="純利益（税引前）" id="bt-profit">$0.00</td>
 <td class="num" data-label="利益率" id="bt-margin">0%</td>
 <td></td>
 </tr></tfoot>
@@ -122,9 +122,10 @@
 <a href="/ja/about/">このサイトについて・検証方法</a>
 </nav>
 <p class="disclaimer"><strong>免責：</strong>結果は計画用の見積もりです。手数料はカテゴリ・販売者の国・ストア購読・プロモーションにより変わります。バッチ計算機は明記した前提（売上税なし、プロモーションなし、Offsite Adsなし）で計算します。出品前に必ずプラットフォームの公式手数料ページで最終額を確認してください。このサイトの料率は公式ページで確認済みです（マーケットプレイスは2026年11月18日、TikTok ShopとFacebook Marketplaceは2026年11月23日）。</p>
+<p class="disclaimer">税金について：結果はすべて税引前の概算です。本サイトの『純利益』は、プラットフォーム手数料と入力したコストのみを差し引いた額で、所得税・源泉徴収税・消費税は含まれていません。手数料の計算基礎に含まれる売上税は、原則としてプラットフォームが徴収・納付するもので、販売者が納める税金ではありません。本サイトは税務助言を行うものではありません。申告・納税については、税務署または税理士にご確認ください。</p>
 </div></footer>
-<script src="/assets/engines.js?v=mobile20261123"></script>
-<script src="/assets/batch.js?v=mobile20261123"></script>
-<script src="/assets/nav.js?v=mobile20261123" defer></script>
+<script src="/assets/engines.js?v=batch20261123"></script>
+<script src="/assets/batch.js?v=batch20261123"></script>
+<script src="/assets/nav.js?v=batch20261123" defer></script>
 </body>
 </html>
