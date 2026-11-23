@@ -238,3 +238,24 @@ table.fees td .hint{white-space:normal}
 .quick-row{display:flex;flex-wrap:wrap;gap:9px;margin:14px 0 4px}
 .quick-chip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 15px;font-size:14px;font-weight:600;color:var(--ink);text-decoration:none}
 .quick-chip:hover{border-color:var(--accent);color:var(--accent-dark)}
+
+/* Visual pass: hero receipt, entrance icons, platform monograms */
+.hero{background-image:radial-gradient(#e2f1e7 1.2px, transparent 1.3px);background-size:22px 22px}
+.hero-grid{display:grid;grid-template-columns:1.45fr 1fr;gap:30px;align-items:start}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr}}
+.receipt{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 18px 14px;box-shadow:0 8px 26px rgba(20,40,25,.08)}
+.receipt h3{margin:0 0 3px;font-size:16.5px}
+.receipt .r-sub{color:var(--muted);font-size:13px;margin:0}
+.stack{display:flex;height:26px;border-radius:8px;overflow:hidden;margin:12px 0 10px;border:1px solid var(--line)}
+.stack span{display:block;height:100%}
+.seg-cost{background:#b9c8bf}.seg-ship{background:#dde5df}.seg-fee{background:#f0a35e}.seg-profit{background:var(--accent)}
+.r-row{display:flex;justify-content:space-between;align-items:center;font-size:14px;padding:3px 0}
+.r-row .dot{width:9px;height:9px;border-radius:3px;display:inline-block;margin-right:7px;vertical-align:0}
+.r-row.total{border-top:1px solid var(--line);margin-top:6px;padding-top:9px;font-weight:800;font-size:15px}
+.r-row.total b{color:var(--accent-dark)}
+.receipt .r-foot{font-size:13px;color:var(--muted);margin:9px 0 2px}
+.tile .t-head{display:flex;align-items:center;gap:9px;margin-bottom:5px}
+.tile .t-head .t-name{margin-bottom:0}
+.p-chip{width:30px;height:30px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:16px;flex:none}
+.entrance .t-ico{width:42px;height:42px;border-radius:12px;background:#e9f5ee;color:var(--accent-dark);display:flex;align-items:center;justify-content:center;margin-bottom:11px}
+.entrance .t-ico svg{width:23px;height:23px}

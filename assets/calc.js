@@ -382,8 +382,10 @@
     }
     var tiles = $("cmp-tiles");
     if (tiles) {
+      var MONO = { ebay: ["e", "#e8f0fe", "#1a56db"], etsy: ["E", "#fdeee3", "#c75100"], poshmark: ["P", "#fbe7ef", "#a4133c"], mercari: ["M", "#e3f2fd", "#0277bd"], amazon: ["a", "#fef3e2", "#b45309"], depop: ["D", "#fde8e8", "#c81e1e"], vinted: ["V", "#e0f2f1", "#00796b"], whatnot: ["W", "#efe9fd", "#6d28d9"] };
       tiles.innerHTML = rows.map(function (x) {
-        return '<a class="tile' + (x.r.profit === best ? ' best' : '') + '" href="' + cmpHref(x.d) + '"><div class="t-name">' + x.d.name + '</div>' +
+        var m = MONO[x.d.key] || ["?", "#eef1ee", "#33413a"];
+        return '<a class="tile' + (x.r.profit === best ? ' best' : '') + '" href="' + cmpHref(x.d) + '"><div class="t-head"><span class="p-chip" style="background:' + m[1] + ';color:' + m[2] + '">' + m[0] + '</span><div class="t-name">' + x.d.name + '</div></div>' +
           '<div class="t-rate">' + cmpFeeLabel(x.d) + '</div><div class="t-profit">' + (JA ? "純利益" : "Net profit") + ' <b>' + E.money(x.r.profit) + '</b></div></a>';
       }).join("");
     }
