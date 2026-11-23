@@ -127,7 +127,8 @@
      Amazon lists one (not for grocery/media/videogames). Media adds the
      official $1.80 closing fee. Selling-plan and FBA fees are out of scope. */
   function amazonReferral(base, cat) {
-    if (base <= 0) return { fee: 0, closing: 0, label: "Referral fee" };
+    var JA = typeof document !== "undefined" && document.documentElement && document.documentElement.lang === "ja";
+    if (base <= 0) return { fee: 0, closing: 0, label: JA ? "販売手数料" : "Referral fee" };
     var fee = 0, label = "";
     function portion(bands) {
       var total = 0, prev = 0;
@@ -141,29 +142,29 @@
     switch (cat) {
       case "clothing":
         var cr = base <= 15 ? 0.05 : (base <= 20 ? 0.10 : 0.17);
-        fee = r2(base * cr); label = "Referral fee — Clothing, " + (cr * 100).toFixed(0) + "% bracket on the whole total"; break;
+        fee = r2(base * cr); label = JA ? "販売手数料 — 衣類、全額に" + (cr * 100).toFixed(0) + "%（区分料率）" : "Referral fee — Clothing, " + (cr * 100).toFixed(0) + "% bracket on the whole total"; break;
       case "beauty":
         var br = base <= 10 ? 0.08 : 0.15;
-        fee = r2(base * br); label = "Referral fee — Beauty/Health, " + (br * 100).toFixed(0) + "% bracket on the whole total"; break;
+        fee = r2(base * br); label = JA ? "販売手数料 — 美容・健康、全額に" + (br * 100).toFixed(0) + "%（区分料率）" : "Referral fee — Beauty/Health, " + (br * 100).toFixed(0) + "% bracket on the whole total"; break;
       case "baby":
         var yr = base <= 10 ? 0.08 : 0.15;
-        fee = r2(base * yr); label = "Referral fee — Baby Products, " + (yr * 100).toFixed(0) + "% bracket on the whole total"; break;
+        fee = r2(base * yr); label = JA ? "販売手数料 — ベビー用品、全額に" + (yr * 100).toFixed(0) + "%（区分料率）" : "Referral fee — Baby Products, " + (yr * 100).toFixed(0) + "% bracket on the whole total"; break;
       case "grocery":
         var gr = base <= 15 ? 0.08 : 0.15;
-        fee = r2(base * gr); label = "Referral fee — Grocery, " + (gr * 100).toFixed(0) + "% bracket on the whole total (no minimum listed)"; break;
-      case "electronics": fee = r2(base * 0.08); label = "Referral fee — Consumer Electronics, 8%"; break;
-      case "computers": fee = r2(base * 0.08); label = "Referral fee — Computers, 8%"; break;
-      case "automotive": fee = r2(base * 0.12); label = "Referral fee — Automotive, 12%"; break;
-      case "elecacc": fee = portion([[100, 0.15], [Infinity, 0.08]]); label = "Referral fee — Electronics Accessories, 15% to $100 then 8%"; break;
-      case "jewelry": fee = portion([[250, 0.20], [Infinity, 0.05]]); label = "Referral fee — Jewelry, 20% to $250 then 5%"; break;
-      case "watches": fee = portion([[1500, 0.16], [Infinity, 0.03]]); label = "Referral fee — Watches, 16% to $1,500 then 3%"; break;
-      case "media": fee = r2(base * 0.15); label = "Referral fee — Media, 15% (plus $1.80 closing fee below)"; break;
-      case "videogames": fee = r2(base * 0.15); label = "Referral fee — Video Games, 15% (no minimum listed)"; break;
-      default: fee = r2(base * 0.15); label = "Referral fee — 15%";
+        fee = r2(base * gr); label = JA ? "販売手数料 — 食料品、全額に" + (gr * 100).toFixed(0) + "%（区分料率・最低手数料の記載なし）" : "Referral fee — Grocery, " + (gr * 100).toFixed(0) + "% bracket on the whole total (no minimum listed)"; break;
+      case "electronics": fee = r2(base * 0.08); label = JA ? "販売手数料 — 家電、8%" : "Referral fee — Consumer Electronics, 8%"; break;
+      case "computers": fee = r2(base * 0.08); label = JA ? "販売手数料 — パソコン、8%" : "Referral fee — Computers, 8%"; break;
+      case "automotive": fee = r2(base * 0.12); label = JA ? "販売手数料 — 自動車用品、12%" : "Referral fee — Automotive, 12%"; break;
+      case "elecacc": fee = portion([[100, 0.15], [Infinity, 0.08]]); label = JA ? "販売手数料 — 家電アクセサリ、$100まで15%、超過分8%" : "Referral fee — Electronics Accessories, 15% to $100 then 8%"; break;
+      case "jewelry": fee = portion([[250, 0.20], [Infinity, 0.05]]); label = JA ? "販売手数料 — ジュエリー、$250まで20%、超過分5%" : "Referral fee — Jewelry, 20% to $250 then 5%"; break;
+      case "watches": fee = portion([[1500, 0.16], [Infinity, 0.03]]); label = JA ? "販売手数料 — 時計、$1,500まで16%、超過分3%" : "Referral fee — Watches, 16% to $1,500 then 3%"; break;
+      case "media": fee = r2(base * 0.15); label = JA ? "販売手数料 — メディア、15%（下記の$1.80クロージングフィー別）" : "Referral fee — Media, 15% (plus $1.80 closing fee below)"; break;
+      case "videogames": fee = r2(base * 0.15); label = JA ? "販売手数料 — ゲーム、15%（最低手数料の記載なし）" : "Referral fee — Video Games, 15% (no minimum listed)"; break;
+      default: fee = r2(base * 0.15); label = JA ? "販売手数料 — 15%" : "Referral fee — 15%";
     }
     var closing = cat === "media" ? 1.80 : 0;
     var noMin = (cat === "grocery" || cat === "media" || cat === "videogames");
-    if (!noMin && fee < 0.30) { fee = 0.30; label += " · $0.30 minimum applied"; }
+    if (!noMin && fee < 0.30) { fee = 0.30; label += JA ? " · 最低手数料$0.30を適用" : " · $0.30 minimum applied"; }
     return { fee: fee, closing: closing, label: label };
   }
   function amazonCalc(price, ship, cost, shipcost, cat) {

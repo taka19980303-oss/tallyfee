@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>バッチ手数料計算機 — リスト全体をまとめて価格設定、CSV出力付き | Fee Calculator Suite</title>
+<meta name="description" content="eBay、Etsy、Poshmark、Mercari、Amazon、Depop、Vinted、Whatnot向けの無料バッチ手数料・利益計算機。単品計算機と同じ確認済み料率で商品リスト全体をまとめて価格設定し、合計つきで結果をCSVダウンロードできます。">
+<link rel="canonical" href="https://tallyfee.com/ja/batch-fee-calculator/">
+<link rel="alternate" hreflang="en" href="https://tallyfee.com/batch-fee-calculator/">
+<link rel="alternate" hreflang="ja" href="https://tallyfee.com/ja/batch-fee-calculator/">
+<link rel="alternate" hreflang="x-default" href="https://tallyfee.com/batch-fee-calculator/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/style.css">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Fee Calculator Suite">
+<meta property="og:title" content="バッチ手数料計算機 — リスト全体をまとめて価格設定、CSV出力付き">
+<meta property="og:description" content="eBay、Etsy、Poshmark、Mercari、Amazon、Depop、Vinted、Whatnot向けの無料バッチ手数料・利益計算機。単品計算機と同じ確認済み料率で商品リスト全体をまとめて価格設定し、合計つきで結果をCSVダウンロードできます。">
+<meta property="og:url" content="https://tallyfee.com/ja/batch-fee-calculator/">
+<meta property="og:image" content="https://tallyfee.com/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="バッチ手数料計算機 — リスト全体をまとめて価格設定、CSV出力付き">
+<meta name="twitter:description" content="eBay、Etsy、Poshmark、Mercari、Amazon、Depop、Vinted、Whatnot向けの無料バッチ手数料・利益計算機。単品計算機と同じ確認済み料率で商品リスト全体をまとめて価格設定し、合計つきで結果をCSVダウンロードできます。">
+<meta name="twitter:image" content="https://tallyfee.com/assets/og.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://tallyfee.com/ja/"}, {"@type": "ListItem", "position": 2, "name": "バッチ手数料計算機 — リスト全体をまとめて価格設定、CSV出力付き", "item": "https://tallyfee.com/ja/batch-fee-calculator/"}]}, {"@type": "WebApplication", "name": "バッチ手数料計算機 — リスト全体をまとめて価格設定、CSV出力付き", "url": "https://tallyfee.com/ja/batch-fee-calculator/", "applicationCategory": "FinanceApplication", "operatingSystem": "Any", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "description": "eBay、Etsy、Poshmark、Mercari、Amazon、Depop、Vinted、Whatnot向けの無料バッチ手数料・利益計算機。単品計算機と同じ確認済み料率で商品リスト全体をまとめて価格設定し、合計つきで結果をCSVダウンロードできます。"}]}</script>
+</head>
+<body>
+<header class="site-header"><div class="in">
+<a class="brand" href="/ja/">Fee<span>Calculator</span>Suite</a>
+<nav class="site-nav">
+<a href="/ja/marketplace-fees-compared/">8社比較</a>
+<a href="/ja/ebay-vs-etsy-fees/">eBay vs Etsy</a>
+<a href="/ja/fee-changes/">料率変更履歴</a>
+<a href="/ja/kdp/">KDP</a>
+<a href="/ja/guides/ebay-fees-explained/">ガイド</a>
+<a href="/batch-fee-calculator/">English</a>
+</nav></div></header>
+<main class="wrap">
+
+<div class="hero"><h1>バッチ手数料計算機</h1>
+<p class="lede">補充在庫、出品の山、1週間分の仕入れを1件ずつ価格設定するのは時間がかかります。下に商品を追加し、プラットフォームを選べば — <strong>全行が単品計算機と同じ確認済みエンジンで価格設定</strong>され、合計も出ます — あとはリスト全体をCSVでダウンロードできます。</p>
+<div class="badge-band"><span class="pill">✓ 料率確認済み</span><span><strong>2026年11月18日</strong> — 各プラットフォームの公式手数料ページで照合。</span></div>
+</div>
+
+<div class="card">
+<div class="field" style="max-width:340px">
+<label for="batch-platform">全行のプラットフォーム</label>
+<div class="input-wrap"><select id="batch-platform">
+<option value="ebay" selected>eBay（米国）</option>
+<option value="etsy">Etsy（米国）</option>
+<option value="poshmark">Poshmark（米国）</option>
+<option value="mercari">Mercari（米国）</option>
+<option value="amazon">Amazon（米国）— Everything Else 15%</option>
+<option value="depop">Depop（米国）</option>
+<option value="vinted">Vinted（米国）</option>
+<option value="whatnot">Whatnot（米国、Standard 8%）</option>
+</select></div>
+<p class="hint" id="batch-note">eBayの前提：売上税なし、Promoted Listingsなし。Etsyの前提：米国の販売者、Offsite Ads経由の売上なし。Amazon：販売手数料のみ、Everything Elseカテゴリ（15%）— 他のカテゴリはAmazon計算機で。Depop / Whatnot：売上税は入力なし。PoshmarkとVintedは、送料請求分を販売者の売上に含めません（Poshmarkのラベルは買い手負担、Vintedは買い手が送料を直接払う）— その行では「送料（請求額）」列は無視されますが、送料の実費は差し引きます。</p>
+</div>
+<div class="batch-scroll">
+<table class="batch" aria-label="バッチアイテム">
+<thead><tr>
+<th>商品名</th><th class="num">販売価格</th><th class="num">送料（請求額）</th><th class="num">仕入れ値</th><th class="num">送料の実費</th><th class="num">手数料合計</th><th class="num">純利益</th><th class="num">利益率</th><th></th>
+</tr></thead>
+<tbody id="batch-body"></tbody>
+<tfoot><tr>
+<td data-label="行数">合計 · <span id="batch-count">0</span> 件</td>
+<td class="num" data-label="販売価格" id="bt-price">$0.00</td>
+<td class="num" data-label="送料（請求額）" id="bt-ship">$0.00</td>
+<td class="num" data-label="仕入れ値" id="bt-cost">$0.00</td>
+<td class="num" data-label="送料の実費" id="bt-shipcost">$0.00</td>
+<td class="num" data-label="手数料合計" id="bt-fees">-$0.00</td>
+<td class="num" data-label="純利益" id="bt-profit">$0.00</td>
+<td class="num" data-label="利益率" id="bt-margin">0%</td>
+<td></td>
+</tr></tfoot>
+</table>
+</div>
+<div class="row-actions">
+<button class="btn ghost" type="button" id="batch-add">+ 行を追加</button>
+<button class="btn" type="button" id="batch-csv">CSVをダウンロード</button>
+<span style="font-size:13px;color:var(--muted)">CSVの列は表と一致し、行ごとの手数料・利益・利益率を含みます。</span>
+</div>
+<p class="privacy-note">入力した内容はブラウザの外に出ません — 計算はすべてこのページ上で行われます。</p>
+</div>
+
+<h2>バッチの前提の仕組み</h2>
+<p>バッチは各プラットフォームの標準ケースを使い、<a href="/ja/marketplace-fees-compared/">8プラットフォーム比較</a>と同じ前提です：eBayは売上税なし、Promoted Listingsなし、米国の販売者。Etsyは米国の販売者でOffsite Ads経由の売上なし。Amazonは販売手数料のみ、Everything Elseカテゴリ（15%）— 他のカテゴリが必要なときは<a href="/ja/amazon-referral-fee-calculator/">Amazon計算機</a>を開いてください。行に細部まで必要な場合 — Top Rated Plus、国際販売、Etsyの規制手数料の国違い — その商品は各プラットフォームの個別ページで価格設定してください。全オプションがそちらにあります。</p>
+<p>合計は、表に表示される丸め済みの行ごとの数字の単純な合計です。そのため合計行は常に行の合計と一致し、ダウンロードするCSVとも一致します。CSVは行ごとに売上列を追加し、最後に手数料と利益のTOTAL行が付きます。在庫を管理するスプレッドシートにそのまま貼れます。</p>
+<div class="grid">
+<a class="tile" href="/ja/marketplace-fees-compared/"><div class="t-name">8プラットフォームすべてを比較</div><div class="t-rate">1つの商品を全プラットフォームで並べて価格設定 — どれが一番多く払う？</div></a>
+<a class="tile" href="/ja/ebay-profit-calculator/"><div class="t-name">eBay利益計算機</div><div class="t-rate">全オプションつきの単品eBay計算機：税金、プロモーション、Top Rated Plus、国際販売。</div></a>
+</div>
+
+</main>
+<footer class="site-footer"><div class="in">
+<h2>このスイートの全計算機</h2>
+<nav class="foot-links">
+<a href="/ja/ebay-fee-calculator/">eBay手数料計算機</a>
+<a href="/ja/ebay-profit-calculator/">eBay利益計算機</a>
+<a href="/ja/etsy-fee-calculator/">Etsy手数料計算機</a>
+<a href="/ja/poshmark-fee-calculator/">Poshmark手数料計算機</a>
+<a href="/ja/mercari-fee-calculator/">Mercari手数料計算機</a>
+<a href="/ja/amazon-referral-fee-calculator/">Amazon販売手数料計算機</a>
+<a href="/ja/depop-fee-calculator/">Depop手数料計算機</a>
+<a href="/ja/vinted-fee-calculator/">Vinted手数料計算機</a>
+<a href="/ja/whatnot-fee-calculator/">Whatnot手数料計算機</a>
+<a href="/ja/tiktok-shop-fee-calculator/">TikTok Shop手数料計算機</a>
+<a href="/ja/facebook-marketplace-fee-calculator/">Facebook Marketplace手数料計算機</a>
+<a href="/ja/marketplace-fees-compared/">8プラットフォーム比較</a>
+<a href="/ja/batch-fee-calculator/">バッチ手数料計算機＋CSV</a>
+<a href="/ja/ebay-vs-etsy-fees/">eBay vs Etsy 手数料</a>
+<a href="/ja/fee-changes/">料率変更履歴</a>
+<a href="/ja/guides/ebay-fees-explained/">eBay手数料ガイド</a>
+<a href="/ja/guides/etsy-fees-explained/">Etsy手数料ガイド</a>
+<a href="/ja/guides/mercari-fees-explained/">Mercari手数料ガイド</a>
+<a href="/ja/kdp/">KDP計算機</a>
+<a href="/ja/kdp-cover-calculator/">KDP表紙サイズ計算機</a>
+<a href="/ja/kdp-print-cost-calculator/">KDP印刷コスト計算機</a>
+<a href="/ja/kdp-royalty-calculator/">KDPロイヤルティ計算機</a>
+<a href="/ja/guides/kdp-royalties-explained/">KDPロイヤルティガイド</a>
+</nav>
+<p class="disclaimer"><strong>免責：</strong>結果は計画用の見積もりです。手数料はカテゴリ・販売者の国・ストア購読・プロモーションにより変わります。バッチ計算機は明記した前提（売上税なし、プロモーションなし、Offsite Adsなし）で計算します。出品前に必ずプラットフォームの公式手数料ページで最終額を確認してください。このサイトの料率は公式ページで確認済みです（マーケットプレイスは2026年11月18日、TikTok ShopとFacebook Marketplaceは2026年11月23日）。</p>
+</div></footer>
+<script src="/assets/engines.js"></script>
+<script src="/assets/batch.js"></script>
+</body>
+</html>

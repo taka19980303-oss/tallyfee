@@ -209,11 +209,12 @@
     return sym ? sym + s : s;
   }
   var summaries = {};
+  var JA = document.documentElement.lang === "ja";
   function bindCopy(prefix) {
     document.querySelectorAll('.copy-btn[data-prefix="' + prefix + '"]').forEach(function (b) {
       b.addEventListener("click", function () {
         var msg = document.querySelector('.copy-msg[data-for="' + prefix + '"]');
-        var done = function () { if (msg) { msg.textContent = "Copied."; setTimeout(function () { msg.textContent = ""; }, 2000); } };
+        var done = function () { if (msg) { msg.textContent = JA ? "コピーしました" : "Copied."; setTimeout(function () { msg.textContent = ""; }, 2000); } };
         if (navigator.clipboard && summaries[prefix]) navigator.clipboard.writeText(summaries[prefix]).then(done, done);
       });
     });
@@ -234,30 +235,33 @@
     var f3 = function (v) { return v.toFixed(3) + " in"; };
     $("kc-size").textContent = r.width.toFixed(3) + " × " + r.height.toFixed(3) + " in";
     verdict($("kc-verdict"), r.spineText ? "pos" : "warn",
-      r.spineText ? "Spine text OK" : "No spine text",
-      r.spineText
+      JA ? (r.spineText ? "背表紙テキスト可" : "背表紙テキストなし") : (r.spineText ? "Spine text OK" : "No spine text"),
+      JA ? (r.spineText
+        ? r.evenPages + "ページでは背表紙は " + r.spine.toFixed(3) + " インチ幅 — KDPは79ページ超の本に背表紙テキストを印刷し、両側に0.0625インチの余白を取ります。"
+        : "KDPが背表紙テキストを印刷するのは79ページ超の本のみです。この背表紙（" + r.spine.toFixed(3) + " インチ）は空白になります。")
+      : (r.spineText
         ? "At " + r.evenPages + " pages the spine is " + r.spine.toFixed(3) + " in wide — KDP prints spine text on books over 79 pages, with 0.0625 in clear on each side."
-        : "KDP only prints spine text on books with more than 79 pages. This spine (" + r.spine.toFixed(3) + " in) stays blank.");
+        : "KDP only prints spine text on books with more than 79 pages. This spine (" + r.spine.toFixed(3) + " in) stays blank."));
     var set = function (id, t) { var el = $(id); if (el) el.textContent = t; };
     set("kc-spine", f3(r.spine) + " (" + r.spineMm.toFixed(1) + " mm)");
     set("kc-full", f3(r.width) + " × " + f3(r.height));
     set("kc-fullmm", r.widthMm.toFixed(1) + " × " + r.heightMm.toFixed(1) + " mm");
     set("kc-px", r.pxW.toLocaleString("en-US") + " × " + r.pxH.toLocaleString("en-US") + " px at 300 DPI");
-    set("kc-front", tw.toFixed(2) + " × " + th.toFixed(2) + " in (trim)");
-    set("kc-textw", r.spineText ? r.spineTextWidth.toFixed(3) + " in usable for spine text" : "—");
-    set("kc-pages-note", r.evenPages !== r.pages ? "Rounded up to " + r.evenPages + " pages — KDP prints on both sides of each sheet and pads odd counts to even." : "Page count used exactly as entered.");
+    set("kc-front", tw.toFixed(2) + " × " + th.toFixed(2) + (JA ? " インチ（仕上がり）" : " in (trim)"));
+    set("kc-textw", r.spineText ? r.spineTextWidth.toFixed(3) + (JA ? " インチを背表紙テキストに使用可" : " in usable for spine text") : "—");
+    set("kc-pages-note", r.evenPages !== r.pages ? (JA ? "偶数ページに切り上げて " + r.evenPages + " ページ — KDPは両面印刷のため、奇数ページは偶数に揃えられます。" : "Rounded up to " + r.evenPages + " pages — KDP prints on both sides of each sheet and pads odd counts to even.") : (JA ? "入力したページ数をそのまま使用しています。" : "Page count used exactly as entered."));
     /* Diagram: proportional back / spine / front */
     var total = r.width, scale = 100 / total;
     var bw = (E.BLEED + tw) * scale, sw = Math.max(r.spine * scale, 1.2), fw = 100 - bw - sw;
     var d = $("kc-diagram");
     if (d) {
       d.innerHTML =
-        '<div class="cd-row"><div class="cd-seg cd-back" style="width:' + bw + '%">Back<br>' + tw.toFixed(2) + ' in</div>' +
-        '<div class="cd-seg cd-spine" style="width:' + sw + '%">Spine<br>' + r.spine.toFixed(3) + ' in</div>' +
-        '<div class="cd-seg cd-front" style="width:' + fw + '%">Front<br>' + tw.toFixed(2) + ' in</div></div>' +
-        '<div class="cd-cap">Full cover file: ' + r.width.toFixed(3) + ' × ' + r.height.toFixed(3) + ' in — includes 0.125 in bleed on the top, bottom and outside edges. Diagram is proportional, not to print scale.</div>';
+        '<div class="cd-row"><div class="cd-seg cd-back" style="width:' + bw + '%">' + (JA ? "裏表紙" : "Back") + '<br>' + tw.toFixed(2) + ' in</div>' +
+        '<div class="cd-seg cd-spine" style="width:' + sw + '%">' + (JA ? "背表紙" : "Spine") + '<br>' + r.spine.toFixed(3) + ' in</div>' +
+        '<div class="cd-seg cd-front" style="width:' + fw + '%">' + (JA ? "表表紙" : "Front") + '<br>' + tw.toFixed(2) + ' in</div></div>' +
+        '<div class="cd-cap">' + (JA ? "表紙ファイル全体: " : "Full cover file: ") + r.width.toFixed(3) + ' × ' + r.height.toFixed(3) + (JA ? ' インチ — 上下と外側の端に0.125インチの塗り足しを含みます。図は比率のみで、印刷原寸ではありません。</div>' : ' in — includes 0.125 in bleed on the top, bottom and outside edges. Diagram is proportional, not to print scale.</div>');
     }
-    summaries.kc = "KDP paperback cover — trim " + tw + "×" + th + " in, " + r.evenPages + " pages: spine " + r.spine.toFixed(3) + " in, full cover " + r.width.toFixed(3) + " × " + r.height.toFixed(3) + " in (" + r.pxW + "×" + r.pxH + " px at 300 DPI). Via tallyfee.com/kdp-cover-calculator/";
+    summaries.kc = JA ? "KDPペーパーバック表紙 — 仕上がり " + tw + "×" + th + " インチ、" + r.evenPages + "ページ: 背表紙 " + r.spine.toFixed(3) + " インチ、表紙全体 " + r.width.toFixed(3) + " × " + r.height.toFixed(3) + " インチ（300 DPIで " + r.pxW + "×" + r.pxH + " px）。出典：tallyfee.com/ja/kdp-cover-calculator/" : "KDP paperback cover — trim " + tw + "×" + th + " in, " + r.evenPages + " pages: spine " + r.spine.toFixed(3) + " in, full cover " + r.width.toFixed(3) + " × " + r.height.toFixed(3) + " in (" + r.pxW + "×" + r.pxH + " px at 300 DPI). Via tallyfee.com/kdp-cover-calculator/";
   }
 
   /* ---------- Shared print inputs (print-cost + royalty pages) ---------- */
@@ -277,8 +281,8 @@
     var inkSel = $(p + "-ink"), mktSel = $(p + "-market");
     if (inkSel) {
       var opts = format === "hardcover"
-        ? [["black", "Black ink"], ["premium", "Premium color ink"]]
-        : [["black", "Black ink — white or cream paper"], ["groundwood", "Black ink — groundwood paper"], ["standard", "Standard color ink"], ["premium", "Premium color ink"]];
+        ? (JA ? [["black", "モノクロ印刷"], ["premium", "プレミアムカラー印刷"]] : [["black", "Black ink"], ["premium", "Premium color ink"]])
+        : (JA ? [["black", "モノクロ印刷 — 白色紙／クリーム紙"], ["groundwood", "モノクロ印刷 — グラウンドウッド紙"], ["standard", "標準カラー印刷"], ["premium", "プレミアムカラー印刷"]] : [["black", "Black ink — white or cream paper"], ["groundwood", "Black ink — groundwood paper"], ["standard", "Standard color ink"], ["premium", "Premium color ink"]]);
       var cur = inkSel.value, html = "";
       opts.forEach(function (o) { html += '<option value="' + o[0] + '">' + o[1] + "</option>"; });
       inkSel.innerHTML = html;
@@ -298,7 +302,7 @@
         : [["5x8", "5 × 8 in"], ["5.25x8", "5.25 × 8 in"], ["5.5x8.5", "5.5 × 8.5 in"], ["6x9", "6 × 9 in"], ["6.14x9.21", "6.14 × 9.21 in"], ["6.69x9.61", "6.69 × 9.61 in"], ["7x10", "7 × 10 in"], ["7.5x9.25", "7.5 × 9.25 in"], ["8x10", "8 × 10 in"], ["8.5x8.5", "8.5 × 8.5 in"], ["8.5x11", "8.5 × 11 in"], ["8.27x11.69", "8.27 × 11.69 in (A4)"]];
       var curT = trimSel.value, h3 = "";
       trims.forEach(function (t) { h3 += '<option value="' + t[0] + '">' + t[1] + "</option>"; });
-      h3 += '<option value="custom">Custom size…</option>';
+      h3 += '<option value="custom">' + (JA ? "カスタムサイズ…" : "Custom size…") + '</option>';
       trimSel.innerHTML = h3;
       trimSel.value = trims.some(function (t) { return t[0] === curT; }) || curT === "custom" ? curT : (format === "hardcover" ? "6x9" : "6x9");
       var cw = $(p + "-custom"); if (cw) cw.style.display = trimSel.value === "custom" ? "" : "none";
@@ -316,15 +320,17 @@
     if (!pc) return;
     $("kp-cost").textContent = money(m.sym, pc.cost, 2) + (m.sym ? "" : " " + m.cur);
     var min = E.minListPrice(pc.cost, inp.market);
-    verdict($("kp-verdict"), "pos", inp.large ? "Large trim size" : "Regular trim size",
-      (inp.large ? "Wider than 6.12 in or taller than 9 in — KDP charges the large-trim rate. " : "Within 6.12 × 9 in — the regular-trim rate applies. ") +
-      (pc.mode === "flat" ? "At " + inp.pages + " pages this book sits in the flat-rate band: printing is a single fixed cost, with no per-page charge." : "Printing cost = fixed cost + page count × per-page cost, per KDP's table."));
+    verdict($("kp-verdict"), "pos", JA ? (inp.large ? "大型トリムサイズ" : "通常トリムサイズ") : (inp.large ? "Large trim size" : "Regular trim size"),
+      JA ? ((inp.large ? "幅6.12インチ超または高さ9インチ超 — KDPの大型トリム料金が適用されます。" : "6.12 × 9インチ以内 — 通常トリム料金が適用されます。") +
+        (pc.mode === "flat" ? inp.pages + "ページでは定額バンドに入ります：印刷費は固定費のみで、ページ単価はかかりません。" : "印刷費 ＝ 固定費 ＋ ページ数 × ページ単価（KDPの表による）。"))
+      : ((inp.large ? "Wider than 6.12 in or taller than 9 in — KDP charges the large-trim rate. " : "Within 6.12 × 9 in — the regular-trim rate applies. ") +
+        (pc.mode === "flat" ? "At " + inp.pages + " pages this book sits in the flat-rate band: printing is a single fixed cost, with no per-page charge." : "Printing cost = fixed cost + page count × per-page cost, per KDP's table.")));
     var set = function (id, t) { var el = $(id); if (el) el.textContent = t; };
-    set("kp-mode", pc.mode === "flat" ? "Flat rate (fixed cost only)" : money(m.sym, pc.fixed, 2) + " + " + inp.pages + " × " + fmtRate(m.sym, pc.perPage));
-    set("kp-trimclass", inp.large ? "Large trim" : "Regular trim");
-    set("kp-minlist", money(m.sym, min.price, m.dec) + " (at the " + Math.round(min.rate * 100) + "% royalty rate)");
+    set("kp-mode", pc.mode === "flat" ? (JA ? "定額（固定費のみ）" : "Flat rate (fixed cost only)") : money(m.sym, pc.fixed, 2) + " + " + inp.pages + " × " + fmtRate(m.sym, pc.perPage));
+    set("kp-trimclass", JA ? (inp.large ? "大型トリム" : "通常トリム") : (inp.large ? "Large trim" : "Regular trim"));
+    set("kp-minlist", money(m.sym, min.price, m.dec) + (JA ? "（印税率" + Math.round(min.rate * 100) + "%の場合）" : " (at the " + Math.round(min.rate * 100) + "% royalty rate)"));
     set("kp-market-name", m.name);
-    summaries.kp = "KDP printing cost — " + inp.format + ", " + inp.pages + " pages, " + m.name + ": " + money(m.sym, pc.cost, 2) + " per copy. Minimum list price " + money(m.sym, min.price, m.dec) + ". Via tallyfee.com/kdp-print-cost-calculator/";
+    summaries.kp = JA ? "KDP印刷コスト — " + (inp.format === "hardcover" ? "ハードカバー" : "ペーパーバック") + "、" + inp.pages + "ページ、" + m.name + ": 1冊あたり " + money(m.sym, pc.cost, 2) + "。最低販売価格 " + money(m.sym, min.price, m.dec) + "。出典：tallyfee.com/ja/kdp-print-cost-calculator/" : "KDP printing cost — " + inp.format + ", " + inp.pages + " pages, " + m.name + ": " + money(m.sym, pc.cost, 2) + " per copy. Minimum list price " + money(m.sym, min.price, m.dec) + ". Via tallyfee.com/kdp-print-cost-calculator/";
   }
 
   /* ---------- Royalty calculator ---------- */
@@ -343,20 +349,23 @@
       var m = E.EBOOK[market];
       var r = E.ebookRoyalty(market, list, mb, vat);
       $("kr-amount").textContent = money(m.sym, r.inBand ? r.r70 : r.r35, m.dec);
-      $("kr-hero-label").textContent = r.inBand ? "Royalty per sale — 70% option" : "Royalty per sale — 35% option (outside the 70% band)";
+      $("kr-hero-label").textContent = JA ? (r.inBand ? "1冊あたりの印税 — 70%オプション" : "1冊あたりの印税 — 35%オプション（70%バンド外）") : (r.inBand ? "Royalty per sale — 70% option" : "Royalty per sale — 35% option (outside the 70% band)");
       verdict($("kr-verdict"), r.inBand ? "pos" : "warn",
-        r.inBand ? "Inside the 70% band" : "Outside the 70% band",
-        r.inBand
+        JA ? (r.inBand ? "70%バンド内" : "70%バンド外") : (r.inBand ? "Inside the 70% band" : "Outside the 70% band"),
+        JA ? (r.inBand
+          ? "この価格は " + m.name + " の70%印税バンド（" + money(m.sym, r.band[0], m.dec) + "〜" + money(m.sym, r.band[1], m.dec) + "）に入っています。" + (r.select ? "注意：このストアでは70%オプションにKDP Selectへの登録も必要です。" : "")
+          : "この価格では " + m.name + " で70%オプションは適用されません（バンド：" + money(m.sym, r.band[0], m.dec) + "〜" + money(m.sym, r.band[1], m.dec) + "）— 代わりに35%の印税率になります。")
+        : (r.inBand
           ? "This price sits inside the 70% royalty band for " + m.name + " (" + money(m.sym, r.band[0], m.dec) + "–" + money(m.sym, r.band[1], m.dec) + ")." + (r.select ? " Note: in this store the 70% option also requires KDP Select enrollment." : "")
-          : "At this price the 70% option does not apply on " + m.name + " (band: " + money(m.sym, r.band[0], m.dec) + "–" + money(m.sym, r.band[1], m.dec) + ") — sales earn the 35% rate instead.");
+          : "At this price the 70% option does not apply on " + m.name + " (band: " + money(m.sym, r.band[0], m.dec) + "–" + money(m.sym, r.band[1], m.dec) + ") — sales earn the 35% rate instead."));
       var setE = function (id, t) { var el = $(id); if (el) el.textContent = t; };
       setE("kr-r70", money(m.sym, r.r70, m.dec));
       setE("kr-r35", money(m.sym, r.r35, m.dec));
-      setE("kr-delivery", money(m.sym, r.delivery, m.dec) + " (" + mb + " MB file)");
+      setE("kr-delivery", money(m.sym, r.delivery, m.dec) + (JA ? "（" + mb + " MBのファイル）" : " (" + mb + " MB file)"));
       setE("kr-net", money(m.sym, r.net, m.dec));
       $("kr-print-rows").style.display = "none";
       $("kr-ebook-rows").style.display = "";
-      summaries.kr = "KDP eBook royalty — " + m.name + ", list " + money(m.sym, list, m.dec) + ", " + mb + " MB: 70% option pays " + money(m.sym, r.r70, m.dec) + ", 35% pays " + money(m.sym, r.r35, m.dec) + " per sale. Via tallyfee.com/kdp-royalty-calculator/";
+      summaries.kr = JA ? "KDP電子書籍の印税 — " + m.name + "、定価 " + money(m.sym, list, m.dec) + "、" + mb + " MB: 70%オプションで " + money(m.sym, r.r70, m.dec) + "、35%で " + money(m.sym, r.r35, m.dec) + "（1冊あたり）。出典：tallyfee.com/ja/kdp-royalty-calculator/" : "KDP eBook royalty — " + m.name + ", list " + money(m.sym, list, m.dec) + ", " + mb + " MB: 70% option pays " + money(m.sym, r.r70, m.dec) + ", 35% pays " + money(m.sym, r.r35, m.dec) + " per sale. Via tallyfee.com/kdp-royalty-calculator/";
       return;
     }
     $("kr-print-rows").style.display = "";
@@ -376,18 +385,21 @@
     var rr = E.printRoyalty(inp.format, inp.ink, inp.market, inp.large, inp.pages, list, channel);
     if (!rr) return;
     $("kr-amount").textContent = money(m2.sym, rr.royalty, m2.dec) + (m2.sym ? "" : " " + m2.cur);
-    $("kr-hero-label").textContent = "Royalty per sale";
-    var vCls = rr.royalty < 0 ? "neg" : "pos", vLabel = rr.royalty < 0 ? "Below the minimum price" : Math.round(rr.rate * 100) + "% royalty rate";
-    var vReason = rr.royalty < 0
+    $("kr-hero-label").textContent = JA ? "1冊あたりの印税" : "Royalty per sale";
+    var vCls = rr.royalty < 0 ? "neg" : "pos", vLabel = rr.royalty < 0 ? (JA ? "最低価格未満" : "Below the minimum price") : (JA ? Math.round(rr.rate * 100) + "% の印税率" : Math.round(rr.rate * 100) + "% royalty rate");
+    var vReason = JA ? (rr.royalty < 0
+      ? "この定価では印税が印刷コストを賄えません — KDPが設定するこの本の最低販売価格は " + money(m2.sym, rr.min.price, m2.dec) + " です。"
+      : (rr.atThreshold ? "価格の崖：定価を " + money(m2.sym, rr.atThreshold.price, m2.dec) + " に上げると60%の印税率に切り替わり、1冊あたり " + money(m2.sym, rr.atThreshold.royalty, m2.dec) + " になります。" : "適用料率：定価の " + Math.round(rr.rate * 100) + "% から印刷コストを差し引いた額（KDPの計算式）。"))
+    : (rr.royalty < 0
       ? "At this list price the royalty does not cover the printing cost — KDP sets a minimum list price of " + money(m2.sym, rr.min.price, m2.dec) + " for this book."
-      : (rr.atThreshold ? "The price cliff: raising the list price to " + money(m2.sym, rr.atThreshold.price, m2.dec) + " switches you to the 60% rate and pays " + money(m2.sym, rr.atThreshold.royalty, m2.dec) + " per sale." : "Rate applied: " + Math.round(rr.rate * 100) + "% of list price minus printing cost, per KDP's formula.");
+      : (rr.atThreshold ? "The price cliff: raising the list price to " + money(m2.sym, rr.atThreshold.price, m2.dec) + " switches you to the 60% rate and pays " + money(m2.sym, rr.atThreshold.royalty, m2.dec) + " per sale." : "Rate applied: " + Math.round(rr.rate * 100) + "% of list price minus printing cost, per KDP's formula."));
     verdict($("kr-verdict"), vCls, vLabel, vReason);
     var set = function (id, t) { var el = $(id); if (el) el.textContent = t; };
     set("kr-printcost", money(m2.sym, rr.print.cost, 2));
-    set("kr-rate", Math.round(rr.rate * 100) + "%" + (channel === "ed" ? " (Expanded Distribution)" : ""));
+    set("kr-rate", Math.round(rr.rate * 100) + "%" + (channel === "ed" ? (JA ? "（拡大配信）" : " (Expanded Distribution)") : ""));
     set("kr-share", money(m2.sym, r2(rr.rate * list), m2.dec));
     set("kr-minlist", money(m2.sym, rr.min.price, m2.dec));
-    summaries.kr = "KDP " + inp.format + " royalty — list " + money(m2.sym, list, m2.dec) + ", " + inp.pages + " pages, " + m2.name + ": printing " + money(m2.sym, rr.print.cost, 2) + ", royalty " + money(m2.sym, rr.royalty, m2.dec) + " per sale at the " + Math.round(rr.rate * 100) + "% rate. Via tallyfee.com/kdp-royalty-calculator/";
+    summaries.kr = JA ? "KDP" + (inp.format === "hardcover" ? "ハードカバー" : "ペーパーバック") + "の印税 — 定価 " + money(m2.sym, list, m2.dec) + "、" + inp.pages + "ページ、" + m2.name + ": 印刷 " + money(m2.sym, rr.print.cost, 2) + "、印税率 " + Math.round(rr.rate * 100) + "% で1冊あたり " + money(m2.sym, rr.royalty, m2.dec) + "。出典：tallyfee.com/ja/kdp-royalty-calculator/" : "KDP " + inp.format + " royalty — list " + money(m2.sym, list, m2.dec) + ", " + inp.pages + " pages, " + m2.name + ": printing " + money(m2.sym, rr.print.cost, 2) + ", royalty " + money(m2.sym, rr.royalty, m2.dec) + " per sale at the " + Math.round(rr.rate * 100) + "% rate. Via tallyfee.com/kdp-royalty-calculator/";
   }
 
   /* Draws the full-size 300 DPI cover template (bleed, trim, fold lines,

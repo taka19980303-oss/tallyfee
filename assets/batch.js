@@ -11,19 +11,20 @@
   var batchBody = $("batch-body");
   if (!E || !batchBody) return;
   var r2 = E.r2, money = E.money, neg = E.neg, pct = E.pct;
+  var JA = document.documentElement.lang === "ja";
 
   function batchRow(name, price, ship, cost, shipcost) {
     var tr = document.createElement("tr");
     tr.innerHTML =
-        '<td data-label="Item name"><input class="name b-name" type="text" value=""></td>'
-      + '<td data-label="Sale price"><input class="b-price" type="number" inputmode="decimal" min="0" step="0.01"></td>'
-      + '<td data-label="Shipping charged"><input class="b-ship" type="number" inputmode="decimal" min="0" step="0.01"></td>'
-      + '<td data-label="Item cost"><input class="b-cost" type="number" inputmode="decimal" min="0" step="0.01"></td>'
-      + '<td data-label="Actual shipping"><input class="b-shipcost" type="number" inputmode="decimal" min="0" step="0.01"></td>'
-      + '<td class="num mono" data-label="Total fees">-$0.00</td>'
-      + '<td class="num mono" data-label="Net profit">$0.00</td>'
-      + '<td class="num mono" data-label="Margin">0%</td>'
-      + '<td data-label=""><button type="button" class="row-del" aria-label="Remove row">×</button></td>';
+        '<td data-label="' + (JA ? "商品名" : "Item name") + '"><input class="name b-name" type="text" value=""></td>'
+      + '<td data-label="' + (JA ? "販売価格" : "Sale price") + '"><input class="b-price" type="number" inputmode="decimal" min="0" step="0.01"></td>'
+      + '<td data-label="' + (JA ? "請求送料" : "Shipping charged") + '"><input class="b-ship" type="number" inputmode="decimal" min="0" step="0.01"></td>'
+      + '<td data-label="' + (JA ? "仕入価格" : "Item cost") + '"><input class="b-cost" type="number" inputmode="decimal" min="0" step="0.01"></td>'
+      + '<td data-label="' + (JA ? "実際の送料" : "Actual shipping") + '"><input class="b-shipcost" type="number" inputmode="decimal" min="0" step="0.01"></td>'
+      + '<td class="num mono" data-label="' + (JA ? "手数料合計" : "Total fees") + '">-$0.00</td>'
+      + '<td class="num mono" data-label="' + (JA ? "純利益" : "Net profit") + '">$0.00</td>'
+      + '<td class="num mono" data-label="' + (JA ? "利益率" : "Margin") + '">0%</td>'
+      + '<td data-label=""><button type="button" class="row-del" aria-label="' + (JA ? "行を削除" : "Remove row") + '">×</button></td>';
     tr.querySelector(".b-name").value = name;
     tr.querySelector(".b-price").value = price;
     tr.querySelector(".b-ship").value = ship;
@@ -73,7 +74,7 @@
   $("batch-platform").addEventListener("change", calcBatch);
   $("batch-csv").addEventListener("click", function () {
     var key = $("batch-platform").value;
-    var lines = ["Item name,Sale price,Shipping charged,Item cost,Actual shipping,Revenue,Total fees,Net profit,Margin %"];
+    var lines = [JA ? "商品名,販売価格,請求送料,仕入価格,実際の送料,売上,手数料合計,純利益,利益率 %" : "Item name,Sale price,Shipping charged,Item cost,Actual shipping,Revenue,Total fees,Net profit,Margin %"];
     var tFees = 0, tProfit = 0;
     batchBody.querySelectorAll("tr").forEach(function (tr) {
       var name = tr.querySelector(".b-name").value;
@@ -85,7 +86,7 @@
                   r.revenue.toFixed(2), r.fees.toFixed(2), r.profit.toFixed(2), margin.toFixed(1)].join(","));
       tFees = r2(tFees + r.fees); tProfit = r2(tProfit + r.profit);
     });
-    lines.push(["TOTAL", "", "", "", "", "", tFees.toFixed(2), tProfit.toFixed(2), ""].join(","));
+    lines.push([JA ? "合計" : "TOTAL", "", "", "", "", "", tFees.toFixed(2), tProfit.toFixed(2), ""].join(","));
     var blob = new Blob([lines.join("\n")], { type: "text/csv" });
     var a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
@@ -94,8 +95,8 @@
     setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000);
   });
 
-  batchRow("Vintage denim jacket", 50, 5, 20, 6);
-  batchRow("Sneakers — used, good condition", 85, 0, 35, 9);
-  batchRow("Handmade ceramic mug", 28, 4, 9, 5);
+  batchRow(JA ? "ヴィンテージデニムジャケット" : "Vintage denim jacket", 50, 5, 20, 6);
+  batchRow(JA ? "スニーカー — 中古・状態良好" : "Sneakers — used, good condition", 85, 0, 35, 9);
+  batchRow(JA ? "ハンドメイド陶器マグ" : "Handmade ceramic mug", 28, 4, 9, 5);
   calcBatch();
 })();

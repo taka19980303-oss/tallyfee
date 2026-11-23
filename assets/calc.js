@@ -92,7 +92,7 @@
     $("et-gross").textContent = f.fmt(r.revenue);
     $("et-trans").textContent = f.nfmt(r.trans);
     $("et-proc").textContent = f.nfmt(r.proc);
-    $("et-reg").textContent = f.nfmt(r.reg) + (reg === 0 ? " (US: not charged)" : "");
+    $("et-reg").textContent = f.nfmt(r.reg) + (reg === 0 ? (JA ? "（米国：課金なし）" : " (US: not charged)") : "");
     $("et-offsitefee").textContent = f.nfmt(r.off);
     $("et-offsite-row").style.display = off > 0 ? "" : "none";
     $("et-fees").textContent = f.nfmt(r.fees);
@@ -101,8 +101,11 @@
     $("et-eff").textContent = E.pct(r.revenue > 0 ? r.fees / r.revenue * 100 : 0);
     var be = E.breakEven(function (p) { return E.etsyCalc(p, ship, tax, cost, sc, reg, off).profit; });
     $("et-be").textContent = be === null ? "—" : f.fmt(be);
-    summaries.et = "Etsy (US): price " + f.fmt(price) + " + shipping " + f.fmt(ship) + " → fees " + f.fmt(r.fees) +
-      ", net profit " + f.fmt(r.profit) + " (margin " + E.pct(r.revenue > 0 ? r.profit / r.revenue * 100 : 0) + "). Rates verified November 18, 2026.";
+    summaries.et = JA
+      ? "Etsy（米国）: 価格 " + f.fmt(price) + " + 送料 " + f.fmt(ship) + " → 手数料 " + f.fmt(r.fees) +
+        "、純利益 " + f.fmt(r.profit) + "（利益率 " + E.pct(r.revenue > 0 ? r.profit / r.revenue * 100 : 0) + "）。料率は2026年11月18日に確認。"
+      : "Etsy (US): price " + f.fmt(price) + " + shipping " + f.fmt(ship) + " → fees " + f.fmt(r.fees) +
+        ", net profit " + f.fmt(r.profit) + " (margin " + E.pct(r.revenue > 0 ? r.profit / r.revenue * 100 : 0) + "). Rates verified November 18, 2026.";
   }
 
   /* ================= Poshmark ================= */
@@ -112,7 +115,7 @@
     var r = E.poshCalc(price, cost, sc);
     var f = setResult("pm", r);
     $("pm-gross").textContent = f.fmt(r.revenue);
-    $("pm-fee-label").textContent = price < 15 ? "Poshmark commission — $2.95 flat (sale under $15)" : "Poshmark commission — 20% of the sale price";
+    $("pm-fee-label").textContent = JA ? (price < 15 ? "Poshmark手数料 — $2.95定額（$15未満の販売）" : "Poshmark手数料 — 販売価格の20%") : (price < 15 ? "Poshmark commission — $2.95 flat (sale under $15)" : "Poshmark commission — 20% of the sale price");
     $("pm-fee").textContent = f.nfmt(r.fee);
     $("pm-fees").textContent = f.nfmt(r.fees);
     $("pm-keep").textContent = f.fmt(r.keep);
@@ -120,8 +123,11 @@
     $("pm-eff").textContent = E.pct(r.revenue > 0 ? r.fees / r.revenue * 100 : 0);
     var be = E.breakEven(function (p) { return E.poshCalc(p, cost, sc).profit; });
     $("pm-be").textContent = be === null ? "—" : f.fmt(be);
-    summaries.pm = "Poshmark (US): price " + f.fmt(price) + " → fees " + f.fmt(r.fees) +
-      ", net profit " + f.fmt(r.profit) + " (margin " + E.pct(r.revenue > 0 ? r.profit / r.revenue * 100 : 0) + "). Rates verified November 18, 2026.";
+    summaries.pm = JA
+      ? "Poshmark（米国）: 価格 " + f.fmt(price) + " → 手数料 " + f.fmt(r.fees) +
+        "、純利益 " + f.fmt(r.profit) + "（利益率 " + E.pct(r.revenue > 0 ? r.profit / r.revenue * 100 : 0) + "）。料率は2026年11月18日に確認。"
+      : "Poshmark (US): price " + f.fmt(price) + " → fees " + f.fmt(r.fees) +
+        ", net profit " + f.fmt(r.profit) + " (margin " + E.pct(r.revenue > 0 ? r.profit / r.revenue * 100 : 0) + "). Rates verified November 18, 2026.";
   }
 
   /* ================= Mercari ================= */
@@ -139,8 +145,11 @@
     $("mc-eff").textContent = E.pct(r.revenue > 0 ? r.fees / r.revenue * 100 : 0);
     var be = E.breakEven(function (p) { return E.mercariCalc(p, ship, cost, sc).profit; });
     $("mc-be").textContent = be === null ? "—" : f.fmt(be);
-    summaries.mc = "Mercari (US): price " + f.fmt(price) + " + shipping " + f.fmt(ship) + " → fees " + f.fmt(r.fees) +
-      ", net profit " + f.fmt(r.profit) + " (margin " + E.pct(r.revenue > 0 ? r.profit / r.revenue * 100 : 0) + "). Rates verified November 18, 2026.";
+    summaries.mc = JA
+      ? "Mercari（米国）: 価格 " + f.fmt(price) + " + 送料 " + f.fmt(ship) + " → 手数料 " + f.fmt(r.fees) +
+        "、純利益 " + f.fmt(r.profit) + "（利益率 " + E.pct(r.revenue > 0 ? r.profit / r.revenue * 100 : 0) + "）。料率は2026年11月18日に確認。"
+      : "Mercari (US): price " + f.fmt(price) + " + shipping " + f.fmt(ship) + " → fees " + f.fmt(r.fees) +
+        ", net profit " + f.fmt(r.profit) + " (margin " + E.pct(r.revenue > 0 ? r.profit / r.revenue * 100 : 0) + "). Rates verified November 18, 2026.";
   }
 
   /* ================= Amazon ================= */
@@ -160,8 +169,11 @@
     $("am-eff").textContent = E.pct(r.revenue > 0 ? r.fees / r.revenue * 100 : 0);
     var be = E.breakEven(function (p) { return E.amazonCalc(p, ship, cost, sc, cat).profit; });
     $("am-be").textContent = be === null ? "—" : f.fmt(be);
-    summaries.am = "Amazon (US, referral fee only): price " + f.fmt(price) + " + shipping " + f.fmt(ship) + " → fees " + f.fmt(r.fees) +
-      ", net profit " + f.fmt(r.profit) + " (margin " + E.pct(r.revenue > 0 ? r.profit / r.revenue * 100 : 0) + "). Rates verified November 18, 2026.";
+    summaries.am = JA
+      ? "Amazon（米国、販売手数料のみ）: 価格 " + f.fmt(price) + " + 送料 " + f.fmt(ship) + " → 手数料 " + f.fmt(r.fees) +
+        "、純利益 " + f.fmt(r.profit) + "（利益率 " + E.pct(r.revenue > 0 ? r.profit / r.revenue * 100 : 0) + "）。料率は2026年11月18日に確認。"
+      : "Amazon (US, referral fee only): price " + f.fmt(price) + " + shipping " + f.fmt(ship) + " → fees " + f.fmt(r.fees) +
+        ", net profit " + f.fmt(r.profit) + " (margin " + E.pct(r.revenue > 0 ? r.profit / r.revenue * 100 : 0) + "). Rates verified November 18, 2026.";
   }
 
   /* ================= Depop ================= */
@@ -175,15 +187,18 @@
     var f = setResult("dp", r, cur);
     $("dp-gross").textContent = f.fmt(r.revenue);
     $("dp-proc").textContent = f.nfmt(r.proc);
-    $("dp-proc-label").textContent = region === "uk" ? "Payment processing — 2.9% of price + shipping + tax, + £0.30" : "Payment processing — 3.3% of price + shipping + tax, + $0.45";
+    $("dp-proc-label").textContent = JA ? (region === "uk" ? "決済手数料 — 価格＋送料＋税の2.9% ＋ £0.30" : "決済手数料 — 価格＋送料＋税の3.3% ＋ $0.45") : (region === "uk" ? "Payment processing — 2.9% of price + shipping + tax, + £0.30" : "Payment processing — 3.3% of price + shipping + tax, + $0.45");
     $("dp-fees").textContent = f.nfmt(r.fees);
     $("dp-keep").textContent = f.fmt(r.keep);
     $("dp-costs").textContent = f.nfmt(r.costs);
     $("dp-eff").textContent = E.pct(r.revenue > 0 ? r.fees / r.revenue * 100 : 0);
     var be = E.breakEven(function (p) { return E.depopCalc(p, ship, tax, cost, sc, region).profit; });
     $("dp-be").textContent = be === null ? "—" : cur + be.toFixed(2);
-    summaries.dp = "Depop (" + (region === "uk" ? "UK" : "US") + "): price " + f.fmt(price) + " + shipping " + f.fmt(ship) + " → fees " + f.fmt(r.fees) +
-      ", net profit " + f.fmt(r.profit) + " (margin " + E.pct(r.revenue > 0 ? r.profit / r.revenue * 100 : 0) + "). Rates verified November 18, 2026.";
+    summaries.dp = JA
+      ? "Depop（" + (region === "uk" ? "英国" : "米国") + "）: 価格 " + f.fmt(price) + " + 送料 " + f.fmt(ship) + " → 手数料 " + f.fmt(r.fees) +
+        "、純利益 " + f.fmt(r.profit) + "（利益率 " + E.pct(r.revenue > 0 ? r.profit / r.revenue * 100 : 0) + "）。料率は2026年11月18日に確認。"
+      : "Depop (" + (region === "uk" ? "UK" : "US") + "): price " + f.fmt(price) + " + shipping " + f.fmt(ship) + " → fees " + f.fmt(r.fees) +
+        ", net profit " + f.fmt(r.profit) + " (margin " + E.pct(r.revenue > 0 ? r.profit / r.revenue * 100 : 0) + "). Rates verified November 18, 2026.";
   }
 
   /* ================= Vinted ================= */
@@ -193,15 +208,18 @@
     var r = E.vintedCalc(price, cost, sc);
     var f = setResult("vt", r);
     $("vt-gross").textContent = f.fmt(r.revenue);
-    $("vt-buyerfee").textContent = f.fmt(r.buyerFee) + " (buyer pays)";
+    $("vt-buyerfee").textContent = f.fmt(r.buyerFee) + (JA ? "（購入者負担）" : " (buyer pays)");
     $("vt-fees").textContent = f.fmt(r.fees);
     $("vt-keep").textContent = f.fmt(r.keep);
     $("vt-costs").textContent = f.nfmt(r.costs);
     $("vt-eff").textContent = E.pct(0);
     var be = E.breakEven(function (p) { return E.vintedCalc(p, cost, sc).profit; });
     $("vt-be").textContent = be === null ? "—" : f.fmt(be);
-    summaries.vt = "Vinted (US): price " + f.fmt(price) + " → seller fees $0.00, net profit " + f.fmt(r.profit) +
-      " (margin " + E.pct(r.revenue > 0 ? r.profit / r.revenue * 100 : 0) + "). Rates verified November 18, 2026.";
+    summaries.vt = JA
+      ? "Vinted（米国）: 価格 " + f.fmt(price) + " → 販売者手数料 $0.00、純利益 " + f.fmt(r.profit) +
+        "（利益率 " + E.pct(r.revenue > 0 ? r.profit / r.revenue * 100 : 0) + "）。料率は2026年11月18日に確認。"
+      : "Vinted (US): price " + f.fmt(price) + " → seller fees $0.00, net profit " + f.fmt(r.profit) +
+        " (margin " + E.pct(r.revenue > 0 ? r.profit / r.revenue * 100 : 0) + "). Rates verified November 18, 2026.";
   }
 
   /* ================= Whatnot ================= */
@@ -212,7 +230,7 @@
     var r = E.whatnotCalc(price, ship, tax, cost, sc, commPct);
     var f = setResult("wn", r);
     $("wn-gross").textContent = f.fmt(r.revenue);
-    $("wn-comm-label").textContent = "Commission — " + commPct.toFixed(0) + "% of the item price only (Standard tier)";
+    $("wn-comm-label").textContent = JA ? "手数料 — 商品価格のみの" + commPct.toFixed(0) + "%（Standardティア）" : "Commission — " + commPct.toFixed(0) + "% of the item price only (Standard tier)";
     $("wn-comm").textContent = f.nfmt(r.comm);
     $("wn-proc").textContent = f.nfmt(r.proc);
     $("wn-fees").textContent = f.nfmt(r.fees);
@@ -221,8 +239,11 @@
     $("wn-eff").textContent = E.pct(r.revenue > 0 ? r.fees / r.revenue * 100 : 0);
     var be = E.breakEven(function (p) { return E.whatnotCalc(p, ship, tax, cost, sc, commPct).profit; });
     $("wn-be").textContent = be === null ? "—" : f.fmt(be);
-    summaries.wn = "Whatnot (US, Standard tier): price " + f.fmt(price) + " + shipping " + f.fmt(ship) + " → fees " + f.fmt(r.fees) +
-      ", net profit " + f.fmt(r.profit) + " (margin " + E.pct(r.revenue > 0 ? r.profit / r.revenue * 100 : 0) + "). Rates verified November 18, 2026.";
+    summaries.wn = JA
+      ? "Whatnot（米国、Standardティア）: 価格 " + f.fmt(price) + " + 送料 " + f.fmt(ship) + " → 手数料 " + f.fmt(r.fees) +
+        "、純利益 " + f.fmt(r.profit) + "（利益率 " + E.pct(r.revenue > 0 ? r.profit / r.revenue * 100 : 0) + "）。料率は2026年11月18日に確認。"
+      : "Whatnot (US, Standard tier): price " + f.fmt(price) + " + shipping " + f.fmt(ship) + " → fees " + f.fmt(r.fees) +
+        ", net profit " + f.fmt(r.profit) + " (margin " + E.pct(r.revenue > 0 ? r.profit / r.revenue * 100 : 0) + "). Rates verified November 18, 2026.";
   }
 
   /* ================= TikTok Shop ================= */
@@ -232,6 +253,14 @@
     collectibles: "Referral fee — 6%, with 3% on the portion over $10,000",
     preowned: "Referral fee — 5%, with 3% on the portion over $10,000"
   };
+  var TT_RATE_LABELS_JA = {
+    standard: "紹介手数料 — 課金ベースの6%",
+    jewelry: "紹介手数料 — 課金ベースの5%（ファインジュエリー）",
+    collectibles: "紹介手数料 — 6%、$10,000超過分は3%",
+    preowned: "紹介手数料 — 5%、$10,000超過分は3%"
+  };
+  var TT_LABELS = JA ? TT_RATE_LABELS_JA : TT_RATE_LABELS;
+  var TT_GROUP_JA = { standard: "標準", jewelry: "ファインジュエリー", collectibles: "コレクティブル", preowned: "中古" };
   function calcTiktok() {
     if (!$("tt-price")) return;
     var price = num("tt-price"), ship = num("tt-ship"), disc = num("tt-discount"), tax = num("tt-tax"), cost = num("tt-cost"), sc = num("tt-shipcost");
@@ -240,7 +269,7 @@
     var f = setResult("tt", r);
     $("tt-gross").textContent = f.fmt(r.revenue);
     $("tt-base").textContent = f.fmt(r.base);
-    $("tt-rate-label").textContent = TT_RATE_LABELS[group] || TT_RATE_LABELS.standard;
+    $("tt-rate-label").textContent = TT_LABELS[group] || TT_LABELS.standard;
     $("tt-fee").textContent = f.nfmt(r.fees);
     $("tt-fees").textContent = f.nfmt(r.fees);
     $("tt-keep").textContent = f.fmt(r.keep);
@@ -248,8 +277,11 @@
     $("tt-eff").textContent = E.pct(r.revenue > 0 ? r.fees / r.revenue * 100 : 0);
     var be = E.breakEven(function (p) { return E.tiktokCalc(p, ship, disc, tax, cost, sc, group).profit; });
     $("tt-be").textContent = be === null ? "—" : f.fmt(be);
-    summaries.tt = "TikTok Shop (US, " + group + "): price " + f.fmt(price) + " + shipping " + f.fmt(ship) + " → referral fee " + f.fmt(r.fees) +
-      " on a fee base of " + f.fmt(r.base) + ", net profit " + f.fmt(r.profit) + " (margin " + E.pct(r.revenue > 0 ? r.profit / r.revenue * 100 : 0) + "). Rates verified November 23, 2026.";
+    summaries.tt = JA
+      ? "TikTok Shop（米国、" + (TT_GROUP_JA[group] || group) + "）: 価格 " + f.fmt(price) + " + 送料 " + f.fmt(ship) + " → 紹介手数料 " + f.fmt(r.fees) +
+        "（課金ベース " + f.fmt(r.base) + "）、純利益 " + f.fmt(r.profit) + "（利益率 " + E.pct(r.revenue > 0 ? r.profit / r.revenue * 100 : 0) + "）。料率は2026年11月23日に確認。"
+      : "TikTok Shop (US, " + group + "): price " + f.fmt(price) + " + shipping " + f.fmt(ship) + " → referral fee " + f.fmt(r.fees) +
+        " on a fee base of " + f.fmt(r.base) + ", net profit " + f.fmt(r.profit) + " (margin " + E.pct(r.revenue > 0 ? r.profit / r.revenue * 100 : 0) + "). Rates verified November 23, 2026.";
   }
 
   /* ================= Facebook Marketplace ================= */
@@ -261,7 +293,7 @@
     var f = setResult("fb", r);
     $("fb-gross").textContent = f.fmt(r.revenue);
     $("fb-total").textContent = f.fmt(r.total);
-    $("fb-fee-label").textContent = shipped ? "Selling Fee — 10% of the transaction total, $0.80 minimum" : "Selling Fee — none for local pickup";
+    $("fb-fee-label").textContent = JA ? (shipped ? "販売手数料 — 取引総額の10%、最低$0.80" : "販売手数料 — 対面受取はなし") : (shipped ? "Selling Fee — 10% of the transaction total, $0.80 minimum" : "Selling Fee — none for local pickup");
     $("fb-fee").textContent = f.nfmt(r.fees);
     $("fb-fees").textContent = f.nfmt(r.fees);
     $("fb-keep").textContent = f.fmt(r.keep);
@@ -269,20 +301,23 @@
     $("fb-eff").textContent = E.pct(r.revenue > 0 ? r.fees / r.revenue * 100 : 0);
     var be = E.breakEven(function (p) { return E.fbCalc(p, ship, tax, cost, sc, shipped).profit; });
     $("fb-be").textContent = be === null ? "—" : f.fmt(be);
-    summaries.fb = "Facebook Marketplace (US, " + (shipped ? "shipped checkout" : "local pickup") + "): price " + f.fmt(price) + " + shipping " + f.fmt(ship) + " → selling fee " + f.fmt(r.fees) +
-      ", net profit " + f.fmt(r.profit) + " (margin " + E.pct(r.revenue > 0 ? r.profit / r.revenue * 100 : 0) + "). Rates verified November 23, 2026.";
+    summaries.fb = JA
+      ? "Facebook Marketplace（米国、" + (shipped ? "配送チェックアウト" : "対面受取") + "）: 価格 " + f.fmt(price) + " + 送料 " + f.fmt(ship) + " → 販売手数料 " + f.fmt(r.fees) +
+        "、純利益 " + f.fmt(r.profit) + "（利益率 " + E.pct(r.revenue > 0 ? r.profit / r.revenue * 100 : 0) + "）。料率は2026年11月23日に確認。"
+      : "Facebook Marketplace (US, " + (shipped ? "shipped checkout" : "local pickup") + "): price " + f.fmt(price) + " + shipping " + f.fmt(ship) + " → selling fee " + f.fmt(r.fees) +
+        ", net profit " + f.fmt(r.profit) + " (margin " + E.pct(r.revenue > 0 ? r.profit / r.revenue * 100 : 0) + "). Rates verified November 23, 2026.";
   }
 
   /* ================= Comparison ================= */
   var CMP_DEFS = [
     { key: "ebay", name: "eBay", href: "/ebay-fee-calculator/", jaHref: "/ja/ebay-fee-calculator/", feeLabel: "13.6% up to $7,500, then 2.35% · + per-order fee", feeLabelJa: "$7,500まで13.6%、超過分2.35% · ＋注文ごとの手数料" },
-    { key: "etsy", name: "Etsy", href: "/etsy-fee-calculator/", feeLabel: "$0.20 + 6.5% + 3% + $0.25 · regulatory n/a (US)", feeLabelJa: "$0.20 + 6.5% + 3% + $0.25 · 規制手数料は米国なし" },
-    { key: "poshmark", name: "Poshmark", href: "/poshmark-fee-calculator/", feeLabel: "$2.95 under $15 · 20% at $15+ · on item price only", feeLabelJa: "$15未満は$2.95定額 · $15以上は20% · 商品価格のみに課金" },
-    { key: "mercari", name: "Mercari", href: "/mercari-fee-calculator/", feeLabel: "10% of price + buyer-paid shipping · no processing fee", feeLabelJa: "価格＋買い手負担送料の10% · 決済手数料なし" },
-    { key: "amazon", name: "Amazon", href: "/amazon-referral-fee-calculator/", feeLabel: "Referral only · Everything Else 15% (category selector on its page)", feeLabelJa: "販売手数料のみ · Everything Else 15%（カテゴリは個別ページで選択）" },
-    { key: "depop", name: "Depop", href: "/depop-fee-calculator/", feeLabel: "No selling fee (US) · processing 3.3% + $0.45", feeLabelJa: "販売手数料なし（米国）· 決済 3.3% + $0.45" },
-    { key: "vinted", name: "Vinted", href: "/vinted-fee-calculator/", feeLabel: "No seller fee · buyer pays the Vinted fee", feeLabelJa: "販売者手数料なし · 手数料は買い手負担" },
-    { key: "whatnot", name: "Whatnot", href: "/whatnot-fee-calculator/", feeLabel: "Commission 8% on item price + 2.9% + $0.30 processing (Standard)", feeLabelJa: "商品価格の8% ＋ 決済 2.9% + $0.30（Standard）" }
+    { key: "etsy", name: "Etsy", href: "/etsy-fee-calculator/", jaHref: "/ja/etsy-fee-calculator/", feeLabel: "$0.20 + 6.5% + 3% + $0.25 · regulatory n/a (US)", feeLabelJa: "$0.20 + 6.5% + 3% + $0.25 · 規制手数料は米国なし" },
+    { key: "poshmark", name: "Poshmark", href: "/poshmark-fee-calculator/", jaHref: "/ja/poshmark-fee-calculator/", feeLabel: "$2.95 under $15 · 20% at $15+ · on item price only", feeLabelJa: "$15未満は$2.95定額 · $15以上は20% · 商品価格のみに課金" },
+    { key: "mercari", name: "Mercari", href: "/mercari-fee-calculator/", jaHref: "/ja/mercari-fee-calculator/", feeLabel: "10% of price + buyer-paid shipping · no processing fee", feeLabelJa: "価格＋買い手負担送料の10% · 決済手数料なし" },
+    { key: "amazon", name: "Amazon", href: "/amazon-referral-fee-calculator/", jaHref: "/ja/amazon-referral-fee-calculator/", feeLabel: "Referral only · Everything Else 15% (category selector on its page)", feeLabelJa: "販売手数料のみ · Everything Else 15%（カテゴリは個別ページで選択）" },
+    { key: "depop", name: "Depop", href: "/depop-fee-calculator/", jaHref: "/ja/depop-fee-calculator/", feeLabel: "No selling fee (US) · processing 3.3% + $0.45", feeLabelJa: "販売手数料なし（米国）· 決済 3.3% + $0.45" },
+    { key: "vinted", name: "Vinted", href: "/vinted-fee-calculator/", jaHref: "/ja/vinted-fee-calculator/", feeLabel: "No seller fee · buyer pays the Vinted fee", feeLabelJa: "販売者手数料なし · 手数料は買い手負担" },
+    { key: "whatnot", name: "Whatnot", href: "/whatnot-fee-calculator/", jaHref: "/ja/whatnot-fee-calculator/", feeLabel: "Commission 8% on item price + 2.9% + $0.30 processing (Standard)", feeLabelJa: "商品価格の8% ＋ 決済 2.9% + $0.30（Standard）" }
   ];
   function cmpHref(d) { return JA && d.jaHref ? d.jaHref : d.href; }
   function cmpFeeLabel(d) { return JA && d.feeLabelJa ? d.feeLabelJa : d.feeLabel; }
@@ -372,25 +407,31 @@
     }
     if (price === null) {
       $("rev-price").textContent = "—";
-      $("rev-sub").textContent = "No price up to $10,000,000 reaches this target on eBay — the target is at or above what the fee structure leaves.";
-      $("rev-check").textContent = "Verification: target not reachable at any tested price.";
+      $("rev-sub").textContent = JA ? "$10,000,000までのどの価格でもこの目標に届きません — 目標が、手数料構造で残せる上限以上です。" : "No price up to $10,000,000 reaches this target on eBay — the target is at or above what the fee structure leaves.";
+      $("rev-check").textContent = JA ? "検証：テストした全価格で目標に到達できませんでした。" : "Verification: target not reachable at any tested price.";
       return;
     }
     var r = E.ebayCalc(price, ship, 0, cost, sc, 0, false, 0);
     $("rev-price").textContent = E.money(price);
-    $("rev-sub").textContent = "List at this price on eBay (US) to hit your target.";
+    $("rev-sub").textContent = JA ? "この価格でeBay（米国）に出品すると目標に届きます。" : "List at this price on eBay (US) to hit your target.";
     if (revMode === "amt") {
       var diff = E.r2(r.profit - target);
-      $("rev-check").textContent = "Verification: this price was run back through the normal eBay calculator — profit comes out at " + E.money(r.profit) +
-        " against a " + E.money(target) + " target (" + (diff === 0 ? "exact match" : (diff > 0 ? "+" : "−") + "$" + Math.abs(diff).toFixed(2) + " from cent-rounding of individual fees") + ").";
+      $("rev-check").textContent = JA
+        ? "検証：この価格を通常のeBay計算機に通すと、純利益は " + E.money(r.profit) + " で、目標 " + E.money(target) + " に対し " + (diff === 0 ? "完全一致" : (diff > 0 ? "+" : "−") + "$" + Math.abs(diff).toFixed(2) + "（各手数料のセント単位の丸めによる差）") + "。"
+        : "Verification: this price was run back through the normal eBay calculator — profit comes out at " + E.money(r.profit) +
+          " against a " + E.money(target) + " target (" + (diff === 0 ? "exact match" : (diff > 0 ? "+" : "−") + "$" + Math.abs(diff).toFixed(2) + " from cent-rounding of individual fees") + ").";
     } else {
       var margin = r.revenue > 0 ? r.profit / r.revenue * 100 : 0;
-      $("rev-check").textContent = "Verification: this price was run back through the normal eBay calculator — margin comes out at " + E.pct(margin) +
-        " against a " + E.pct(target) + " target (any small gap is cent-rounding of individual fees).";
+      $("rev-check").textContent = JA
+        ? "検証：この価格を通常のeBay計算機に通すと、利益率は " + E.pct(margin) + " で、目標は " + E.pct(target) + "（小さな差は各手数料のセント単位の丸めによるもの）。"
+        : "Verification: this price was run back through the normal eBay calculator — margin comes out at " + E.pct(margin) +
+          " against a " + E.pct(target) + " target (any small gap is cent-rounding of individual fees).";
     }
-    summaries.rev = "eBay (US) reverse pricing: to net " + (revMode === "amt" ? E.money(target) : E.pct(target) + " margin") +
-      " with shipping charged " + E.money(ship) + ", item cost " + E.money(cost) + ", shipping cost " + E.money(sc) +
-      " → list at " + E.money(price) + ". Rates verified November 18, 2026.";
+    summaries.rev = JA
+      ? "eBay（米国）逆算: " + (revMode === "amt" ? E.money(target) + " の純利益" : E.pct(target) + " の利益率") + " を得るには（送料請求 " + E.money(ship) + "、仕入 " + E.money(cost) + "、送料実費 " + E.money(sc) + "）→ 出品価格 " + E.money(price) + "。料率は2026年11月18日に確認。"
+      : "eBay (US) reverse pricing: to net " + (revMode === "amt" ? E.money(target) : E.pct(target) + " margin") +
+        " with shipping charged " + E.money(ship) + ", item cost " + E.money(cost) + ", shipping cost " + E.money(sc) +
+        " → list at " + E.money(price) + ". Rates verified November 18, 2026.";
   }
 
   /* ================= eBay vs Etsy page ================= */
@@ -402,7 +443,7 @@
     set("vs-eb-fees", E.money(eb.fees)); set("vs-eb-profit", E.money(eb.profit));
     set("vs-et-fees", E.money(et.fees)); set("vs-et-profit", E.money(et.profit));
     var diff = E.r2(et.profit - eb.profit);
-    set("vs-diff", diff === 0 ? "$0.00" : (diff > 0 ? E.money(diff) + " more on Etsy" : E.money(-diff) + " more on eBay"));
+    set("vs-diff", diff === 0 ? "$0.00" : (diff > 0 ? E.money(diff) + (JA ? " Etsyの方が多い" : " more on Etsy") : E.money(-diff) + (JA ? " eBayの方が多い" : " more on eBay")));
   }
 
   /* ================= Init ================= */
@@ -426,8 +467,8 @@
   bind(["fb-type"], "change", calcFacebook);
   bind(["cmp-price", "cmp-ship", "cmp-cost", "cmp-shipcost"], "input", calcCompare);
   bind(["rev-target", "rev-ship", "rev-cost", "rev-shipcost"], "input", calcReverse);
-  on("rev-mode-amt", "click", function () { revMode = "amt"; $("rev-mode-amt").setAttribute("aria-pressed", "true"); $("rev-mode-margin").setAttribute("aria-pressed", "false"); $("rev-target-label").textContent = "Target profit per sale"; $("rev-target-prefix").textContent = "$"; calcReverse(); });
-  on("rev-mode-margin", "click", function () { revMode = "margin"; $("rev-mode-amt").setAttribute("aria-pressed", "false"); $("rev-mode-margin").setAttribute("aria-pressed", "true"); $("rev-target-label").textContent = "Target margin (% of revenue)"; $("rev-target-prefix").textContent = "%"; calcReverse(); });
+  on("rev-mode-amt", "click", function () { revMode = "amt"; $("rev-mode-amt").setAttribute("aria-pressed", "true"); $("rev-mode-margin").setAttribute("aria-pressed", "false"); $("rev-target-label").textContent = JA ? "1件あたりの目標利益" : "Target profit per sale"; $("rev-target-prefix").textContent = "$"; calcReverse(); });
+  on("rev-mode-margin", "click", function () { revMode = "margin"; $("rev-mode-amt").setAttribute("aria-pressed", "false"); $("rev-mode-margin").setAttribute("aria-pressed", "true"); $("rev-target-label").textContent = JA ? "目標利益率（売上比 %）" : "Target margin (% of revenue)"; $("rev-target-prefix").textContent = "%"; calcReverse(); });
 
   document.querySelectorAll(".preset").forEach(function (b) {
     b.addEventListener("click", function () {
