@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Poshmark Fee Calculator — $2.95 Under $15, 20% Above, Verified Nov 2026 | Fee Calculator Suite</title>
+<meta name="description" content="Free Poshmark fee calculator: $2.95 flat commission under $15, 20% at $15+, on the item price only. Rates verified on Poshmark’s official Support Center, November 18, 2026.">
+<link rel="canonical" href="https://tallyfee.com/poshmark-fee-calculator/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+<header class="site-header"><div class="in">
+<a class="brand" href="/">Fee<span>Calculator</span>Suite</a>
+<nav class="site-nav">
+<a href="/marketplace-fees-compared/">Compare all 8</a>
+<a href="/ebay-vs-etsy-fees/">eBay vs Etsy</a>
+<a href="/fee-changes/">Fee changes</a>
+<a href="/guides/ebay-fees-explained/">Guides</a>
+</nav></div></header>
+<main class="wrap">
+
+<div class="hero"><h1>Poshmark Fee Calculator</h1>
+<p class="lede">Poshmark’s commission is the simplest in this suite: a flat <strong>$2.95 on sales under $15, and 20% at $15 or more</strong> — charged on the item price only, because Poshmark’s prepaid shipping label is paid by the buyer.</p>
+<div class="badge-band"><span class="pill">✓ Rates verified</span>
+<span><strong>November 18, 2026</strong> — checked against the platform's official fee pages. Source: <a href="https://support.poshmark.com/s/article/297755057?language=en_US" target="_blank" rel="noopener">Poshmark Support Center</a></span></div>
+</div>
+<div class="calc-grid">
+<div class="card"><h2>Your sale</h2>
+<div class="field"><label for="pm-price">Item price </label>
+<div class="input-wrap"><span class="prefix">$</span><input id="pm-price" type="number" inputmode="decimal" min="0" step="0.01" value="50"></div></div>
+<div class="field"><label for="pm-cost">Item cost (what you paid) </label>
+<div class="input-wrap"><span class="prefix">$</span><input id="pm-cost" type="number" inputmode="decimal" min="0" step="0.01" value="20"></div></div>
+<div class="field"><label for="pm-shipcost">Your shipping cost <span>usually $0 — the buyer pays Poshmark’s label</span></label>
+<div class="input-wrap"><span class="prefix">$</span><input id="pm-shipcost" type="number" inputmode="decimal" min="0" step="0.01" value="0"></div></div>
+<p class="privacy-note">Nothing you type leaves your browser — every calculation runs on this page, on your device.</p></div>
+<div class="result-panel" aria-live="polite">
+<div class="result-hero" id="pm-hero"><div class="label">Net profit</div><div class="big mono" id="pm-profit">$0.00</div><div id="pm-margin-line"></div></div>
+<div class="compbar"><div class="bar">
+<div class="seg profit" id="pm-bar-profit"></div><div class="seg fees" id="pm-bar-fees"></div><div class="seg costs" id="pm-bar-costs"></div>
+</div><div class="legend">
+<span><i style="background:var(--pos)"></i>Profit <b class="mono" id="pm-bar-profit-v">$0.00</b></span>
+<span><i style="background:var(--fee)"></i>Fees <b class="mono" id="pm-bar-fees-v">$0.00</b></span>
+<span><i style="background:var(--cost)"></i>Your costs <b class="mono" id="pm-bar-costs-v">$0.00</b></span>
+</div></div>
+<div class="kv "><span class="k">Your revenue (item price)</span><span class="v mono" id="pm-gross">$0.00</span></div><div class="kv "><span class="k" id="pm-fee-label">Poshmark commission</span><span class="v mono" id="pm-fee">$0.00</span></div><div class="kv total"><span class="k">Total Poshmark fees</span><span class="v mono" id="pm-fees">$0.00</span></div><div class="kv "><span class="k">You keep after fees (before your costs)</span><span class="v mono" id="pm-keep">$0.00</span></div><div class="kv "><span class="k">Item cost + your shipping cost</span><span class="v mono" id="pm-costs">$0.00</span></div><div class="kv "><span class="k">Effective fee rate (fees ÷ revenue)</span><span class="v mono" id="pm-eff">$0.00</span></div>
+<div class="breakeven">Break-even item price: <b class="mono" id="pm-be">$0.00</b><br>Solved with Poshmark’s two-step commission — the price at which profit reaches exactly $0.</div>
+<div class="copy-row"><button type="button" class="btn small ghost copy-btn" data-prefix="pm">Copy result</button><span class="copy-msg" data-for="pm"></span></div>
+</div>
+</div>
+<h2>How Poshmark fees work</h2>
+<p class="rate-line">Rates verified: <strong>November 18, 2026</strong> on Poshmark’s official Support Center · Sales under $15: <strong>$2.95 flat</strong> · Sales of $15 or more: <strong>20%</strong> of the item price. Shipping is a buyer-paid prepaid label and is neither your revenue nor part of the fee base.</p>
+<p>Poshmark briefly moved to a different structure with a buyer protection fee in October 2024, then reverted within weeks — the $2.95 / 20% structure shown here is the one in force today (see the <a href="/fee-changes/">fee-change history</a>). Note the cliff at $15: a $14.99 sale pays $2.95 (19.7%), while a $15.00 sale pays $3.00 (20%) — below that, the flat fee takes a growing share as prices fall: on a $5 sale, $2.95 is 59% of the price.</p>
+<h2>Frequently asked questions</h2><div class="faq">
+<details><summary>How much does Poshmark take from a sale?</summary><p>$2.95 flat on sales under $15, and 20% of the item price on sales of $15 or more. Rates verified on Poshmark’s official Support Center on November 18, 2026.</p></details>
+<details><summary>Does Poshmark charge commission on shipping?</summary><p>No. Poshmark shipping is a prepaid label paid by the buyer; it never passes through your balance, so it is not revenue and not part of the commission base.</p></details>
+<details><summary>Is Poshmark’s 20% worth it versus eBay?</summary><p>It depends on the item — run the same numbers in the <a href='/marketplace-fees-compared/'>8-platform comparison</a>: on a $50 item with $26 of costs, Poshmark’s flat 20% leaves less than eBay or Etsy, but there is no separate payment processing or per-order fee to model.</p></details>
+</div>
+<h2>Related tools</h2><ul><li><a href="/marketplace-fees-compared/">Compare Poshmark with 7 other platforms</a></li><li><a href="/ebay-fee-calculator/">eBay fee calculator</a></li><li><a href="/fee-changes/">Fee-change history — Poshmark’s October 2024 revert</a></li></ul>
+<p class="src-list">Source: Poshmark Support Center — <a href="https://support.poshmark.com/s/article/297755057?language=en_US" target="_blank" rel="noopener">Fees &amp; commissions</a>. Rates verified November 18, 2026.</p>
+
+</main>
+<footer class="site-footer"><div class="in">
+<h2>All calculators in this suite</h2>
+<nav class="foot-links">
+<a href="/ebay-fee-calculator/">eBay fee calculator</a>
+<a href="/ebay-profit-calculator/">eBay profit calculator</a>
+<a href="/etsy-fee-calculator/">Etsy fee calculator</a>
+<a href="/poshmark-fee-calculator/">Poshmark fee calculator</a>
+<a href="/mercari-fee-calculator/">Mercari fee calculator</a>
+<a href="/amazon-referral-fee-calculator/">Amazon referral fee calculator</a>
+<a href="/depop-fee-calculator/">Depop fee calculator</a>
+<a href="/vinted-fee-calculator/">Vinted fee calculator</a>
+<a href="/whatnot-fee-calculator/">Whatnot fee calculator</a>
+<a href="/marketplace-fees-compared/">Compare all 8 platforms</a>
+<a href="/ebay-vs-etsy-fees/">eBay vs Etsy fees</a>
+<a href="/fee-changes/">Fee-change history</a>
+<a href="/guides/ebay-fees-explained/">eBay fees explained</a>
+<a href="/guides/etsy-fees-explained/">Etsy fees explained</a>
+<a href="/guides/mercari-fees-explained/">Mercari fees explained</a>
+</nav>
+<p class="disclaimer"><strong>Disclaimer:</strong> Results are estimates for planning only. Fees vary by category, seller country, store subscription and promotions. Always confirm the final fee on the platform's official fee page before listing. Rates on this site were verified on the platforms' official fee pages on November 18, 2026. Facebook Marketplace and TikTok Shop calculators are not offered: their official pages do not publish a single standard rate we could confirm, and this suite does not guess at rates.</p>
+</div></footer>
+<script src="/assets/engines.js"></script>
+<script src="/assets/calc.js"></script>
+</body>
+</html>

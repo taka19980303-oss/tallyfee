@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Whatnot Fee Calculator — 8% Standard Commission + Processing, Verified Nov 2026 | Fee Calculator Suite</title>
+<meta name="description" content="Free Whatnot fee calculator: Standard-tier commission 8% on the item price (4% Coins & Money) plus 2.9% + $0.30 processing on the order total. Rates verified November 18, 2026.">
+<link rel="canonical" href="https://tallyfee.com/whatnot-fee-calculator/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+<header class="site-header"><div class="in">
+<a class="brand" href="/">Fee<span>Calculator</span>Suite</a>
+<nav class="site-nav">
+<a href="/marketplace-fees-compared/">Compare all 8</a>
+<a href="/ebay-vs-etsy-fees/">eBay vs Etsy</a>
+<a href="/fee-changes/">Fee changes</a>
+<a href="/guides/ebay-fees-explained/">Guides</a>
+</nav></div></header>
+<main class="wrap">
+
+<div class="hero"><h1>Whatnot Fee Calculator</h1>
+<p class="lede">Whatnot splits its charges: a commission on the <strong>item price only</strong> — 8% on the Standard tier, 4% for Coins &amp; Money — plus payment processing of <strong>2.9% + $0.30 on the total order value</strong> (item + shipping + tax).</p>
+<div class="badge-band"><span class="pill">✓ Rates verified</span>
+<span><strong>November 18, 2026</strong> — checked against the platform's official fee pages. Source: <a href="https://help.whatnot.com/hc/en-us/articles/4847069165965-Whatnot-seller-fees" target="_blank" rel="noopener">Whatnot Help Center — Whatnot seller fees</a></span></div>
+</div>
+<div class="calc-grid">
+<div class="card"><h2>Your sale</h2>
+<div class="field"><label for="wn-cat">Category <span>Standard-tier commission</span></label>
+<div class="input-wrap"><select id="wn-cat">
+<option value="8" selected>Standard — Sports / TCG / Fashion / Collectibles / Other · 8%</option>
+<option value="4">Coins &amp; Money · 4%</option>
+</select></div>
+<p class="hint">Per Whatnot’s official US rate card, the Standard tier (four-week sales $0–$14,999) charges 8% in every vertical except Coins &amp; Money at 4%. Higher tiers lower the rate (e.g. Fashion down to 4.5%); your live rate is in Seller Hub.</p></div>
+<div class="field"><label for="wn-price">Item final sale price <span>commission base</span></label>
+<div class="input-wrap"><span class="prefix">$</span><input id="wn-price" type="number" inputmode="decimal" min="0" step="0.01" value="50"></div></div>
+<div class="field"><label for="wn-ship">Shipping charged to buyer </label>
+<div class="input-wrap"><span class="prefix">$</span><input id="wn-ship" type="number" inputmode="decimal" min="0" step="0.01" value="5"></div></div>
+<div class="field"><label for="wn-cost">Item cost (what you paid) </label>
+<div class="input-wrap"><span class="prefix">$</span><input id="wn-cost" type="number" inputmode="decimal" min="0" step="0.01" value="20"></div></div>
+<div class="field"><label for="wn-shipcost">Your shipping cost </label>
+<div class="input-wrap"><span class="prefix">$</span><input id="wn-shipcost" type="number" inputmode="decimal" min="0" step="0.01" value="6"></div></div>
+<details class="advanced"><summary>Advanced settings — sales tax</summary>
+<div class="field"><label for="wn-tax">Sales tax collected <span>included in the processing base</span></label>
+<div class="input-wrap"><span class="prefix">$</span><input id="wn-tax" type="number" inputmode="decimal" min="0" step="0.01" value="0"></div></div>
+</details>
+<p class="privacy-note">Nothing you type leaves your browser — every calculation runs on this page, on your device.</p></div>
+<div class="result-panel" aria-live="polite">
+<div class="result-hero" id="wn-hero"><div class="label">Net profit</div><div class="big mono" id="wn-profit">$0.00</div><div id="wn-margin-line"></div></div>
+<div class="compbar"><div class="bar">
+<div class="seg profit" id="wn-bar-profit"></div><div class="seg fees" id="wn-bar-fees"></div><div class="seg costs" id="wn-bar-costs"></div>
+</div><div class="legend">
+<span><i style="background:var(--pos)"></i>Profit <b class="mono" id="wn-bar-profit-v">$0.00</b></span>
+<span><i style="background:var(--fee)"></i>Fees <b class="mono" id="wn-bar-fees-v">$0.00</b></span>
+<span><i style="background:var(--cost)"></i>Your costs <b class="mono" id="wn-bar-costs-v">$0.00</b></span>
+</div></div>
+<div class="kv "><span class="k">Your revenue (price + buyer-paid shipping)</span><span class="v mono" id="wn-gross">$0.00</span></div><div class="kv "><span class="k" id="wn-comm-label">Commission</span><span class="v mono" id="wn-comm">$0.00</span></div><div class="kv "><span class="k">Payment processing — 2.9% + $0.30 on the order total</span><span class="v mono" id="wn-proc">$0.00</span></div><div class="kv total"><span class="k">Total Whatnot fees</span><span class="v mono" id="wn-fees">$0.00</span></div><div class="kv "><span class="k">You keep after fees (before your costs)</span><span class="v mono" id="wn-keep">$0.00</span></div><div class="kv "><span class="k">Item cost + your shipping cost</span><span class="v mono" id="wn-costs">$0.00</span></div><div class="kv "><span class="k">Effective fee rate (fees ÷ revenue)</span><span class="v mono" id="wn-eff">$0.00</span></div>
+<div class="breakeven">Break-even item price: <b class="mono" id="wn-be">$0.00</b><br>Solved at the Standard-tier commission selected above.</div>
+<div class="copy-row"><button type="button" class="btn small ghost copy-btn" data-prefix="wn">Copy result</button><span class="copy-msg" data-for="wn"></span></div>
+</div>
+</div>
+<h2>How Whatnot fees work</h2>
+<p class="rate-line">Rates verified: <strong>November 18, 2026</strong> on Whatnot’s official Help Center (“Whatnot seller fees”) · US <strong>Standard tier</strong>: commission <strong>8%</strong> of the item’s final sale price (<strong>4% for Coins &amp; Money</strong>) — charged on the sale price <strong>only, excluding shipping and taxes</strong>. Payment processing is separate: <strong>2.9% + $0.30</strong> on the total order value (item + buyer-paid shipping + taxes). Since September 21, 2026, commission drops in tiers as your four-week sales grow; this calculator uses the Standard tier every new seller starts on, and says so.</p>
+<h2>Frequently asked questions</h2><div class="faq">
+<details><summary>How much does Whatnot charge sellers?</summary><p>On the Standard tier: 8% commission on the item price (4% for Coins & Money), plus payment processing of 2.9% + $0.30 on the total order value including shipping and tax.</p></details>
+<details><summary>Is commission charged on shipping?</summary><p>No — commission is on the item’s final sale price only. Processing is the charge that applies to the order total (item + shipping + tax).</p></details>
+<details><summary>What are Whatnot’s commission tiers?</summary><p>Since September 21, 2026, commission falls in tiers as your trailing four-week sales grow; the Standard tier ($0–$14,999) is 8% in most verticals. This calculator uses the Standard tier and labels it — check Seller Hub for your live tier.</p></details>
+</div>
+<h2>Related tools</h2><ul><li><a href="/marketplace-fees-compared/">Compare Whatnot with 7 other platforms</a></li><li><a href="/fee-changes/">Fee-change history — Whatnot’s September 2026 tiered commission</a></li><li><a href="/ebay-fee-calculator/">eBay fee calculator</a></li></ul>
+<p class="src-list">Source: Whatnot Help Center — <a href="https://help.whatnot.com/hc/en-us/articles/4847069165965-Whatnot-seller-fees" target="_blank" rel="noopener">Whatnot seller fees</a>. Rates verified November 18, 2026.</p>
+
+</main>
+<footer class="site-footer"><div class="in">
+<h2>All calculators in this suite</h2>
+<nav class="foot-links">
+<a href="/ebay-fee-calculator/">eBay fee calculator</a>
+<a href="/ebay-profit-calculator/">eBay profit calculator</a>
+<a href="/etsy-fee-calculator/">Etsy fee calculator</a>
+<a href="/poshmark-fee-calculator/">Poshmark fee calculator</a>
+<a href="/mercari-fee-calculator/">Mercari fee calculator</a>
+<a href="/amazon-referral-fee-calculator/">Amazon referral fee calculator</a>
+<a href="/depop-fee-calculator/">Depop fee calculator</a>
+<a href="/vinted-fee-calculator/">Vinted fee calculator</a>
+<a href="/whatnot-fee-calculator/">Whatnot fee calculator</a>
+<a href="/marketplace-fees-compared/">Compare all 8 platforms</a>
+<a href="/ebay-vs-etsy-fees/">eBay vs Etsy fees</a>
+<a href="/fee-changes/">Fee-change history</a>
+<a href="/guides/ebay-fees-explained/">eBay fees explained</a>
+<a href="/guides/etsy-fees-explained/">Etsy fees explained</a>
+<a href="/guides/mercari-fees-explained/">Mercari fees explained</a>
+</nav>
+<p class="disclaimer"><strong>Disclaimer:</strong> Results are estimates for planning only. Fees vary by category, seller country, store subscription and promotions. Always confirm the final fee on the platform's official fee page before listing. Rates on this site were verified on the platforms' official fee pages on November 18, 2026. Facebook Marketplace and TikTok Shop calculators are not offered: their official pages do not publish a single standard rate we could confirm, and this suite does not guess at rates.</p>
+</div></footer>
+<script src="/assets/engines.js"></script>
+<script src="/assets/calc.js"></script>
+</body>
+</html>

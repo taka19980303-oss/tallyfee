@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Amazon Referral Fee Calculator — By Category, Verified Nov 2026 | Fee Calculator Suite</title>
+<meta name="description" content="Free Amazon referral fee calculator with the official category selector: 15% most categories, 8% electronics, tiered Clothing/Jewelry/Watches, $0.30 minimums, Media closing fee. Referral fee only. Verified November 18, 2026.">
+<link rel="canonical" href="https://tallyfee.com/amazon-referral-fee-calculator/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+<header class="site-header"><div class="in">
+<a class="brand" href="/">Fee<span>Calculator</span>Suite</a>
+<nav class="site-nav">
+<a href="/marketplace-fees-compared/">Compare all 8</a>
+<a href="/ebay-vs-etsy-fees/">eBay vs Etsy</a>
+<a href="/fee-changes/">Fee changes</a>
+<a href="/guides/ebay-fees-explained/">Guides</a>
+</nav></div></header>
+<main class="wrap">
+
+<div class="hero"><h1>Amazon Referral Fee Calculator</h1>
+<p class="lede">Amazon’s referral fee is set by <strong>category</strong> — from 8% on Consumer Electronics to a tiered 20%/5% on Jewelry — and is charged on the total sales price (item + shipping + gift wrap), or the category minimum, whichever is greater. Pick your category and see the exact fee.</p>
+<div class="badge-band"><span class="pill">✓ Rates verified</span>
+<span><strong>November 18, 2026</strong> — checked against the platform's official fee pages. Source: <a href="https://sell.amazon.com/pricing" target="_blank" rel="noopener">Amazon — Sell on Amazon pricing</a></span></div>
+</div>
+<div class="calc-grid">
+<div class="card"><h2>Your sale</h2>
+<div class="field"><label for="am-cat">Product category <span>referral fee schedule</span></label>
+<div class="input-wrap"><select id="am-cat">
+<option value="everything" selected>Everything Else — 15%</option>
+<option value="home">Home &amp; Kitchen — 15%</option>
+<option value="toys">Toys &amp; Games — 15%</option>
+<option value="sports">Sports &amp; Outdoors — 15%</option>
+<option value="tools">Tools &amp; Home Improvement — 15%</option>
+<option value="clothing">Clothing &amp; Accessories — 5% / 10% / 17% by total price</option>
+<option value="beauty">Beauty, Health &amp; Personal Care — 8% up to $10, then 15%</option>
+<option value="baby">Baby Products — 8% up to $10, then 15%</option>
+<option value="grocery">Grocery &amp; Gourmet — 8% up to $15, then 15%</option>
+<option value="electronics">Consumer Electronics — 8%</option>
+<option value="computers">Computers — 8%</option>
+<option value="elecacc">Electronics Accessories — 15% to $100, 8% above</option>
+<option value="jewelry">Jewelry — 20% to $250, 5% above</option>
+<option value="watches">Watches — 16% to $1,500, 3% above</option>
+<option value="automotive">Automotive &amp; Powersports — 12%</option>
+<option value="media">Media (Books, DVD, Music, Software, Video) — 15% + $1.80 closing</option>
+<option value="videogames">Video Games &amp; Gaming Accessories — 15%</option>
+</select></div>
+<p class="hint">Bracket categories (Clothing, Beauty, Baby, Grocery): the rate is set by the total sales price and applies to the whole amount. Portion categories (Electronics Accessories, Jewelry, Watches) charge each rate only on the portion in that band. Minimum referral fee $0.30 applies in most categories; Amazon lists no minimum for Grocery, Media and Video Games.</p></div>
+<div class="field"><label for="am-price">Item price </label>
+<div class="input-wrap"><span class="prefix">$</span><input id="am-price" type="number" inputmode="decimal" min="0" step="0.01" value="50"></div></div>
+<div class="field"><label for="am-ship">Shipping charged to buyer </label>
+<div class="input-wrap"><span class="prefix">$</span><input id="am-ship" type="number" inputmode="decimal" min="0" step="0.01" value="5"></div></div>
+<div class="field"><label for="am-cost">Item cost (what you paid) </label>
+<div class="input-wrap"><span class="prefix">$</span><input id="am-cost" type="number" inputmode="decimal" min="0" step="0.01" value="20"></div></div>
+<div class="field"><label for="am-shipcost">Your shipping cost </label>
+<div class="input-wrap"><span class="prefix">$</span><input id="am-shipcost" type="number" inputmode="decimal" min="0" step="0.01" value="6"></div></div>
+<p class="privacy-note">Nothing you type leaves your browser — every calculation runs on this page, on your device.</p></div>
+<div class="result-panel" aria-live="polite">
+<div class="result-hero" id="am-hero"><div class="label">Net profit</div><div class="big mono" id="am-profit">$0.00</div><div id="am-margin-line"></div></div>
+<div class="compbar"><div class="bar">
+<div class="seg profit" id="am-bar-profit"></div><div class="seg fees" id="am-bar-fees"></div><div class="seg costs" id="am-bar-costs"></div>
+</div><div class="legend">
+<span><i style="background:var(--pos)"></i>Profit <b class="mono" id="am-bar-profit-v">$0.00</b></span>
+<span><i style="background:var(--fee)"></i>Fees <b class="mono" id="am-bar-fees-v">$0.00</b></span>
+<span><i style="background:var(--cost)"></i>Your costs <b class="mono" id="am-bar-costs-v">$0.00</b></span>
+</div></div>
+<div class="kv "><span class="k">Your revenue (price + shipping charged)</span><span class="v mono" id="am-gross">$0.00</span></div><div class="kv "><span class="k">Fee base — total sales price</span><span class="v mono" id="am-base">$0.00</span></div><div class="kv "><span class="k" id="am-fee-label">Referral fee</span><span class="v mono" id="am-fee">$0.00</span></div><div class="kv" id="am-closing-row" style="display:none"><span class="k">Media closing fee</span><span class="v mono">−$1.80</span></div><div class="kv total"><span class="k">Total Amazon fees (referral only)</span><span class="v mono" id="am-fees">$0.00</span></div><div class="kv "><span class="k">You keep after fees (before your costs)</span><span class="v mono" id="am-keep">$0.00</span></div><div class="kv "><span class="k">Item cost + your shipping cost</span><span class="v mono" id="am-costs">$0.00</span></div><div class="kv "><span class="k">Effective fee rate (fees ÷ revenue)</span><span class="v mono" id="am-eff">$0.00</span></div>
+<div class="breakeven">Break-even item price: <b class="mono" id="am-be">$0.00</b><br>Solved with the selected category’s referral schedule, including its minimum fee where Amazon lists one.</div>
+<div class="copy-row"><button type="button" class="btn small ghost copy-btn" data-prefix="am">Copy result</button><span class="copy-msg" data-for="am"></span></div>
+</div>
+</div>
+<h2>How Amazon referral fees work</h2>
+<p class="rate-line">Rates verified: <strong>November 18, 2026</strong> on Amazon’s official pricing page (sell.amazon.com) · This calculator covers the <strong>referral fee only</strong>, by category. The referral fee is a percentage of the <strong>total sales price</strong> (item price + shipping + gift-wrap charges), or the category minimum, whichever is greater. <strong>Out of scope, by design:</strong> selling-plan fees (Individual $0.99/item or Professional $39.99/month), FBA fulfilment and storage fees, and closing fees other than Media’s — those vary by product and fulfilment choice.</p>
+<p><strong>The category decides the rate.</strong> Per Amazon’s official pricing page: “For every item sold, sellers pay Amazon a percentage of the total price, or a minimum amount, whichever is greater.” Most everyday categories — Home &amp; Kitchen, Toys, Sports, Tools, Everything Else — are <strong>15%</strong> with a $0.30 minimum. Consumer Electronics and Computers are <strong>8%</strong>. Clothing is bracketed by total price: <strong>5% at $15 or less, 10% above $15 up to $20, 17% above $20</strong> (the bracket rate applies to the whole total). Jewelry is portion-tiered: <strong>20% on the portion up to $250, 5% above</strong>. Media pays 15% <strong>plus a $1.80 closing fee per item</strong>.</p>
+<h2>Frequently asked questions</h2><div class="faq">
+<details><summary>What is Amazon’s referral fee?</summary><p>A category-based percentage of the total sales price (item price + shipping + gift wrap), or a minimum amount ($0.30 in most categories), whichever is greater. Most everyday categories are 15%; Consumer Electronics and Computers are 8%.</p></details>
+<details><summary>Does Amazon charge the referral fee on shipping?</summary><p>Yes — the base is the total sales price, which includes the shipping you charge and any gift-wrap charges.</p></details>
+<details><summary>What is not included in this calculator?</summary><p>Selling-plan fees ($0.99/item Individual or $39.99/month Professional), FBA fulfilment and storage fees, and closing fees other than Media’s $1.80. Those depend on your plan and fulfilment choices, so they are deliberately out of scope and stated as such.</p></details>
+<details><summary>How is Clothing’s referral fee calculated?</summary><p>By bracket: the rate is set by the total sales price — 5% at $15 or less, 10% above $15 up to $20, 17% above $20 — and that single rate applies to the whole total, unlike Jewelry or Watches where each rate applies only to its portion.</p></details>
+</div>
+<h2>Related tools</h2><ul><li><a href="/marketplace-fees-compared/">Compare Amazon with 7 other platforms (Everything Else 15% used there)</a></li><li><a href="/ebay-fee-calculator/">eBay fee calculator</a></li><li><a href="/fee-changes/">Fee-change history</a></li></ul>
+<p class="src-list">Source: Amazon — <a href="https://sell.amazon.com/pricing" target="_blank" rel="noopener">Sell on Amazon pricing</a>. Rates verified November 18, 2026.</p>
+
+</main>
+<footer class="site-footer"><div class="in">
+<h2>All calculators in this suite</h2>
+<nav class="foot-links">
+<a href="/ebay-fee-calculator/">eBay fee calculator</a>
+<a href="/ebay-profit-calculator/">eBay profit calculator</a>
+<a href="/etsy-fee-calculator/">Etsy fee calculator</a>
+<a href="/poshmark-fee-calculator/">Poshmark fee calculator</a>
+<a href="/mercari-fee-calculator/">Mercari fee calculator</a>
+<a href="/amazon-referral-fee-calculator/">Amazon referral fee calculator</a>
+<a href="/depop-fee-calculator/">Depop fee calculator</a>
+<a href="/vinted-fee-calculator/">Vinted fee calculator</a>
+<a href="/whatnot-fee-calculator/">Whatnot fee calculator</a>
+<a href="/marketplace-fees-compared/">Compare all 8 platforms</a>
+<a href="/ebay-vs-etsy-fees/">eBay vs Etsy fees</a>
+<a href="/fee-changes/">Fee-change history</a>
+<a href="/guides/ebay-fees-explained/">eBay fees explained</a>
+<a href="/guides/etsy-fees-explained/">Etsy fees explained</a>
+<a href="/guides/mercari-fees-explained/">Mercari fees explained</a>
+</nav>
+<p class="disclaimer"><strong>Disclaimer:</strong> Results are estimates for planning only. Fees vary by category, seller country, store subscription and promotions. Always confirm the final fee on the platform's official fee page before listing. Rates on this site were verified on the platforms' official fee pages on November 18, 2026. Facebook Marketplace and TikTok Shop calculators are not offered: their official pages do not publish a single standard rate we could confirm, and this suite does not guess at rates.</p>
+</div></footer>
+<script src="/assets/engines.js"></script>
+<script src="/assets/calc.js"></script>
+</body>
+</html>

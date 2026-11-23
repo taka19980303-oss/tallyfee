@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Depop Fee Calculator — No Selling Fee, Processing Only, Verified Nov 2026 | Fee Calculator Suite</title>
+<meta name="description" content="Free Depop fee calculator: no selling fee for US/UK sellers; payment processing 3.3% + $0.45 (US) or 2.9% + £0.30 (UK) on price + shipping + tax. Rates verified November 18, 2026.">
+<link rel="canonical" href="https://tallyfee.com/depop-fee-calculator/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+<header class="site-header"><div class="in">
+<a class="brand" href="/">Fee<span>Calculator</span>Suite</a>
+<nav class="site-nav">
+<a href="/marketplace-fees-compared/">Compare all 8</a>
+<a href="/ebay-vs-etsy-fees/">eBay vs Etsy</a>
+<a href="/fee-changes/">Fee changes</a>
+<a href="/guides/ebay-fees-explained/">Guides</a>
+</nav></div></header>
+<main class="wrap">
+
+<div class="hero"><h1>Depop Fee Calculator</h1>
+<p class="lede">Depop charges US and UK sellers <strong>no selling fee at all</strong>. Your only seller-side cost is the Depop Payments processing fee: <strong>3.3% + $0.45</strong> in the US, <strong>2.9% + £0.30</strong> in the UK — on price + shipping + tax.</p>
+<div class="badge-band"><span class="pill">✓ Rates verified</span>
+<span><strong>November 18, 2026</strong> — checked against the platform's official fee pages. Source: <a href="https://depophelp.zendesk.com/hc/en-gb/articles/360001791127-Seller-fees-and-charges" target="_blank" rel="noopener">Depop Help Centre — Seller fees and charges</a></span></div>
+</div>
+<div class="calc-grid">
+<div class="card"><h2>Your sale</h2>
+<div class="field"><label for="dp-region">Seller region <span>sets the processing schedule and currency</span></label>
+<div class="input-wrap"><select id="dp-region">
+<option value="us" selected>United States — 3.3% + $0.45, no selling fee</option>
+<option value="uk">United Kingdom — 2.9% + £0.30, no selling fee</option>
+</select></div></div>
+<div class="field"><label for="dp-price">Item price</label>
+<div class="input-wrap"><span class="prefix dp-cur">$</span><input id="dp-price" type="number" inputmode="decimal" min="0" step="0.01" value="35"></div></div>
+<div class="field"><label for="dp-ship">Shipping charged to buyer</label>
+<div class="input-wrap"><span class="prefix dp-cur">$</span><input id="dp-ship" type="number" inputmode="decimal" min="0" step="0.01" value="0"></div></div>
+<div class="field"><label for="dp-cost">Item cost (what you paid) </label>
+<div class="input-wrap"><span class="prefix">$</span><input id="dp-cost" type="number" inputmode="decimal" min="0" step="0.01" value="15"></div></div>
+<div class="field"><label for="dp-shipcost">Your shipping cost</label>
+<div class="input-wrap"><span class="prefix dp-cur">$</span><input id="dp-shipcost" type="number" inputmode="decimal" min="0" step="0.01" value="5"></div></div>
+<details class="advanced"><summary>Advanced settings — sales tax</summary>
+<div class="field"><label for="dp-tax">Sales tax collected <span>included in the processing base</span></label>
+<div class="input-wrap"><span class="prefix dp-cur">$</span><input id="dp-tax" type="number" inputmode="decimal" min="0" step="0.01" value="0"></div></div>
+</details>
+<p class="privacy-note">Nothing you type leaves your browser — every calculation runs on this page, on your device.</p></div>
+<div class="result-panel" aria-live="polite">
+<div class="result-hero" id="dp-hero"><div class="label">Net profit</div><div class="big mono" id="dp-profit">$0.00</div><div id="dp-margin-line"></div></div>
+<div class="compbar"><div class="bar">
+<div class="seg profit" id="dp-bar-profit"></div><div class="seg fees" id="dp-bar-fees"></div><div class="seg costs" id="dp-bar-costs"></div>
+</div><div class="legend">
+<span><i style="background:var(--pos)"></i>Profit <b class="mono" id="dp-bar-profit-v">$0.00</b></span>
+<span><i style="background:var(--fee)"></i>Fees <b class="mono" id="dp-bar-fees-v">$0.00</b></span>
+<span><i style="background:var(--cost)"></i>Your costs <b class="mono" id="dp-bar-costs-v">$0.00</b></span>
+</div></div>
+<div class="kv "><span class="k">Your revenue (price + shipping charged)</span><span class="v mono" id="dp-gross">$0.00</span></div><div class="kv "><span class="k" id="dp-proc-label">Payment processing</span><span class="v mono" id="dp-proc">$0.00</span></div><div class="kv total"><span class="k">Total Depop seller fees</span><span class="v mono" id="dp-fees">$0.00</span></div><div class="kv "><span class="k">You keep after fees (before your costs)</span><span class="v mono" id="dp-keep">$0.00</span></div><div class="kv "><span class="k">Item cost + your shipping cost</span><span class="v mono" id="dp-costs">$0.00</span></div><div class="kv "><span class="k">Effective fee rate (fees ÷ revenue)</span><span class="v mono" id="dp-eff">$0.00</span></div>
+<div class="breakeven">Break-even item price: <b class="mono" id="dp-be">$0.00</b><br>Solved with the selected region’s processing schedule.</div>
+<div class="copy-row"><button type="button" class="btn small ghost copy-btn" data-prefix="dp">Copy result</button><span class="copy-msg" data-for="dp"></span></div>
+</div>
+</div>
+<h2>How Depop fees work</h2>
+<p class="rate-line">Rates verified: <strong>November 18, 2026</strong> on Depop’s official Help Centre (“Seller fees and charges”) · Sellers based in the <strong>US, UK and Australia pay no Depop selling fee</strong>. The seller-side cost is the Depop Payments processing fee: <strong>US 3.3% + $0.45</strong>, <strong>UK 2.9% + £0.30</strong>, charged on the item price + shipping + any applicable taxes. This calculator covers the US and UK schedules (Australia: 2.6% + A$0.30, same structure). Optional Boosted Listings (12% in US/UK) are not modelled.</p>
+<p>Depop removed its US selling fee on July 18, 2024 (the UK had done the same for new listings in March 2024); buyers now pay a Marketplace fee at checkout instead. Pages that still show a 10% Depop selling fee are describing the old structure — see the <a href="/fee-changes/">fee-change history</a>.</p>
+<h2>Frequently asked questions</h2><div class="faq">
+<details><summary>Does Depop take a percentage of sales?</summary><p>Not from US, UK or Australian sellers anymore — the selling fee was removed (US: July 2024). Sellers pay only the payment processing fee: 3.3% + $0.45 (US) or 2.9% + £0.30 (UK).</p></details>
+<details><summary>What does a $35 sale cost on Depop US?</summary><p>Processing of 3.3% on $35 = $1.16 (rounded), plus $0.45 = $1.61 total seller fees. The preset above is already set to exactly this example.</p></details>
+<details><summary>What is the buyer-side Marketplace fee?</summary><p>Buyers pay a Marketplace fee at checkout on top of the price. It does not come out of the seller’s proceeds, so it is not in this calculator’s fee total.</p></details>
+<details><summary>Are Boosted Listings included?</summary><p>No — Boosting is an optional promotion (12% in the US/UK) and is not modelled. If you boost, treat it as an extra cost line on top of the result here.</p></details>
+</div>
+<h2>Related tools</h2><ul><li><a href="/marketplace-fees-compared/">Compare Depop with 7 other platforms</a></li><li><a href="/vinted-fee-calculator/">Vinted fee calculator — the other zero-seller-fee platform</a></li><li><a href="/fee-changes/">Fee-change history — Depop’s July 2024 selling-fee removal</a></li></ul>
+<p class="src-list">Source: Depop Help Centre — <a href="https://depophelp.zendesk.com/hc/en-gb/articles/360001791127-Seller-fees-and-charges" target="_blank" rel="noopener">Seller fees and charges</a>. Rates verified November 18, 2026.</p>
+
+</main>
+<footer class="site-footer"><div class="in">
+<h2>All calculators in this suite</h2>
+<nav class="foot-links">
+<a href="/ebay-fee-calculator/">eBay fee calculator</a>
+<a href="/ebay-profit-calculator/">eBay profit calculator</a>
+<a href="/etsy-fee-calculator/">Etsy fee calculator</a>
+<a href="/poshmark-fee-calculator/">Poshmark fee calculator</a>
+<a href="/mercari-fee-calculator/">Mercari fee calculator</a>
+<a href="/amazon-referral-fee-calculator/">Amazon referral fee calculator</a>
+<a href="/depop-fee-calculator/">Depop fee calculator</a>
+<a href="/vinted-fee-calculator/">Vinted fee calculator</a>
+<a href="/whatnot-fee-calculator/">Whatnot fee calculator</a>
+<a href="/marketplace-fees-compared/">Compare all 8 platforms</a>
+<a href="/ebay-vs-etsy-fees/">eBay vs Etsy fees</a>
+<a href="/fee-changes/">Fee-change history</a>
+<a href="/guides/ebay-fees-explained/">eBay fees explained</a>
+<a href="/guides/etsy-fees-explained/">Etsy fees explained</a>
+<a href="/guides/mercari-fees-explained/">Mercari fees explained</a>
+</nav>
+<p class="disclaimer"><strong>Disclaimer:</strong> Results are estimates for planning only. Fees vary by category, seller country, store subscription and promotions. Always confirm the final fee on the platform's official fee page before listing. Rates on this site were verified on the platforms' official fee pages on November 18, 2026. Facebook Marketplace and TikTok Shop calculators are not offered: their official pages do not publish a single standard rate we could confirm, and this suite does not guess at rates.</p>
+</div></footer>
+<script src="/assets/engines.js"></script>
+<script src="/assets/calc.js"></script>
+</body>
+</html>

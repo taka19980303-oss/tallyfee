@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>eBay Profit Calculator — Reverse Pricing From a Target Profit | Fee Calculator Suite</title>
+<meta name="description" content="Free eBay reverse pricing calculator: enter the profit or margin you want and get the exact list price, solved with eBay’s tiered 13.6% / 2.35% fee schedule. Rates verified November 18, 2026.">
+<link rel="canonical" href="https://tallyfee.com/ebay-profit-calculator/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+<header class="site-header"><div class="in">
+<a class="brand" href="/">Fee<span>Calculator</span>Suite</a>
+<nav class="site-nav">
+<a href="/marketplace-fees-compared/">Compare all 8</a>
+<a href="/ebay-vs-etsy-fees/">eBay vs Etsy</a>
+<a href="/fee-changes/">Fee changes</a>
+<a href="/guides/ebay-fees-explained/">Guides</a>
+</nav></div></header>
+<main class="wrap">
+
+<div class="hero"><h1>eBay Profit Calculator — Reverse Pricing</h1>
+<p class="lede">Work backwards: tell it the profit you want to keep, and it solves the exact list price on eBay — tiered final value fee and per-order fee included. The answer is then run back through the normal eBay calculator as a check.</p>
+<div class="badge-band"><span class="pill">✓ Rates verified</span>
+<span><strong>November 18, 2026</strong> — checked against the platform's official fee pages. Source: <a href="https://www.ebay.com/sellercenter/selling/start-selling-on-ebay/seller-fees" target="_blank" rel="noopener">eBay Seller Center — Seller fees</a></span></div>
+</div>
+<div class="calc-grid">
+<div class="card"><h2>Your target</h2>
+<div class="mode-toggle"><button type="button" id="rev-mode-amt" aria-pressed="true">Target profit $</button><button type="button" id="rev-mode-margin" aria-pressed="false">Target margin %</button></div>
+<div class="field"><label for="rev-target" id="rev-target-label">Target profit per sale</label>
+<div class="input-wrap"><span class="prefix" id="rev-target-prefix">$</span><input id="rev-target" type="number" inputmode="decimal" min="0" step="0.01" value="50"></div></div>
+<div class="field"><label for="rev-ship">Shipping charged to buyer </label>
+<div class="input-wrap"><span class="prefix">$</span><input id="rev-ship" type="number" inputmode="decimal" min="0" step="0.01" value="10"></div></div>
+<div class="field"><label for="rev-cost">Item cost (what you paid) </label>
+<div class="input-wrap"><span class="prefix">$</span><input id="rev-cost" type="number" inputmode="decimal" min="0" step="0.01" value="40"></div></div>
+<div class="field"><label for="rev-shipcost">Your shipping cost </label>
+<div class="input-wrap"><span class="prefix">$</span><input id="rev-shipcost" type="number" inputmode="decimal" min="0" step="0.01" value="8"></div></div>
+<p class="privacy-note">Nothing you type leaves your browser — every calculation runs on this page, on your device.</p></div>
+<div class="result-panel" aria-live="polite">
+<div class="result-hero"><div class="label">Required list price</div><div class="big mono" id="rev-price">$0.00</div>
+<div class="verdict-reason" id="rev-sub">List at this price on eBay (US) to hit your target.</div></div>
+<div class="breakeven" id="rev-check"></div>
+<div class="copy-row"><button type="button" class="btn small ghost copy-btn" data-prefix="rev">Copy result</button><span class="copy-msg" data-for="rev"></span></div>
+</div>
+</div>
+<h2>How the reverse calculation works</h2>
+<p>The solver searches the item price using eBay’s own fee function — 13.6% on the first $7,500 of the total amount of the sale, 2.35% above, plus the $0.30/$0.40 per-order fee — with every fee component rounded to the cent, exactly as in the <a href="/ebay-fee-calculator/">eBay fee calculator</a>. Because the fee schedule is tiered, the required price is <em>not</em> a simple gross-up: above $7,500 the marginal fee drops to 2.35%, so each extra dollar of price keeps more. Assumptions: no sales tax, no Promoted Listings, no Top Rated Plus discount, US seller location — change those in the main calculator if they apply to you.</p>
+<h2>Frequently asked questions</h2><div class="faq">
+<details><summary>How do I price on eBay to make a $50 profit?</summary><p>Enter your item cost, your shipping cost and what you charge the buyer for shipping, set the target to $50, and the calculator returns the list price. With $40 cost, $8 shipping cost and $10 shipping charged, the answer is $103.89.</p></details>
+<details><summary>Why isn’t the required price just cost ÷ (1 − 13.6%)?</summary><p>Because eBay’s fee is tiered (2.35% above $7,500), the per-order fee is fixed, and fees are charged on price + shipping + tax — not on the item price alone. A flat gross-up misprices in both directions.</p></details>
+<details><summary>Does this work for a target margin instead?</summary><p>Yes — switch to “Target margin %” and enter the margin you want as a percentage of revenue (price + shipping charged).</p></details>
+</div>
+<h2>Related tools</h2><ul><li><a href="/ebay-fee-calculator/">eBay fee calculator — forward calculation with all options</a></li><li><a href="/marketplace-fees-compared/">Compare all 8 platforms on the same item</a></li><li><a href="/guides/ebay-fees-explained/">Guide: eBay fees explained</a></li></ul>
+<p class="src-list">Source: eBay Seller Center — <a href="https://www.ebay.com/sellercenter/selling/start-selling-on-ebay/seller-fees" target="_blank" rel="noopener">Seller fees</a>. Rates verified November 18, 2026.</p>
+
+</main>
+<footer class="site-footer"><div class="in">
+<h2>All calculators in this suite</h2>
+<nav class="foot-links">
+<a href="/ebay-fee-calculator/">eBay fee calculator</a>
+<a href="/ebay-profit-calculator/">eBay profit calculator</a>
+<a href="/etsy-fee-calculator/">Etsy fee calculator</a>
+<a href="/poshmark-fee-calculator/">Poshmark fee calculator</a>
+<a href="/mercari-fee-calculator/">Mercari fee calculator</a>
+<a href="/amazon-referral-fee-calculator/">Amazon referral fee calculator</a>
+<a href="/depop-fee-calculator/">Depop fee calculator</a>
+<a href="/vinted-fee-calculator/">Vinted fee calculator</a>
+<a href="/whatnot-fee-calculator/">Whatnot fee calculator</a>
+<a href="/marketplace-fees-compared/">Compare all 8 platforms</a>
+<a href="/ebay-vs-etsy-fees/">eBay vs Etsy fees</a>
+<a href="/fee-changes/">Fee-change history</a>
+<a href="/guides/ebay-fees-explained/">eBay fees explained</a>
+<a href="/guides/etsy-fees-explained/">Etsy fees explained</a>
+<a href="/guides/mercari-fees-explained/">Mercari fees explained</a>
+</nav>
+<p class="disclaimer"><strong>Disclaimer:</strong> Results are estimates for planning only. Fees vary by category, seller country, store subscription and promotions. Always confirm the final fee on the platform's official fee page before listing. Rates on this site were verified on the platforms' official fee pages on November 18, 2026. Facebook Marketplace and TikTok Shop calculators are not offered: their official pages do not publish a single standard rate we could confirm, and this suite does not guess at rates.</p>
+</div></footer>
+<script src="/assets/engines.js"></script>
+<script src="/assets/calc.js"></script>
+</body>
+</html>

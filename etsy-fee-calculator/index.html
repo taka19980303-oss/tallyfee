@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Etsy Fee Calculator — 6.5% Transaction + 3% + $0.25 Processing, Verified Nov 2026 | Fee Calculator Suite</title>
+<meta name="description" content="Free Etsy fee calculator: $0.20 listing + 6.5% transaction + 3% + $0.25 processing, regulatory operating fee for the 9 charged countries (US excluded), Offsite Ads cap applied. Rates verified November 18, 2026.">
+<link rel="canonical" href="https://tallyfee.com/etsy-fee-calculator/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+<header class="site-header"><div class="in">
+<a class="brand" href="/">Fee<span>Calculator</span>Suite</a>
+<nav class="site-nav">
+<a href="/marketplace-fees-compared/">Compare all 8</a>
+<a href="/ebay-vs-etsy-fees/">eBay vs Etsy</a>
+<a href="/fee-changes/">Fee changes</a>
+<a href="/guides/ebay-fees-explained/">Guides</a>
+</nav></div></header>
+<main class="wrap">
+
+<div class="hero"><h1>Etsy Fee Calculator</h1>
+<p class="lede">Etsy stacks four charges: a $0.20 listing fee, a 6.5% transaction fee, payment processing of 3% + $0.25, and — in nine countries, not the US — a regulatory operating fee. This calculator applies each one on its correct base.</p>
+<div class="badge-band"><span class="pill">✓ Rates verified</span>
+<span><strong>November 18, 2026</strong> — checked against the platform's official fee pages. Source: <a href="https://www.etsy.com/in-en/legal/fees/" target="_blank" rel="noopener">Etsy Fees & Payments Policy</a></span></div>
+</div>
+<div class="calc-grid">
+<div class="card"><h2>Your sale</h2>
+<div class="field"><label for="et-price">Item price </label>
+<div class="input-wrap"><span class="prefix">$</span><input id="et-price" type="number" inputmode="decimal" min="0" step="0.01" value="50"></div></div>
+<div class="field"><label for="et-ship">Shipping charged to buyer </label>
+<div class="input-wrap"><span class="prefix">$</span><input id="et-ship" type="number" inputmode="decimal" min="0" step="0.01" value="5"></div></div>
+<div class="field"><label for="et-cost">Item cost (what you paid) </label>
+<div class="input-wrap"><span class="prefix">$</span><input id="et-cost" type="number" inputmode="decimal" min="0" step="0.01" value="20"></div></div>
+<div class="field"><label for="et-shipcost">Your shipping cost </label>
+<div class="input-wrap"><span class="prefix">$</span><input id="et-shipcost" type="number" inputmode="decimal" min="0" step="0.01" value="6"></div></div>
+<details class="advanced"><summary>Advanced settings — tax, seller country, Offsite Ads</summary>
+<div class="field"><label for="et-tax">Sales tax collected <span>processing fee is charged on it; transaction fee is not (US)</span></label>
+<div class="input-wrap"><span class="prefix">$</span><input id="et-tax" type="number" inputmode="decimal" min="0" step="0.01" value="0"></div></div>
+<div class="field"><label for="et-country">Seller country — regulatory operating fee</label>
+<div class="input-wrap"><select id="et-country">
+<option value="0" selected>United States — not charged</option>
+<option value="1.97">Hungary — 1.97%</option>
+<option value="1.67">Türkiye — 1.67%</option>
+<option value="1.24">Vietnam — 1.24%</option>
+<option value="1.14">France — 1.14%</option>
+<option value="0.88">Spain — 0.88%</option>
+<option value="0.80">Italy — 0.80%</option>
+<option value="0.50">Canada — 0.50%</option>
+<option value="0.48">United Kingdom — 0.48%</option>
+<option value="0.05">India — 0.05%</option>
+</select></div>
+<p class="hint">Etsy charges this fee in exactly nine countries, on item price + shipping + gift wrap. The United States is not among them. Official source: Etsy Help Center — <a href="https://help.etsy.com/hc/en-us/articles/1500011073202-What-is-a-Regulatory-Operating-Fee?segment=selling" target="_blank" rel="noopener">What is a Regulatory Operating Fee?</a></p></div>
+<div class="field"><label for="et-offsite">Offsite Ads <span>only if the sale came via an ad</span></label>
+<div class="input-wrap"><select id="et-offsite">
+<option value="0" selected>None — no Offsite Ads fee</option>
+<option value="15">15% — shops under $10k prior-year sales (can opt out)</option>
+<option value="12">12% — shops at $10k+ prior-year sales (mandatory)</option>
+</select></div>
+<p class="hint">Per Etsy’s policy, the Offsite Ads fee is capped at $100 per attributed order — the cap is applied here.</p></div>
+</details>
+<p class="privacy-note">Nothing you type leaves your browser — every calculation runs on this page, on your device.</p></div>
+<div class="result-panel" aria-live="polite">
+<div class="result-hero" id="et-hero"><div class="label">Net profit</div><div class="big mono" id="et-profit">$0.00</div><div id="et-margin-line"></div></div>
+<div class="compbar"><div class="bar">
+<div class="seg profit" id="et-bar-profit"></div><div class="seg fees" id="et-bar-fees"></div><div class="seg costs" id="et-bar-costs"></div>
+</div><div class="legend">
+<span><i style="background:var(--pos)"></i>Profit <b class="mono" id="et-bar-profit-v">$0.00</b></span>
+<span><i style="background:var(--fee)"></i>Fees <b class="mono" id="et-bar-fees-v">$0.00</b></span>
+<span><i style="background:var(--cost)"></i>Your costs <b class="mono" id="et-bar-costs-v">$0.00</b></span>
+</div></div>
+<div class="kv "><span class="k">Your revenue (price + shipping charged)</span><span class="v mono" id="et-gross">$0.00</span></div><div class="kv"><span class="k">Listing fee</span><span class="v mono">−$0.20</span></div><div class="kv "><span class="k">Transaction fee — 6.5% of price + shipping</span><span class="v mono" id="et-trans">$0.00</span></div><div class="kv "><span class="k">Payment processing — 3% of total incl. tax + $0.25</span><span class="v mono" id="et-proc">$0.00</span></div><div class="kv "><span class="k">Regulatory operating fee</span><span class="v mono" id="et-reg">$0.00</span></div><div class="kv" id="et-offsite-row" style="display:none"><span class="k">Offsite Ads fee (capped at $100/order)</span><span class="v mono" id="et-offsitefee">$0.00</span></div><div class="kv total"><span class="k">Total Etsy fees</span><span class="v mono" id="et-fees">$0.00</span></div><div class="kv "><span class="k">You keep after fees (before your costs)</span><span class="v mono" id="et-keep">$0.00</span></div><div class="kv "><span class="k">Item cost + your shipping cost</span><span class="v mono" id="et-costs">$0.00</span></div><div class="kv "><span class="k">Effective fee rate (fees ÷ revenue)</span><span class="v mono" id="et-eff">$0.00</span></div>
+<div class="breakeven">Break-even item price: <b class="mono" id="et-be">$0.00</b><br>Solved with Etsy’s fee stack, including the $0.20 listing fee and the Offsite Ads cap if selected.</div>
+<div class="copy-row"><button type="button" class="btn small ghost copy-btn" data-prefix="et">Copy result</button><span class="copy-msg" data-for="et"></span></div>
+</div>
+</div>
+<h2>How Etsy fees work</h2>
+<p class="rate-line">Rates verified: <strong>November 18, 2026</strong> on Etsy’s official Fees &amp; Payments Policy and Help Center · Listing fee <strong>$0.20</strong> · Transaction fee <strong>6.5%</strong> of price + shipping (US: sales tax excluded) · Processing <strong>3% + $0.25</strong> on the total including tax · Regulatory operating fee in nine countries only — <strong>US sellers are not charged it</strong> · Offsite Ads 12%/15%, capped at $100 per order.</p>
+<p><strong>The bases differ — that is where most calculators go wrong.</strong> The 6.5% transaction fee is charged on the item price plus shipping (and gift wrap), but <em>not</em> on sales tax for US sellers. The 3% processing fee is the one that touches tax: it is charged on the full amount the buyer paid, tax included, plus a flat $0.25. The regulatory operating fee applies in exactly nine countries (Canada, France, Hungary, Italy, India, Spain, Türkiye, the UK and Vietnam); if you sell from the US, that line is $0 — calculators that add it for US sellers overstate your fees.</p>
+<h2>Frequently asked questions</h2><div class="faq">
+<details><summary>How much does Etsy charge per sale in 2026?</summary><p>For a US seller: $0.20 listing fee + 6.5% transaction fee on price + shipping + 3% + $0.25 payment processing on the total the buyer paid (tax included). On a $100 order with free shipping that is $0.20 + $6.50 + $3.25 = $9.95.</p></details>
+<details><summary>Does Etsy’s transaction fee apply to sales tax?</summary><p>No — for US sellers the 6.5% transaction fee is charged on price + shipping + gift wrap, excluding sales tax. The 3% processing fee does apply to the tax-inclusive total.</p></details>
+<details><summary>What is Etsy’s regulatory operating fee?</summary><p>An extra percentage Etsy charges sellers in nine countries only (e.g. UK 0.48%, France 1.14%, Hungary 1.97%). The United States is not on the list, so US sellers pay nothing on this line.</p></details>
+<details><summary>How does the Offsite Ads fee work?</summary><p>If a sale is attributed to an Offsite Ad, Etsy charges 15% (shops under $10k prior-year sales, who can opt out) or 12% (shops at $10k+, mandatory) of price + shipping, capped at $100 per order.</p></details>
+</div>
+<h2>Related tools</h2><ul><li><a href="/guides/etsy-fees-explained/">Guide: Etsy fees explained, fee by fee</a></li><li><a href="/ebay-vs-etsy-fees/">eBay vs Etsy — the same item costed on both</a></li><li><a href="/marketplace-fees-compared/">Compare Etsy with 7 other platforms</a></li><li><a href="/fee-changes/">Fee-change history — Etsy’s 2022 rise and 2026 regulatory revision</a></li></ul>
+<p class="src-list">Sources: Etsy — <a href="https://www.etsy.com/in-en/legal/fees/" target="_blank" rel="noopener">Fees &amp; Payments Policy</a> · Etsy Help Center — <a href="https://help.etsy.com/hc/en-us/articles/1500011073202-What-is-a-Regulatory-Operating-Fee?segment=selling" target="_blank" rel="noopener">What is a Regulatory Operating Fee?</a> Rates verified November 18, 2026.</p>
+
+</main>
+<footer class="site-footer"><div class="in">
+<h2>All calculators in this suite</h2>
+<nav class="foot-links">
+<a href="/ebay-fee-calculator/">eBay fee calculator</a>
+<a href="/ebay-profit-calculator/">eBay profit calculator</a>
+<a href="/etsy-fee-calculator/">Etsy fee calculator</a>
+<a href="/poshmark-fee-calculator/">Poshmark fee calculator</a>
+<a href="/mercari-fee-calculator/">Mercari fee calculator</a>
+<a href="/amazon-referral-fee-calculator/">Amazon referral fee calculator</a>
+<a href="/depop-fee-calculator/">Depop fee calculator</a>
+<a href="/vinted-fee-calculator/">Vinted fee calculator</a>
+<a href="/whatnot-fee-calculator/">Whatnot fee calculator</a>
+<a href="/marketplace-fees-compared/">Compare all 8 platforms</a>
+<a href="/ebay-vs-etsy-fees/">eBay vs Etsy fees</a>
+<a href="/fee-changes/">Fee-change history</a>
+<a href="/guides/ebay-fees-explained/">eBay fees explained</a>
+<a href="/guides/etsy-fees-explained/">Etsy fees explained</a>
+<a href="/guides/mercari-fees-explained/">Mercari fees explained</a>
+</nav>
+<p class="disclaimer"><strong>Disclaimer:</strong> Results are estimates for planning only. Fees vary by category, seller country, store subscription and promotions. Always confirm the final fee on the platform's official fee page before listing. Rates on this site were verified on the platforms' official fee pages on November 18, 2026. Facebook Marketplace and TikTok Shop calculators are not offered: their official pages do not publish a single standard rate we could confirm, and this suite does not guess at rates.</p>
+</div></footer>
+<script src="/assets/engines.js"></script>
+<script src="/assets/calc.js"></script>
+</body>
+</html>
