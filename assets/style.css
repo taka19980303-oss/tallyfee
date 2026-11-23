@@ -335,3 +335,22 @@ a,.btn,.tile,.preset,.preset-row button,.quick-chip,.mode-toggle button,.row-del
 .cta-note{flex-basis:100%;font-size:13px;color:var(--muted);margin:0}
 .site-legal{margin-top:10px}
 @media print{.vendor-cta,.ad-banner{display:none !important}}
+
+/* Mobile hamburger nav (2026-11-24): at <=760px the inline nav collapses
+   behind a hamburger button — but ONLY when JS is on (html.js, set by the
+   inline head script). No-JS mobile keeps the wrapped inline nav, so
+   navigation is never JS-dependent. Desktop is untouched. */
+.nav-burger{display:none}
+@media (max-width:760px){
+  html.js .nav-burger{display:inline-flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:44px;height:44px;margin-left:auto;padding:0;background:var(--card);border:1px solid var(--line);border-radius:10px;cursor:pointer;flex:none}
+  html.js .nav-burger span{display:block;width:20px;height:2px;background:var(--ink);border-radius:2px}
+  html.js .nav-burger:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  html.js .site-nav{display:none}
+  html.js .site-header.nav-open .site-nav{display:block;flex:1 1 100%;margin-left:0;padding:8px 2px 2px;border-top:1px solid var(--line)}
+  html.js .site-header.nav-open .nav-item{display:block;margin:0 0 4px}
+  html.js .site-header.nav-open .nav-top{display:flex;padding:9px 6px;font-size:14.5px;color:var(--ink)}
+  html.js .site-header.nav-open .nav-top .caret{display:none}
+  html.js .site-header.nav-open .nav-item .drop{display:block;position:static;min-width:0;max-width:none;padding:0 0 4px 14px;border:none;box-shadow:none;background:transparent}
+  html.js .site-header.nav-open .nav-item .drop a{padding:8px 10px;font-size:14px;white-space:normal}
+  html.js .site-header.nav-open .site-nav>a.nav-top{border-top:1px solid var(--line);margin-top:2px}
+}
