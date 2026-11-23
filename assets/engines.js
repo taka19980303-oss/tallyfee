@@ -207,6 +207,33 @@
     return { revenue: revenue, comm: comm, proc: proc, fees: fees, keep: keep, costs: r2(cost + shipcost), profit: profit };
   }
 
+  /* ---- TikTok Shop (US) referral fee — verified 2026-11-23 on TikTok's
+     official Seller University pages (category referral table + Referral
+     Fee Updates). Referral Fee = rate x (Customer Payment + Platform
+     Discount - Tax); the base includes the shipping fee paid by the
+     customer. Rates: 6% standard; 5% fine jewelry (diamond, gold, jade,
+     platinum/carat gold, ruby/sapphire/emerald) and Pre-Owned;
+     Collectibles 6% and Pre-Owned 5%, with any portion of the sale over
+     $10,000 at 3% (the tier is applied to the fee base). The referral fee
+     is TikTok's only per-order platform fee — per its policy it
+     "encompasses all TikTok Shop fees, with the exception of shipping
+     and tax fees". Deliberately NOT added to platformCalc: the
+     comparison and batch tools keep their eight-platform scope. ---- */
+  function tiktokCalc(price, ship, discount, tax, cost, shipcost, group) {
+    var revenue = r2(price + ship);
+    var base = Math.max(0, r2(price + ship + discount - tax));
+    var rate = (group === "jewelry" || group === "preowned") ? 5 : 6;
+    var fee;
+    if (group === "collectibles" || group === "preowned") {
+      fee = r2(Math.min(base, 10000) * rate / 100 + Math.max(0, base - 10000) * 0.03);
+    } else {
+      fee = r2(base * rate / 100);
+    }
+    var keep = r2(revenue - fee);
+    var profit = r2(keep - cost - shipcost);
+    return { revenue: revenue, base: base, rate: rate, fees: fee, keep: keep, costs: r2(cost + shipcost), profit: profit };
+  }
+
   /* ---- Unified engine for comparison / reverse pricing ----
      Defaults: eBay no tax, no promo, no TRP, US location; Etsy US seller,
      no Offsite Ads; Poshmark ignores the shipping-charged column (buyer-paid
@@ -226,7 +253,7 @@
   var api = { r2: r2, money: money, neg: neg, pct: pct, verdictFor: verdictFor, breakEven: breakEven,
               ebayCalc: ebayCalc, etsyCalc: etsyCalc, poshCalc: poshCalc, mercariCalc: mercariCalc,
               amazonReferral: amazonReferral, amazonCalc: amazonCalc, depopCalc: depopCalc,
-              vintedCalc: vintedCalc, whatnotCalc: whatnotCalc, platformCalc: platformCalc,
+              vintedCalc: vintedCalc, whatnotCalc: whatnotCalc, tiktokCalc: tiktokCalc, platformCalc: platformCalc,
               PLATFORM_NAMES: PLATFORM_NAMES };
   global.FeeEngines = api;
   if (typeof module !== "undefined" && module.exports) { module.exports = api; }

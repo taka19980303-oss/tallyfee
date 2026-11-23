@@ -221,6 +221,33 @@
       ", net profit " + f.fmt(r.profit) + " (margin " + E.pct(r.revenue > 0 ? r.profit / r.revenue * 100 : 0) + "). Rates verified November 18, 2026.";
   }
 
+  /* ================= TikTok Shop ================= */
+  var TT_RATE_LABELS = {
+    standard: "Referral fee — 6% of the fee base",
+    jewelry: "Referral fee — 5% of the fee base (fine jewelry)",
+    collectibles: "Referral fee — 6%, with 3% on the portion over $10,000",
+    preowned: "Referral fee — 5%, with 3% on the portion over $10,000"
+  };
+  function calcTiktok() {
+    if (!$("tt-price")) return;
+    var price = num("tt-price"), ship = num("tt-ship"), disc = num("tt-discount"), tax = num("tt-tax"), cost = num("tt-cost"), sc = num("tt-shipcost");
+    var group = $("tt-cat").value;
+    var r = E.tiktokCalc(price, ship, disc, tax, cost, sc, group);
+    var f = setResult("tt", r);
+    $("tt-gross").textContent = f.fmt(r.revenue);
+    $("tt-base").textContent = f.fmt(r.base);
+    $("tt-rate-label").textContent = TT_RATE_LABELS[group] || TT_RATE_LABELS.standard;
+    $("tt-fee").textContent = f.nfmt(r.fees);
+    $("tt-fees").textContent = f.nfmt(r.fees);
+    $("tt-keep").textContent = f.fmt(r.keep);
+    $("tt-costs").textContent = f.nfmt(r.costs);
+    $("tt-eff").textContent = E.pct(r.revenue > 0 ? r.fees / r.revenue * 100 : 0);
+    var be = E.breakEven(function (p) { return E.tiktokCalc(p, ship, disc, tax, cost, sc, group).profit; });
+    $("tt-be").textContent = be === null ? "—" : f.fmt(be);
+    summaries.tt = "TikTok Shop (US, " + group + "): price " + f.fmt(price) + " + shipping " + f.fmt(ship) + " → referral fee " + f.fmt(r.fees) +
+      " on a fee base of " + f.fmt(r.base) + ", net profit " + f.fmt(r.profit) + " (margin " + E.pct(r.revenue > 0 ? r.profit / r.revenue * 100 : 0) + "). Rates verified November 23, 2026.";
+  }
+
   /* ================= Comparison ================= */
   var CMP_DEFS = [
     { key: "ebay", name: "eBay", href: "/ebay-fee-calculator/", feeLabel: "13.6% up to $7,500, then 2.35% · + per-order fee" },
@@ -355,6 +382,8 @@
   bind(["vt-price", "vt-cost", "vt-shipcost"], "input", calcVinted);
   bind(["wn-price", "wn-ship", "wn-tax", "wn-cost", "wn-shipcost"], "input", calcWhatnot);
   bind(["wn-cat"], "change", calcWhatnot);
+  bind(["tt-price", "tt-ship", "tt-discount", "tt-tax", "tt-cost", "tt-shipcost"], "input", calcTiktok);
+  bind(["tt-cat"], "change", calcTiktok);
   bind(["cmp-price", "cmp-ship", "cmp-cost", "cmp-shipcost"], "input", calcCompare);
   bind(["rev-target", "rev-ship", "rev-cost", "rev-shipcost"], "input", calcReverse);
   on("rev-mode-amt", "click", function () { revMode = "amt"; $("rev-mode-amt").setAttribute("aria-pressed", "true"); $("rev-mode-margin").setAttribute("aria-pressed", "false"); $("rev-target-label").textContent = "Target profit per sale"; $("rev-target-prefix").textContent = "$"; calcReverse(); });
@@ -364,11 +393,11 @@
     b.addEventListener("click", function () {
       var map = JSON.parse(b.getAttribute("data-v"));
       Object.keys(map).forEach(function (id) { var el = $(id); if (el) el.value = map[id]; });
-      [calcEbay, calcEtsy, calcPoshmark, calcMercari, calcAmazon, calcDepop, calcVinted, calcWhatnot].forEach(function (fn) { fn(); });
+      [calcEbay, calcEtsy, calcPoshmark, calcMercari, calcAmazon, calcDepop, calcVinted, calcWhatnot, calcTiktok].forEach(function (fn) { fn(); });
     });
   });
 
-  calcEbay(); calcEtsy(); calcPoshmark(); calcMercari(); calcAmazon(); calcDepop(); calcVinted(); calcWhatnot();
+  calcEbay(); calcEtsy(); calcPoshmark(); calcMercari(); calcAmazon(); calcDepop(); calcVinted(); calcWhatnot(); calcTiktok();
   calcCompare(); calcReverse(); calcVs();
   bindCopy();
 })();

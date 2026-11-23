@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TikTok Shop Fee Calculator — 6% Referral Fee by Category, Verified Nov 2026 | Fee Calculator Suite</title>
+<meta name="description" content="Free TikTok Shop (US) fee calculator: one referral fee — 6% for most categories, 5% for fine jewelry and pre-owned, 3% on the portion over $10,000 — charged on customer payment + platform discount − tax. Rates verified November 23, 2026 on TikTok's official Seller University pages.">
+<link rel="canonical" href="https://tallyfee.com/tiktok-shop-fee-calculator/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+<header class="site-header"><div class="in">
+<a class="brand" href="/">Fee<span>Calculator</span>Suite</a>
+<nav class="site-nav">
+<a href="/marketplace-fees-compared/">Compare all 8</a>
+<a href="/ebay-vs-etsy-fees/">eBay vs Etsy</a>
+<a href="/fee-changes/">Fee changes</a>
+<a href="/kdp/">KDP</a>
+<a href="/guides/ebay-fees-explained/">Guides</a>
+</nav></div></header>
+<main class="wrap">
+
+<div class="hero"><h1>TikTok Shop Fee Calculator</h1>
+<p class="lede">TikTok Shop charges <strong>one referral fee per order</strong> — in TikTok’s own policy wording, it “encompasses all TikTok Shop fees, with the exception of shipping and tax fees.” There is no separate payment-processing line. The rate runs by category: <strong>6% for most, 5% for fine jewelry and pre-owned</strong>, with the portion of a collectible or pre-owned sale <strong>over $10,000 at 3%</strong> — charged on <strong>customer payment + platform discount − tax</strong>, a base that includes the shipping the buyer paid.</p>
+<div class="badge-band"><span class="pill">✓ Rates verified</span>
+<span><strong>November 23, 2026</strong> — checked against TikTok’s official Seller University pages. Sources: <a href="https://seller-us.tiktok.com/university/essay?knowledge_id=5988482086864682" target="_blank" rel="noopener">Referral fees by category</a> · <a href="https://seller-us.tiktok.com/university/essay?knowledge_id=5982454398175018&lang=en" target="_blank" rel="noopener">Referral Fee Updates</a></span></div>
+</div>
+<div class="calc-grid">
+<div class="card"><h2>Your sale</h2>
+<div class="field"><label for="tt-cat">Category group <span>referral rate</span></label>
+<div class="input-wrap"><select id="tt-cat">
+<option value="standard" selected>Standard — most categories · 6%</option>
+<option value="jewelry">Fine jewelry — diamond, gold, jade, platinum, ruby / sapphire / emerald · 5%</option>
+<option value="collectibles">Collectibles · 6%, portion over $10,000 at 3%</option>
+<option value="preowned">Pre-Owned · 5%, portion over $10,000 at 3%</option>
+</select></div>
+<p class="hint">Per TikTok’s official category table. Other jewelry (silver, pearl, crystal, semiprecious stones) stays at the standard 6%. Promotional rates shown in your Seller Center (for example new-seller plans) are not modelled.</p></div>
+<div class="field"><label for="tt-price">Item price <span>what the buyer pays for the item</span></label>
+<div class="input-wrap"><span class="prefix">$</span><input id="tt-price" type="number" inputmode="decimal" min="0" step="0.01" value="50"></div></div>
+<div class="field"><label for="tt-ship">Shipping charged to buyer <span>included in the fee base</span></label>
+<div class="input-wrap"><span class="prefix">$</span><input id="tt-ship" type="number" inputmode="decimal" min="0" step="0.01" value="5"></div></div>
+<div class="field"><label for="tt-discount">Platform discount <span>funded by TikTok, if any</span></label>
+<div class="input-wrap"><span class="prefix">$</span><input id="tt-discount" type="number" inputmode="decimal" min="0" step="0.01" value="0"></div>
+<p class="hint">Discounts TikTok funds are added back into the fee base — they do not reduce the fee, and they do not reduce what you receive. A discount you fund yourself is already reflected in your item price.</p></div>
+<div class="field"><label for="tt-tax">Sales tax collected <span>subtracted from the fee base</span></label>
+<div class="input-wrap"><span class="prefix">$</span><input id="tt-tax" type="number" inputmode="decimal" min="0" step="0.01" value="0"></div></div>
+<div class="field"><label for="tt-cost">Item cost (what you paid) </label>
+<div class="input-wrap"><span class="prefix">$</span><input id="tt-cost" type="number" inputmode="decimal" min="0" step="0.01" value="20"></div></div>
+<div class="field"><label for="tt-shipcost">Your shipping cost </label>
+<div class="input-wrap"><span class="prefix">$</span><input id="tt-shipcost" type="number" inputmode="decimal" min="0" step="0.01" value="6"></div></div>
+<p class="privacy-note">Nothing you type leaves your browser — every calculation runs on this page, on your device.</p></div>
+<div class="result-panel" aria-live="polite">
+<div class="result-hero" id="tt-hero"><div class="label">Net profit</div><div class="big mono" id="tt-profit">$0.00</div><div id="tt-margin-line"></div></div>
+<div class="compbar"><div class="bar">
+<div class="seg profit" id="tt-bar-profit"></div><div class="seg fees" id="tt-bar-fees"></div><div class="seg costs" id="tt-bar-costs"></div>
+</div><div class="legend">
+<span><i style="background:var(--pos)"></i>Profit <b class="mono" id="tt-bar-profit-v">$0.00</b></span>
+<span><i style="background:var(--fee)"></i>Fees <b class="mono" id="tt-bar-fees-v">$0.00</b></span>
+<span><i style="background:var(--cost)"></i>Your costs <b class="mono" id="tt-bar-costs-v">$0.00</b></span>
+</div></div>
+<div class="kv "><span class="k">Your revenue (price + buyer-paid shipping)</span><span class="v mono" id="tt-gross">$0.00</span></div>
+<div class="kv "><span class="k">Fee base (payment + platform discount − tax)</span><span class="v mono" id="tt-base">$0.00</span></div>
+<div class="kv "><span class="k" id="tt-rate-label">Referral fee</span><span class="v mono" id="tt-fee">$0.00</span></div>
+<div class="kv total"><span class="k">Total TikTok Shop fees</span><span class="v mono" id="tt-fees">$0.00</span></div>
+<div class="kv "><span class="k">You keep after fees (before your costs)</span><span class="v mono" id="tt-keep">$0.00</span></div>
+<div class="kv "><span class="k">Item cost + your shipping cost</span><span class="v mono" id="tt-costs">$0.00</span></div>
+<div class="kv "><span class="k">Effective fee rate (fees ÷ revenue)</span><span class="v mono" id="tt-eff">$0.00</span></div>
+<div class="breakeven">Break-even item price: <b class="mono" id="tt-be">$0.00</b><br>Solved at the category group selected above.</div>
+<div class="copy-row"><button type="button" class="btn small ghost copy-btn" data-prefix="tt">Copy result</button><span class="copy-msg" data-for="tt"></span></div>
+</div>
+</div>
+<h2>How TikTok Shop fees work</h2>
+<p class="rate-line">Rates verified: <strong>November 23, 2026</strong> on TikTok Shop Seller University (US) — the category referral table and “Referral Fee Updates” (page updated May 8, 2025). Formula: <strong>Referral Fee = rate × (Customer Payment + Platform Discount − Tax)</strong>, and the base <strong>includes the shipping fee paid by the customer</strong>. Rates: <strong>6%</strong> for most categories; <strong>5%</strong> for diamond, gold, jade, platinum / carat gold and ruby / sapphire / emerald jewelry (since October 31, 2024) and for all Pre-Owned categories; <strong>Collectibles 6% and Pre-Owned 5%, with any portion of the sale over $10,000 charged at 3%</strong> — in this calculator the $10,000 tier is applied to the fee base. TikTok’s own worked example: 6% × ($102 + $5 − $2) = <strong>$6.30</strong>. Settlement runs after delivery, with a $1 payout threshold.</p>
+<p><strong>About the “8%” figures going around:</strong> some seller posts and fee blogs describe a rise to 8% in August 2026. TikTok’s official category table, read on November 23, 2026, still lists 6% for standard categories, and TikTok’s policy says material fee changes are notified about 30 days before they take effect. This calculator uses the official table — and your own settlement statement (Seller Center → Finance → Statements) is the final word on what your shop was actually charged.</p>
+<h2>Frequently asked questions</h2><div class="faq">
+<details><summary>How much does TikTok Shop take from a sale?</summary><p>One referral fee: 6% of the fee base for most categories, 5% for fine jewelry and pre-owned items, and 3% on the portion of a collectible or pre-owned sale over $10,000. The fee base is what the customer paid (item + shipping) plus any TikTok-funded platform discount, minus tax. On a $100 item with free shipping and no discount or tax, the fee is $6.00.</p></details>
+<details><summary>Is there a payment processing fee on top?</summary><p>No. TikTok’s policy defines the referral fee as encompassing all TikTok Shop fees, with the exception of shipping and tax fees — there is no separate processing line on the settlement report. Creator (affiliate) commissions are different: you set that rate yourself, and it is not included here.</p></details>
+<details><summary>What happens to the fee when an order is refunded?</summary><p>TikTok returns the referral fee minus a Refund Administration Fee of 20% of the referral fee, capped at $5 per SKU since May 15, 2025. TikTok’s own examples: a $10 item at 6% leaves a $0.12 admin fee; a $500 item would be $6.00, reduced to the $5 cap. No admin fee applies to “buy now refund later” creator sample refunds or to eligible cancellations before shipment.</p></details>
+<details><summary>Why do some calculators show 8%?</summary><p>Seller reports from August 2026 describe an 8% charge, but no official TikTok announcement or updated table has been published that we could find — the official category table read on November 23, 2026 still lists 6%. If your settlement statement shows a different rate, price from your statement.</p></details>
+<details><summary>Does TikTok charge the fee on shipping?</summary><p>Yes — the official formula’s base includes the shipping fee paid by the customer. That is why the shipping you charge is an input above, separate from your own shipping cost.</p></details>
+</div>
+<h2>Related tools</h2><ul><li><a href="/marketplace-fees-compared/">Compare 8 other platforms on the same item</a></li><li><a href="/batch-fee-calculator/">Batch calculator + CSV for the other platforms</a></li><li><a href="/fee-changes/">Fee-change history — TikTok’s 2024 referral changes</a></li><li><a href="/ebay-fee-calculator/">eBay fee calculator</a></li></ul>
+<p class="src-list">Sources: TikTok Shop Seller University (US) — <a href="https://seller-us.tiktok.com/university/essay?knowledge_id=5988482086864682" target="_blank" rel="noopener">TikTok Shop Referral Fees by Category</a> · <a href="https://seller-us.tiktok.com/university/essay?knowledge_id=5982454398175018&lang=en" target="_blank" rel="noopener">TikTok Shop Referral Fee Updates</a>. Rates verified November 23, 2026.</p>
+
+</main>
+<footer class="site-footer"><div class="in">
+<h2>All calculators in this suite</h2>
+<nav class="foot-links">
+<a href="/ebay-fee-calculator/">eBay fee calculator</a>
+<a href="/ebay-profit-calculator/">eBay profit calculator</a>
+<a href="/etsy-fee-calculator/">Etsy fee calculator</a>
+<a href="/poshmark-fee-calculator/">Poshmark fee calculator</a>
+<a href="/mercari-fee-calculator/">Mercari fee calculator</a>
+<a href="/amazon-referral-fee-calculator/">Amazon referral fee calculator</a>
+<a href="/depop-fee-calculator/">Depop fee calculator</a>
+<a href="/vinted-fee-calculator/">Vinted fee calculator</a>
+<a href="/whatnot-fee-calculator/">Whatnot fee calculator</a>
+<a href="/tiktok-shop-fee-calculator/">TikTok Shop fee calculator</a>
+<a href="/marketplace-fees-compared/">Compare all 8 platforms</a>
+<a href="/batch-fee-calculator/">Batch fee calculator + CSV</a>
+<a href="/ebay-vs-etsy-fees/">eBay vs Etsy fees</a>
+<a href="/fee-changes/">Fee-change history</a>
+<a href="/guides/ebay-fees-explained/">eBay fees explained</a>
+<a href="/guides/etsy-fees-explained/">Etsy fees explained</a>
+<a href="/guides/mercari-fees-explained/">Mercari fees explained</a>
+<a href="/kdp/">KDP calculators</a>
+<a href="/kdp-cover-calculator/">KDP cover size calculator</a>
+<a href="/kdp-print-cost-calculator/">KDP printing cost calculator</a>
+<a href="/kdp-royalty-calculator/">KDP royalty calculator</a>
+<a href="/guides/kdp-royalties-explained/">KDP royalties explained</a>
+</nav>
+<p class="disclaimer"><strong>Disclaimer:</strong> Results are estimates for planning only. Fees vary by category, seller country, store subscription and promotions. Always confirm the final fee on the platform's official fee page before listing. Rates on this site were verified on the platforms' official fee pages — marketplace rates November 18, 2026; TikTok Shop rates November 23, 2026. A Facebook Marketplace calculator is not offered: its official pages do not publish a single standard rate we could confirm, and this suite does not guess at rates.</p>
+</div></footer>
+<script src="/assets/engines.js"></script>
+<script src="/assets/calc.js"></script>
+</body>
+</html>
