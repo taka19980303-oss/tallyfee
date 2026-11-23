@@ -105,7 +105,7 @@
   function fmt(n) {
     if (n === null || n === undefined) return '—';
     var r = Math.round(n * 100) / 100;
-    return '$' + r.toLocaleString('en-US', { minimumFractionDigits: (r % 1 !== 0 ? 2 : 0), maximumFractionDigits: 2 });
+    return '$' + r.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   }
 
   window.PricingEngine = { tierFor: tierFor, planPriceAt: planPriceAt, toolCost: toolCost, planCost: planCost, allPlans: allPlans, compareTools: compareTools, breakEven: breakEven, fmt: fmt };
