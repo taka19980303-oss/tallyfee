@@ -18,14 +18,25 @@
      below that very thin; any loss is called out plainly. */
   function verdictFor(profit, revenue) {
     var margin = revenue > 0 ? (profit / revenue) * 100 : 0;
-    var word = profit >= 0 ? "Profitable at these numbers" : "Losing money at these numbers";
+    var JA = typeof document !== "undefined" && document.documentElement && document.documentElement.lang === "ja";
+    var word = JA ? (profit >= 0 ? "この条件では黒字です" : "この条件では赤字です")
+                  : (profit >= 0 ? "Profitable at these numbers" : "Losing money at these numbers");
     var v;
-    if (revenue <= 0) v = { label: "Enter a price to see the verdict", cls: "warn", reason: "The verdict appears as soon as there is revenue to judge." };
-    else if (profit < 0) v = { label: "✕ Losing money", cls: "neg", reason: "Fees and your costs exceed the revenue on this sale — raise the price or cut costs." };
-    else if (margin >= 40) v = { label: "✓ Strong Healthy Margin (40%+)", cls: "pos", reason: "A comfortable buffer: after fees and costs, at least 40% of the revenue stays as profit." };
-    else if (margin >= 20) v = { label: "✓ Healthy margin", cls: "pos", reason: "A solid buffer after fees and costs — below the 40%+ top band, but comfortably profitable." };
-    else if (margin >= 10) v = { label: "◐ Thin margin", cls: "warn", reason: "Profitable, but fees and costs take most of the revenue — a small cost rise can erase this profit." };
-    else v = { label: "◐ Very thin margin", cls: "warn", reason: "Barely profitable: almost all of the revenue goes to fees and costs, so any extra cost tips this sale into a loss." };
+    if (JA) {
+      if (revenue <= 0) v = { label: "価格を入力すると判定が出ます", cls: "warn", reason: "売上額が入ると判定が表示されます。" };
+      else if (profit < 0) v = { label: "✕ 赤字", cls: "neg", reason: "手数料とコストが売上を上回っています。価格を上げるかコストを下げてください。" };
+      else if (margin >= 40) v = { label: "✓ 非常に健全な利益率（40%以上）", cls: "pos", reason: "手数料とコストを引いても売上の40%以上が利益に残る、余裕のある水準です。" };
+      else if (margin >= 20) v = { label: "✓ 健全な利益率", cls: "pos", reason: "手数料とコストの後も十分な利益が残っています（最上位の40%帯には届きませんが、安定して黒字です）。" };
+      else if (margin >= 10) v = { label: "◐ 薄い利益率", cls: "warn", reason: "黒字ではありますが、売上の大半を手数料とコストが占めています。少しのコスト増で利益が消えます。" };
+      else v = { label: "◐ 非常に薄い利益率", cls: "warn", reason: "かろうじて黒字です。売上のほぼ全てが手数料とコストに消えるため、追加コストがあれば赤字に転落します。" };
+    } else {
+      if (revenue <= 0) v = { label: "Enter a price to see the verdict", cls: "warn", reason: "The verdict appears as soon as there is revenue to judge." };
+      else if (profit < 0) v = { label: "✕ Losing money", cls: "neg", reason: "Fees and your costs exceed the revenue on this sale — raise the price or cut costs." };
+      else if (margin >= 40) v = { label: "✓ Strong Healthy Margin (40%+)", cls: "pos", reason: "A comfortable buffer: after fees and costs, at least 40% of the revenue stays as profit." };
+      else if (margin >= 20) v = { label: "✓ Healthy margin", cls: "pos", reason: "A solid buffer after fees and costs — below the 40%+ top band, but comfortably profitable." };
+      else if (margin >= 10) v = { label: "◐ Thin margin", cls: "warn", reason: "Profitable, but fees and costs take most of the revenue — a small cost rise can erase this profit." };
+      else v = { label: "◐ Very thin margin", cls: "warn", reason: "Barely profitable: almost all of the revenue goes to fees and costs, so any extra cost tips this sale into a loss." };
+    }
     v.margin = margin;
     v.word = word;
     return v;

@@ -8,6 +8,7 @@
   function num(id) { var el = $(id); if (!el) return 0; var v = parseFloat(el.value); return isNaN(v) || v < 0 ? 0 : v; }
   function on(id, ev, fn) { var el = $(id); if (el) el.addEventListener(ev, fn); }
   var summaries = {};
+  var JA = document.documentElement.lang === "ja";
 
   function setResult(prefix, r, cur) {
     cur = cur || "$";
@@ -19,7 +20,7 @@
     var v = E.verdictFor(r.profit, r.revenue);
     $(prefix + "-margin-line").innerHTML =
       '<span class="verdict ' + v.cls + '">' + v.label + '</span>' +
-      '<div class="verdict-reason">Margin <span class="pill mono">' + E.pct(v.margin) + '</span> &nbsp;' +
+      '<div class="verdict-reason">' + (JA ? "利益率" : "Margin") + ' <span class="pill mono">' + E.pct(v.margin) + '</span> &nbsp;' +
       v.word + ' — ' + v.reason + '</div>';
     /* Composition bar: revenue split into profit / fees / costs. */
     var pSeg = Math.max(0, r.profit), denom = pSeg + r.fees + r.costs;
@@ -35,7 +36,7 @@
       b.addEventListener("click", function () {
         var p = b.getAttribute("data-prefix");
         var msg = document.querySelector('.copy-msg[data-for="' + p + '"]');
-        var done = function () { if (msg) { msg.textContent = "Copied."; setTimeout(function () { msg.textContent = ""; }, 2000); } };
+        var done = function () { if (msg) { msg.textContent = JA ? "コピーしました" : "Copied."; setTimeout(function () { msg.textContent = ""; }, 2000); } };
         if (navigator.clipboard && summaries[p]) { navigator.clipboard.writeText(summaries[p]).then(done, done); }
       });
     });
@@ -58,7 +59,7 @@
     $("eb-fvf1").textContent = f.nfmt(r.fvf1);
     $("eb-fvf2").textContent = f.nfmt(r.fvf2);
     $("eb-fvf2-row").style.display = r.base > 7500 ? "" : "none";
-    $("eb-order").textContent = f.nfmt(r.orderFee) + (r.base <= 10 && r.base > 0 ? " ($0.30 tier)" : "");
+    $("eb-order").textContent = f.nfmt(r.orderFee) + (r.base <= 10 && r.base > 0 ? (JA ? "（$0.30区分）" : " ($0.30 tier)") : "");
     $("eb-promofee").textContent = f.nfmt(r.promoFee);
     $("eb-promo-row").style.display = promo > 0 ? "" : "none";
     $("eb-trpdisc").textContent = "+" + f.fmt(r.trpDisc);
@@ -72,8 +73,11 @@
     $("eb-eff").textContent = E.pct(r.revenue > 0 ? r.fees / r.revenue * 100 : 0);
     var be = E.breakEven(function (p) { return E.ebayCalc(p, ship, tax, cost, sc, promo, trp, intlPct).profit; });
     $("eb-be").textContent = be === null ? "—" : f.fmt(be);
-    summaries.eb = "eBay (US): price " + f.fmt(price) + " + shipping " + f.fmt(ship) + " → fees " + f.fmt(r.fees) +
-      ", net profit " + f.fmt(r.profit) + " (margin " + E.pct(r.revenue > 0 ? r.profit / r.revenue * 100 : 0) + "). Rates verified November 18, 2026.";
+    summaries.eb = JA
+      ? "eBay（米国）: 価格 " + f.fmt(price) + " + 送料 " + f.fmt(ship) + " → 手数料 " + f.fmt(r.fees) +
+        "、純利益 " + f.fmt(r.profit) + "（利益率 " + E.pct(r.revenue > 0 ? r.profit / r.revenue * 100 : 0) + "）。料率は2026年11月18日に確認。"
+      : "eBay (US): price " + f.fmt(price) + " + shipping " + f.fmt(ship) + " → fees " + f.fmt(r.fees) +
+        ", net profit " + f.fmt(r.profit) + " (margin " + E.pct(r.revenue > 0 ? r.profit / r.revenue * 100 : 0) + "). Rates verified November 18, 2026.";
   }
 
   /* ================= Etsy ================= */
@@ -271,15 +275,17 @@
 
   /* ================= Comparison ================= */
   var CMP_DEFS = [
-    { key: "ebay", name: "eBay", href: "/ebay-fee-calculator/", feeLabel: "13.6% up to $7,500, then 2.35% · + per-order fee" },
-    { key: "etsy", name: "Etsy", href: "/etsy-fee-calculator/", feeLabel: "$0.20 + 6.5% + 3% + $0.25 · regulatory n/a (US)" },
-    { key: "poshmark", name: "Poshmark", href: "/poshmark-fee-calculator/", feeLabel: "$2.95 under $15 · 20% at $15+ · on item price only" },
-    { key: "mercari", name: "Mercari", href: "/mercari-fee-calculator/", feeLabel: "10% of price + buyer-paid shipping · no processing fee" },
-    { key: "amazon", name: "Amazon", href: "/amazon-referral-fee-calculator/", feeLabel: "Referral only · Everything Else 15% (category selector on its page)" },
-    { key: "depop", name: "Depop", href: "/depop-fee-calculator/", feeLabel: "No selling fee (US) · processing 3.3% + $0.45" },
-    { key: "vinted", name: "Vinted", href: "/vinted-fee-calculator/", feeLabel: "No seller fee · buyer pays the Vinted fee" },
-    { key: "whatnot", name: "Whatnot", href: "/whatnot-fee-calculator/", feeLabel: "Commission 8% on item price + 2.9% + $0.30 processing (Standard)" }
+    { key: "ebay", name: "eBay", href: "/ebay-fee-calculator/", jaHref: "/ja/ebay-fee-calculator/", feeLabel: "13.6% up to $7,500, then 2.35% · + per-order fee", feeLabelJa: "$7,500まで13.6%、超過分2.35% · ＋注文ごとの手数料" },
+    { key: "etsy", name: "Etsy", href: "/etsy-fee-calculator/", feeLabel: "$0.20 + 6.5% + 3% + $0.25 · regulatory n/a (US)", feeLabelJa: "$0.20 + 6.5% + 3% + $0.25 · 規制手数料は米国なし" },
+    { key: "poshmark", name: "Poshmark", href: "/poshmark-fee-calculator/", feeLabel: "$2.95 under $15 · 20% at $15+ · on item price only", feeLabelJa: "$15未満は$2.95定額 · $15以上は20% · 商品価格のみに課金" },
+    { key: "mercari", name: "Mercari", href: "/mercari-fee-calculator/", feeLabel: "10% of price + buyer-paid shipping · no processing fee", feeLabelJa: "価格＋買い手負担送料の10% · 決済手数料なし" },
+    { key: "amazon", name: "Amazon", href: "/amazon-referral-fee-calculator/", feeLabel: "Referral only · Everything Else 15% (category selector on its page)", feeLabelJa: "販売手数料のみ · Everything Else 15%（カテゴリは個別ページで選択）" },
+    { key: "depop", name: "Depop", href: "/depop-fee-calculator/", feeLabel: "No selling fee (US) · processing 3.3% + $0.45", feeLabelJa: "販売手数料なし（米国）· 決済 3.3% + $0.45" },
+    { key: "vinted", name: "Vinted", href: "/vinted-fee-calculator/", feeLabel: "No seller fee · buyer pays the Vinted fee", feeLabelJa: "販売者手数料なし · 手数料は買い手負担" },
+    { key: "whatnot", name: "Whatnot", href: "/whatnot-fee-calculator/", feeLabel: "Commission 8% on item price + 2.9% + $0.30 processing (Standard)", feeLabelJa: "商品価格の8% ＋ 決済 2.9% + $0.30（Standard）" }
   ];
+  function cmpHref(d) { return JA && d.jaHref ? d.jaHref : d.href; }
+  function cmpFeeLabel(d) { return JA && d.feeLabelJa ? d.feeLabelJa : d.feeLabel; }
   function calcCompare() {
     if (!$("cmp-price")) return;
     var price = num("cmp-price"), ship = num("cmp-ship"), cost = num("cmp-cost"), sc = num("cmp-shipcost");
@@ -295,7 +301,18 @@
     var verdictEl = $("cmp-verdict");
     if (verdictEl && win && lose) {
       var diff = E.r2(best - worst), head, body;
-      if (best < 0) {
+      if (JA) {
+        if (best < 0) {
+          head = "この商品は全プラットフォームで赤字 — 最も損失が小さいのは " + win.d.name;
+          body = E.money(best) + " が8社で最良ですが、それでも赤字です。どこに出品する前に、価格を上げるかコストを下げてください。";
+        } else if (diff > 0) {
+          head = "この商品で最も多く残るのは " + win.d.name;
+          body = "純利益 " + E.money(best) + "。最下位の " + lose.d.name + "（" + E.money(worst) + "）より1件あたり " + E.money(diff) + " 多く残ります。同じ商品・同じコストでも、プラットフォーム選びだけで " + E.money(diff) + " の差がつきます。";
+        } else {
+          head = "この商品は8プラットフォームとも同額";
+          body = "純利益はどこも " + E.money(best) + "。この条件では各社の手数料体系がちょうど相殺し合っています。";
+        }
+      } else if (best < 0) {
         head = "Every platform loses money on this item — " + win.d.name + " loses least";
         body = E.money(best) + " is the best result of the eight, and it is still a loss. Raise the price or cut costs before listing anywhere.";
       } else if (diff > 0) {
@@ -305,15 +322,15 @@
         head = "All eight platforms pay the same on this item";
         body = "Net profit " + E.money(best) + " everywhere — at these numbers the fee schedules happen to offset each other.";
       }
-      verdictEl.innerHTML = "<strong>" + head + ".</strong> " + body +
-        ' &nbsp;<a class="btn small" href="' + win.d.href + '">Open the ' + win.d.name + ' calculator →</a>';
+      verdictEl.innerHTML = "<strong>" + head + (JA ? "。" : ".") + "</strong> " + body +
+        ' &nbsp;<a class="btn small" href="' + cmpHref(win.d) + '">' + (JA ? win.d.name + "の計算機を開く →" : "Open the " + win.d.name + " calculator →") + '</a>';
     }
     var tbody = $("cmp-rows");
     if (tbody) {
       tbody.innerHTML = rows.map(function (x) {
         var margin = x.r.revenue > 0 ? (x.r.profit / x.r.revenue * 100) : 0;
-        return '<tr' + (x.r.profit === best ? ' class="best"' : '') + '><td><a href="' + x.d.href + '"><strong>' + x.d.name + '</strong></a>' +
-          (x.r.profit === best ? ' · best net' : '') + '<br><span style="color:var(--muted);font-size:13px">' + x.d.feeLabel + '</span></td>' +
+        return '<tr' + (x.r.profit === best ? ' class="best"' : '') + '><td><a href="' + cmpHref(x.d) + '"><strong>' + x.d.name + '</strong></a>' +
+          (x.r.profit === best ? (JA ? ' · 純利益トップ' : ' · best net') : '') + '<br><span style="color:var(--muted);font-size:13px">' + cmpFeeLabel(x.d) + '</span></td>' +
           '<td class="num">' + E.money(x.r.fees) + '</td><td class="num">' + E.money(x.r.profit) + '</td>' +
           '<td class="num">' + E.pct(margin) + '</td><td class="num">' + (x.be === null ? "—" : E.money(x.be)) + '</td></tr>';
       }).join("");
@@ -331,8 +348,8 @@
     var tiles = $("cmp-tiles");
     if (tiles) {
       tiles.innerHTML = rows.map(function (x) {
-        return '<a class="tile' + (x.r.profit === best ? ' best' : '') + '" href="' + x.d.href + '"><div class="t-name">' + x.d.name + '</div>' +
-          '<div class="t-rate">' + x.d.feeLabel + '</div><div class="t-profit">Net profit <b>' + E.money(x.r.profit) + '</b></div></a>';
+        return '<a class="tile' + (x.r.profit === best ? ' best' : '') + '" href="' + cmpHref(x.d) + '"><div class="t-name">' + x.d.name + '</div>' +
+          '<div class="t-rate">' + cmpFeeLabel(x.d) + '</div><div class="t-profit">' + (JA ? "純利益" : "Net profit") + ' <b>' + E.money(x.r.profit) + '</b></div></a>';
       }).join("");
     }
   }
