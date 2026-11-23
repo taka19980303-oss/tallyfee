@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Batch Fee Calculator — Price a Whole List at Once, With CSV Export | Fee Calculator Suite</title>
+<meta name="description" content="Free batch fee and profit calculator for eBay, Etsy, Poshmark, Mercari, Amazon, Depop, Vinted and Whatnot. Price a whole list of items at once with the same verified rates as the single calculators, totals included, then download the results as CSV.">
+<link rel="canonical" href="https://tallyfee.com/batch-fee-calculator/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+<header class="site-header"><div class="in">
+<a class="brand" href="/">Fee<span>Calculator</span>Suite</a>
+<nav class="site-nav">
+<a href="/marketplace-fees-compared/">Compare all 8</a>
+<a href="/ebay-vs-etsy-fees/">eBay vs Etsy</a>
+<a href="/fee-changes/">Fee changes</a>
+<a href="/kdp/">KDP</a>
+<a href="/guides/ebay-fees-explained/">Guides</a>
+</nav></div></header>
+<main class="wrap">
+
+<div class="hero"><h1>Batch Fee Calculator</h1>
+<p class="lede">Pricing a restock, a listing pile or a week of finds one item at a time is slow. Add your items below, pick a platform — <strong>every row is priced with the same verified engine as the single calculators</strong>, totals included — then download the whole list as a CSV.</p>
+<div class="badge-band"><span class="pill">✓ Rates verified</span><span><strong>November 18, 2026</strong> — checked against each platform’s official fee pages.</span></div>
+</div>
+
+<div class="card">
+<div class="field" style="max-width:340px">
+<label for="batch-platform">Platform for all rows</label>
+<div class="input-wrap"><select id="batch-platform">
+<option value="ebay" selected>eBay (US)</option>
+<option value="etsy">Etsy (US)</option>
+<option value="poshmark">Poshmark (US)</option>
+<option value="mercari">Mercari (US)</option>
+<option value="amazon">Amazon (US) — Everything Else 15%</option>
+<option value="depop">Depop (US)</option>
+<option value="vinted">Vinted (US)</option>
+<option value="whatnot">Whatnot (US, Standard 8%)</option>
+</select></div>
+<p class="hint" id="batch-note">eBay assumptions: no sales tax, no Promoted Listings. Etsy assumptions: US seller, no Offsite Ads sale. Amazon: referral fee only, Everything Else category (15%) — use the Amazon calculator for other categories. Depop / Whatnot: no sales tax entered. Poshmark and Vinted: the shipping charge is not your revenue (Poshmark’s label is buyer-paid; Vinted buyers pay shipping directly) — the “shipping charged” column is ignored for those rows, while your actual shipping cost is still deducted.</p>
+</div>
+<div class="batch-scroll">
+<table class="batch" aria-label="Batch items">
+<thead><tr>
+<th>Item name</th><th class="num">Sale price</th><th class="num">Shipping charged</th><th class="num">Item cost</th><th class="num">Actual shipping</th><th class="num">Total fees</th><th class="num">Net profit</th><th class="num">Margin</th><th></th>
+</tr></thead>
+<tbody id="batch-body"></tbody>
+<tfoot><tr>
+<td data-label="Rows">Totals · <span id="batch-count">0</span> items</td>
+<td class="num" data-label="Sale price" id="bt-price">$0.00</td>
+<td class="num" data-label="Shipping charged" id="bt-ship">$0.00</td>
+<td class="num" data-label="Item cost" id="bt-cost">$0.00</td>
+<td class="num" data-label="Actual shipping" id="bt-shipcost">$0.00</td>
+<td class="num" data-label="Total fees" id="bt-fees">-$0.00</td>
+<td class="num" data-label="Net profit" id="bt-profit">$0.00</td>
+<td class="num" data-label="Margin" id="bt-margin">0%</td>
+<td></td>
+</tr></tfoot>
+</table>
+</div>
+<div class="row-actions">
+<button class="btn ghost" type="button" id="batch-add">+ Add row</button>
+<button class="btn" type="button" id="batch-csv">Download CSV</button>
+<span style="font-size:13px;color:var(--muted)">CSV columns match the table, including per-row fees, profit and margin.</span>
+</div>
+<p class="privacy-note">Nothing you type leaves your browser — every calculation runs on this page, on your device.</p>
+</div>
+
+<h2>How the batch defaults work</h2>
+<p>The batch uses each platform’s standard case, the same defaults as the <a href="/marketplace-fees-compared/">eight-platform comparison</a>: eBay with no sales tax, no Promoted Listings and a US seller; Etsy with a US seller and no Offsite Ads sale; Amazon’s referral fee only, in the Everything Else category (15%) — open the <a href="/amazon-referral-fee-calculator/">Amazon calculator</a> when you need another category. If a row needs the full detail — Top Rated Plus, an international sale, a different Etsy regulatory country — price that item on its own platform page, where every option is exposed.</p>
+<p>Totals are plain sums of the rounded per-row figures shown in the table, so the totals row always equals the sum of the rows above it — and of the CSV you download. The CSV adds a revenue column per row and ends with a TOTAL line for fees and profit, ready to paste into the spreadsheet where you track your stock.</p>
+<div class="grid">
+<a class="tile" href="/marketplace-fees-compared/"><div class="t-name">Compare all 8 platforms</div><div class="t-rate">One item priced on every platform side by side — which one pays you most?</div></a>
+<a class="tile" href="/ebay-profit-calculator/"><div class="t-name">eBay profit calculator</div><div class="t-rate">The single-item eBay calculator with every option: tax, promotion, Top Rated Plus, international sales.</div></a>
+</div>
+
+</main>
+<footer class="site-footer"><div class="in">
+<h2>All calculators in this suite</h2>
+<nav class="foot-links">
+<a href="/ebay-fee-calculator/">eBay fee calculator</a>
+<a href="/ebay-profit-calculator/">eBay profit calculator</a>
+<a href="/etsy-fee-calculator/">Etsy fee calculator</a>
+<a href="/poshmark-fee-calculator/">Poshmark fee calculator</a>
+<a href="/mercari-fee-calculator/">Mercari fee calculator</a>
+<a href="/amazon-referral-fee-calculator/">Amazon referral fee calculator</a>
+<a href="/depop-fee-calculator/">Depop fee calculator</a>
+<a href="/vinted-fee-calculator/">Vinted fee calculator</a>
+<a href="/whatnot-fee-calculator/">Whatnot fee calculator</a>
+<a href="/marketplace-fees-compared/">Compare all 8 platforms</a>
+<a href="/batch-fee-calculator/">Batch fee calculator + CSV</a>
+<a href="/ebay-vs-etsy-fees/">eBay vs Etsy fees</a>
+<a href="/fee-changes/">Fee-change history</a>
+<a href="/guides/ebay-fees-explained/">eBay fees explained</a>
+<a href="/guides/etsy-fees-explained/">Etsy fees explained</a>
+<a href="/guides/mercari-fees-explained/">Mercari fees explained</a>
+<a href="/kdp/">KDP calculators</a>
+<a href="/kdp-cover-calculator/">KDP cover size calculator</a>
+<a href="/kdp-print-cost-calculator/">KDP printing cost calculator</a>
+<a href="/kdp-royalty-calculator/">KDP royalty calculator</a>
+<a href="/guides/kdp-royalties-explained/">KDP royalties explained</a>
+</nav>
+<p class="disclaimer"><strong>Disclaimer:</strong> Results are estimates for planning only. Fees vary by category, seller country, store subscription and promotions. The batch calculator uses the stated defaults (no sales tax, no promotion, no Offsite Ads). Always confirm the final fee on the platform’s official fee page before listing. Rates on this site were verified on the platforms’ official fee pages on November 18, 2026. Facebook Marketplace and TikTok Shop calculators are not offered: their official pages do not publish a single standard rate we could confirm, and this suite does not guess at rates.</p>
+</div></footer>
+<script src="/assets/engines.js"></script>
+<script src="/assets/batch.js"></script>
+</body>
+</html>

@@ -154,6 +154,34 @@ tr.best td{background:#e9f5ee;font-weight:700}
 .mode-toggle button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 14px;font-weight:700;cursor:pointer;font-size:14px}
 .mode-toggle button[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
 
+/* Batch calculator */
+.batch-scroll{overflow-x:auto}
+table.batch{width:100%;border-collapse:collapse;font-size:14px}
+table.batch th{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);text-align:left;padding:8px 6px;border-bottom:2px solid var(--line)}
+table.batch th.num,table.batch td.num{text-align:right}
+table.batch td{padding:6px;border-bottom:1px solid var(--line);vertical-align:middle}
+table.batch td input{width:100%;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);font:inherit;font-size:14.5px;padding:8px 9px;min-height:40px;min-width:0}
+table.batch td input:focus{outline:none;border-color:var(--accent)}
+table.batch td input.name{min-width:110px}
+table.batch tfoot td{font-weight:800;border-top:2px solid var(--line);border-bottom:0;font-size:15px}
+.row-del{border:1px solid var(--line);background:#fff;border-radius:8px;width:32px;height:32px;font-size:16px;line-height:1;cursor:pointer;color:var(--muted)}
+.row-del:hover{color:var(--neg);border-color:var(--neg)}
+.row-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:14px}
+@media (max-width:760px){
+  .batch-scroll{overflow-x:visible}
+  table.batch,table.batch tbody,table.batch tr,table.batch td{display:block;width:100%}
+  table.batch thead{display:none}
+  table.batch tbody tr{background:#f2f5f2;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:12px}
+  table.batch td{border-bottom:0;padding:5px 0;display:flex;justify-content:space-between;align-items:center;gap:12px}
+  table.batch td::before{content:attr(data-label);font-size:12.5px;font-weight:700;color:var(--muted);flex:0 0 42%}
+  table.batch td input{flex:1}
+  table.batch td.num{text-align:right}
+  table.batch tfoot{display:block}
+  table.batch tfoot tr{display:block;background:#e9f5ee;border-radius:12px;padding:10px 12px}
+  table.batch tfoot td{display:flex;justify-content:space-between;border-top:0}
+  table.batch tfoot td::before{content:attr(data-label);font-size:12.5px;color:var(--muted)}
+}
+
 /* KDP cover diagram */
 .cd-row{display:flex;height:86px;border-radius:8px;overflow:hidden;margin:14px 0 8px;border:1px solid #2c4636}
 .cd-seg{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
