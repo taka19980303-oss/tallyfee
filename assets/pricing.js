@@ -49,6 +49,34 @@
     return best; // null = no published price covers this usage/billing combo
   }
 
+  // Cost picture for ONE specific plan at (usage, seats, billing).
+  // fits=false carries a reason: 'seats' (over the plan's seat cap),
+  // 'usage' (above the highest published tier) or 'price' (the vendor
+  // does not publish a price for this billing period). Numbers for
+  // fitting plans are computed exactly as in toolCost.
+  function planCost(tool, plan, usage, seats, billing) {
+    if (plan.maxSeats !== undefined && plan.maxSeats !== null && seats > plan.maxSeats) {
+      return { plan: plan.name, fits: false, reason: 'seats' };
+    }
+    if (tool.model !== 'per_seat' && plan.tiers && !tierFor(plan, usage)) {
+      return { plan: plan.name, fits: false, reason: 'usage' };
+    }
+    var unit = planPriceAt(tool, plan, usage, billing);
+    if (unit === null) return { plan: plan.name, fits: false, reason: 'price' };
+    var oneTime = plan.onboarding || 0, monthly;
+    if (tool.model === 'per_seat') {
+      monthly = unit * Math.max(seats || 1, plan.minSeats || 1);
+    } else {
+      monthly = unit;
+    }
+    var annual = monthly * 12 + oneTime;
+    return { plan: plan.name, monthly: monthly, annualTotal: annual, threeYear: annual + monthly * 24, oneTime: oneTime, fits: true };
+  }
+
+  function allPlans(tool, usage, seats, billing) {
+    return tool.plans.map(function (plan) { return planCost(tool, plan, usage, seats, billing); });
+  }
+
   function compareTools(tools, usage, seats, billing) {
     return tools.map(function (tool) {
       return { id: tool.id, name: tool.name, cost: toolCost(tool, usage, seats, billing) };
@@ -80,6 +108,6 @@
     return '$' + r.toLocaleString('en-US', { minimumFractionDigits: (r % 1 !== 0 ? 2 : 0), maximumFractionDigits: 2 });
   }
 
-  window.PricingEngine = { tierFor: tierFor, planPriceAt: planPriceAt, toolCost: toolCost, compareTools: compareTools, breakEven: breakEven, fmt: fmt };
+  window.PricingEngine = { tierFor: tierFor, planPriceAt: planPriceAt, toolCost: toolCost, planCost: planCost, allPlans: allPlans, compareTools: compareTools, breakEven: breakEven, fmt: fmt };
   if (typeof module !== 'undefined' && module.exports) module.exports = window.PricingEngine;
 })();

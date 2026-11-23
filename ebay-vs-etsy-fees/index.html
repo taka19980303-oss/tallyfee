@@ -12,7 +12,7 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="stylesheet" href="/assets/style.css?v=read20261123">
+<link rel="stylesheet" href="/assets/style.css?v=audit20261123">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Fee Calculator Suite">
 <meta property="og:title" content="eBay vs Etsy Fees — Same Item, Both Schedules, Verified Nov 2026">
@@ -43,10 +43,11 @@
 </div>
 <h2>The worked example</h2>
 <p>Item price $50, shipping charged $5, item cost $20, your shipping cost $6. US seller on both, no tax, no promotions, no Offsite Ads sale. Figures below are computed live by the same engines as the two calculators.</p>
+<div class="card" style="margin:14px 0"><div class="cmp-inputs"><div class="field" style="margin:0"><label for="vs-price">Item price</label><div class="input-wrap"><span class="prefix">$</span><input id="vs-price" type="number" inputmode="decimal" min="0" step="0.01" value="50"></div></div><div class="field" style="margin:0"><label for="vs-ship">Shipping charged</label><div class="input-wrap"><span class="prefix">$</span><input id="vs-ship" type="number" inputmode="decimal" min="0" step="0.01" value="5"></div></div><div class="field" style="margin:0"><label for="vs-cost">Item cost</label><div class="input-wrap"><span class="prefix">$</span><input id="vs-cost" type="number" inputmode="decimal" min="0" step="0.01" value="20"></div></div><div class="field" style="margin:0"><label for="vs-shipcost">Your shipping cost</label><div class="input-wrap"><span class="prefix">$</span><input id="vs-shipcost" type="number" inputmode="decimal" min="0" step="0.01" value="6"></div></div></div></div>
 <table class="fees"><thead><tr><th></th><th class="num">eBay</th><th class="num">Etsy</th></tr></thead><tbody>
-<tr><td>Revenue (price + shipping charged)</td><td class="num">$55.00</td><td class="num">$55.00</td></tr>
+<tr><td>Revenue (price + shipping charged)</td><td class="num" id="vs-eb-rev">$55.00</td><td class="num" id="vs-et-rev">$55.00</td></tr>
 <tr><td>Total platform fees</td><td class="num" id="vs-eb-fees">—</td><td class="num" id="vs-et-fees">—</td></tr>
-<tr><td>Your costs (item + shipping)</td><td class="num">$26.00</td><td class="num">$26.00</td></tr>
+<tr><td>Your costs (item + shipping)</td><td class="num" id="vs-eb-costs">$26.00</td><td class="num" id="vs-et-costs">$26.00</td></tr>
 <tr><td><strong>Net profit</strong></td><td class="num" id="vs-eb-profit">—</td><td class="num" id="vs-et-profit">—</td></tr>
 <tr><td><strong>Difference</strong></td><td class="num" colspan="2" id="vs-diff">—</td></tr>
 </tbody></table>
@@ -85,11 +86,12 @@
 <a href="/kdp-print-cost-calculator/">KDP printing cost calculator</a>
 <a href="/kdp-royalty-calculator/">KDP royalty calculator</a>
 <a href="/guides/kdp-royalties-explained/">KDP royalties explained</a>
+<a href="/about/">About &amp; how we verify</a>
 </nav>
 <p class="disclaimer"><strong>Disclaimer:</strong> Results are estimates for planning only. Fees vary by category, seller country, store subscription and promotions. Always confirm the final fee on the platform's official fee page before listing. Rates on this site were verified on the platforms' official pages (marketplace rates November 18, 2026; TikTok Shop and Facebook Marketplace November 23, 2026).</p>
 </div></footer>
-<script src="/assets/engines.js?v=read20261123"></script>
-<script src="/assets/calc.js?v=read20261123"></script>
-<script src="/assets/nav.js?v=read20261123" defer></script>
+<script src="/assets/engines.js?v=audit20261123"></script>
+<script src="/assets/calc.js?v=audit20261123"></script>
+<script src="/assets/nav.js?v=audit20261123" defer></script>
 </body>
 </html>

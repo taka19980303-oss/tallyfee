@@ -12,7 +12,7 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="stylesheet" href="/assets/style.css?v=read20261123">
+<link rel="stylesheet" href="/assets/style.css?v=audit20261123">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Fee Calculator Suite">
 <meta property="og:title" content="CRMコスト計算機 — 5つのCRMの席課金合計 | Fee Calculator Suite">
@@ -45,6 +45,7 @@
 <p class="hint">どのベンダーも席あたり年額を割り引くため、既定は年額課金です。月額に切り替えると月ごとの価格が出ます — 公開しているベンダーのみ。年額のみのプランは、年額の数字を流用せず、その旨を表示します。</p>
 <table class="fees"><tr><th>CRM</th><th class="num">月額</th><th class="num">初年度</th><th class="num">3年</th></tr><tbody id="results"></tbody></table>
 <div class="cmp-verdict" id="verdict" aria-live="polite"></div>
+<details class="advanced"><summary>全プランをこの人数で見る</summary><div id="allplans"></div></details>
 <p class="hint">価格はすべて米ドル。3年の列は今日の価格を3年分くり返したもので、値上げは織り込んでいません。</p>
 <p class="privacy-note">入力した内容はブラウザの外に出ません — 計算はすべてこのページ上で行われます。</p>
 <p><button class="btn ghost" type="button" onclick="window.print()">この比較を印刷・保存</button></p>
@@ -65,24 +66,40 @@
 <p><strong>未公開の価格は未公開のまま。</strong>Zohoの月額課金の米ドル料率とHubSpot Enterpriseの月額料率は、ベンダーの料金ページにありません — 月額課金を選ぶと、それらの行には月額の数字が出ず、参考として年額課金の価格を添えた注記だけが出ます。</p>
 <p><strong>monday CRM</strong>は請求国別の価格で、日本からは円建て価格が表示されたため、この米ドル計算機には入れていません。全表は<a href="/ja/software/monday-pricing/">mondayの料金ページ</a>にあります。</p>
 
-<script src="/assets/saas-data.js?v=read20261123"></script>
-<script src="/assets/pricing.js?v=read20261123"></script>
+<script src="/assets/saas-data.js?v=audit20261123"></script>
+<script src="/assets/pricing.js?v=audit20261123"></script>
 <script>
 (function(){
   var D = window.SAAS_DATA.crm, E = window.PricingEngine;
   var ids = ['hubspot','pipedrive','zoho','freshsales','close'];
   var seats = document.getElementById('in-seats');
   var billing = 'annual';
+  var PKEY = 'tf-calc:' + location.pathname;
+  function setBilling(bv){
+    billing = bv;
+    document.querySelectorAll('[data-billing]').forEach(function(x){ x.setAttribute('aria-pressed', x.getAttribute('data-billing') === bv ? 'true' : 'false'); });
+  }
+  function saveState(){
+    var st = { seats: seats.value, billing: billing };
+    try { localStorage.setItem(PKEY, JSON.stringify(st)); } catch(e) {}
+    try { history.replaceState(null, '', location.pathname + '?' + new URLSearchParams(st).toString()); } catch(e) {}
+  }
+  function loadState(){
+    var p = new URLSearchParams(location.search), sv = {};
+    try { sv = JSON.parse(localStorage.getItem(PKEY) || '{}'); } catch(e) {}
+    var get = function(k){ return p.has(k) ? p.get(k) : sv[k]; };
+    var svv = get('seats'); if (svv !== undefined && svv !== null) seats.value = svv;
+    var bv = get('billing'); if (bv === 'monthly' || bv === 'annual') setBilling(bv);
+  }
   document.querySelectorAll('[data-billing]').forEach(function(b){
     b.addEventListener('click', function(){
-      billing = b.getAttribute('data-billing');
-      document.querySelectorAll('[data-billing]').forEach(function(x){ x.setAttribute('aria-pressed', x===b ? 'true' : 'false'); });
-      render();
+      setBilling(b.getAttribute('data-billing'));
+      render(); saveState();
     });
   });
-  seats.addEventListener('input', render);
+  seats.addEventListener('input', function(){ render(); saveState(); });
   document.querySelectorAll('[data-seats]').forEach(function(b){
-    b.addEventListener('click', function(){ seats.value = b.getAttribute('data-seats'); render(); });
+    b.addEventListener('click', function(){ seats.value = b.getAttribute('data-seats'); render(); saveState(); });
   });
   function render(){
     var s = Math.max(1, parseInt(seats.value||'1',10));
@@ -106,6 +123,17 @@
       return '<tr'+(isBest?' class="best"':'')+'><td><a href="/ja/software/'+r.id+'-pricing/"><strong>'+r.name+'</strong></a><br><span class="hint">'+r.cost.plan+'プラン'+(r.fb === 'monthly' ? ' · 月額課金（年額の公開価格なし）' : '')+'</span></td>' +
         '<td class="num">'+E.fmt(r.cost.monthly)+'</td><td class="num">'+E.fmt(r.cost.annualTotal)+note+'</td><td class="num">'+E.fmt(r.cost.threeYear)+'</td></tr>';
     }).join('');
+    var ap = document.getElementById('allplans');
+    if (ap) {
+      ap.innerHTML = ids.map(function(id){
+        var t = Object.assign({id:id}, D[id]);
+        var rows = E.allPlans(t, 0, s, billing).map(function(p){
+          if (!p.fits) return '<tr><td>'+p.plan+'</td><td colspan="3" class="hint">'+(p.reason === 'price' ? 'この請求期間の公開価格はありません。' : 'この人数ではプランの上限を超えています。')+'</td></tr>';
+          return '<tr><td>'+p.plan+(p.oneTime ? '<br><span class="hint">初期導入費用 '+E.fmt(p.oneTime)+'（一度のみ）を含む</span>' : '')+'</td><td class="num">'+E.fmt(p.monthly)+'</td><td class="num">'+E.fmt(p.annualTotal)+'</td><td class="num">'+E.fmt(p.threeYear)+'</td></tr>';
+        }).join('');
+        return '<h3>'+t.name+'</h3><table class="fees"><tr><th>プラン</th><th class="num">月額</th><th class="num">初年度</th><th class="num">3年</th></tr>'+rows+'</table>';
+      }).join('');
+    }
     var winners = rows.filter(function(r){ return r.cost && minAnnual !== null && Math.abs(r.cost.annualTotal - minAnnual) < 0.005; });
     var v = document.getElementById('verdict');
     if (!winners.length) { v.innerHTML = ''; }
@@ -115,6 +143,7 @@
       v.innerHTML = s+'席で最安: <strong>'+winners[0].name+'</strong>（'+winners[0].cost.plan+'プラン）月額 <strong>'+E.fmt(winners[0].cost.monthly)+'</strong> — 初年度 '+E.fmt(winners[0].cost.annualTotal)+'。';
     }
   }
+  loadState();
   render();
 })();
 </script>
@@ -163,9 +192,10 @@
 <a href="/ja/software/freshsales-pricing/">Freshsalesの料金</a>
 <a href="/ja/software/close-pricing/">Closeの料金</a>
 <a href="/ja/software/monday-pricing/">monday CRMの料金</a>
+<a href="/ja/about/">このサイトについて・検証方法</a>
 </nav>
 <p class="disclaimer"><strong>免責：</strong>結果は計画用の見積もりです。価格は変わり、ベンダーのプロモーションは反映していません。契約前に必ずベンダーの公式料金ページで最終価格を確認してください。このページのソフトウェア価格は、2026年11月23日に各ベンダーの公式料金ページで確認しました。</p>
 </div></footer>
-<script src="/assets/nav.js?v=read20261123" defer></script>
+<script src="/assets/nav.js?v=audit20261123" defer></script>
 </body>
 </html>

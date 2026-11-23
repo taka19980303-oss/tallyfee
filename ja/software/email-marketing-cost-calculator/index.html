@@ -12,7 +12,7 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="stylesheet" href="/assets/style.css?v=read20261123">
+<link rel="stylesheet" href="/assets/style.css?v=audit20261123">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Fee Calculator Suite">
 <meta property="og:title" content="メール配信コスト計算機 — 6ツールの実コスト | Fee Calculator Suite">
@@ -49,6 +49,7 @@
 <table class="fees"><tr><th>ツール</th><th class="num">月額</th><th class="num">初年度</th><th class="num">3年</th></tr><tbody id="results"></tbody></table>
 <div class="cmp-verdict" id="verdict" aria-live="polite"></div>
 <p class="hint" id="mismatch" aria-live="polite"></p>
+<details class="advanced"><summary>全プランをこの条件で見る</summary><div id="allplans"></div></details>
 <p class="hint">価格はすべて米ドル。3年の列は今日の価格を3年分くり返したもので、値上げは織り込んでいません。</p>
 <p class="privacy-note">入力した内容はブラウザの外に出ません — 計算はすべてこのページ上で行われます。</p>
 <p><button class="btn ghost" type="button" onclick="window.print()">この比較を印刷・保存</button></p>
@@ -68,26 +69,43 @@
 <p><strong>段階の跳ね上がりこそが価格。</strong>ほとんどのツールは段階を超えた瞬間に自動アップグレードします — 連絡先ごとの超過料金ではなく、次の段階の価格そのものが価格です。Constant ContactとActiveCampaignは送信上限に対する従量の超過料金が上乗せされ、Mailchimpは連絡先ブロックを自動課金します。ここでのプラン価格は超過分を含まない定価です。</p>
 <p><strong>「公開されていない」も答えのひとつ。</strong>ActiveCampaignは月額課金の価格を公開しておらず、Mailchimpは年額料金表を公開していません — 課金トグルを切り替えると、その行は数字を作らず、そう表示します。</p>
 
-<script src="/assets/saas-data.js?v=read20261123"></script>
-<script src="/assets/pricing.js?v=read20261123"></script>
+<script src="/assets/saas-data.js?v=audit20261123"></script>
+<script src="/assets/pricing.js?v=audit20261123"></script>
 <script>
 (function(){
   var D = window.SAAS_DATA.email, E = window.PricingEngine;
   var ids = ['mailchimp','brevo','kit','activecampaign','mailerlite','constantcontact'];
   var contacts = document.getElementById('in-contacts'), sends = document.getElementById('in-sends');
   var billing = 'annual';
+  var PKEY = 'tf-calc:' + location.pathname;
+  function setBilling(bv){
+    billing = bv;
+    document.querySelectorAll('[data-billing]').forEach(function(x){ x.setAttribute('aria-pressed', x.getAttribute('data-billing') === bv ? 'true' : 'false'); });
+  }
+  function saveState(){
+    var st = { contacts: contacts.value, sends: sends.value, billing: billing };
+    try { localStorage.setItem(PKEY, JSON.stringify(st)); } catch(e) {}
+    try { history.replaceState(null, '', location.pathname + '?' + new URLSearchParams(st).toString()); } catch(e) {}
+  }
+  function loadState(){
+    var p = new URLSearchParams(location.search), sv = {};
+    try { sv = JSON.parse(localStorage.getItem(PKEY) || '{}'); } catch(e) {}
+    var get = function(k){ return p.has(k) ? p.get(k) : sv[k]; };
+    var cv = get('contacts'); if (cv !== undefined && cv !== null) contacts.value = cv;
+    var svv = get('sends'); if (svv !== undefined && svv !== null) sends.value = svv;
+    var bv = get('billing'); if (bv === 'monthly' || bv === 'annual') setBilling(bv);
+  }
   document.querySelectorAll('[data-billing]').forEach(function(b){
     b.addEventListener('click', function(){
-      billing = b.getAttribute('data-billing');
-      document.querySelectorAll('[data-billing]').forEach(function(x){ x.setAttribute('aria-pressed', x===b ? 'true' : 'false'); });
-      render();
+      setBilling(b.getAttribute('data-billing'));
+      render(); saveState();
     });
   });
-  [contacts, sends].forEach(function(el){ el.addEventListener('input', render); });
+  [contacts, sends].forEach(function(el){ el.addEventListener('input', function(){ render(); saveState(); }); });
   document.querySelectorAll('[data-preset]').forEach(function(b){
     b.addEventListener('click', function(){
       var p = b.getAttribute('data-preset').split(',');
-      contacts.value = p[0]; sends.value = p[1]; render();
+      contacts.value = p[0]; sends.value = p[1]; render(); saveState();
     });
   });
   function render(){
@@ -121,11 +139,24 @@
     } else {
       v.innerHTML = 'この規模で最安: <strong>'+winners[0].name+'</strong>（'+winners[0].cost.plan+'プラン）月額 <strong>'+E.fmt(winners[0].cost.monthly)+'</strong> — 初年度 '+E.fmt(winners[0].cost.annualTotal)+'。';
     }
+    var ap = document.getElementById('allplans');
+    if (ap) {
+      ap.innerHTML = ids.map(function(id){
+        var t = Object.assign({id:id}, D[id]);
+        var usage = t.model === 'send_volume' ? s : c;
+        var rows = E.allPlans(t, usage, 1, billing).map(function(p){
+          if (!p.fits) return '<tr><td>'+p.plan+'</td><td colspan="3" class="hint">'+(p.reason === 'price' ? 'この請求期間の公開価格はありません。' : 'この規模ではプランの上限を超えています。')+'</td></tr>';
+          return '<tr><td>'+p.plan+(p.oneTime ? '<br><span class="hint">初期導入費用 '+E.fmt(p.oneTime)+'（一度のみ）を含む</span>' : '')+'</td><td class="num">'+E.fmt(p.monthly)+'</td><td class="num">'+E.fmt(p.annualTotal)+'</td><td class="num">'+E.fmt(p.threeYear)+'</td></tr>';
+        }).join('');
+        return '<h3>'+t.name+'</h3><table class="fees"><tr><th>プラン</th><th class="num">月額</th><th class="num">初年度</th><th class="num">3年</th></tr>'+rows+'</table>';
+      }).join('');
+    }
     var mw = document.getElementById('mismatch');
     if (c > 0 && s > 0 && s < c) mw.innerHTML = '注意：月の送信数が連絡先数より少ないです — リスト全員に1回も送れません。Brevoの行が不自然に安く見えます。';
     else if (c > 0 && s > c * 30) mw.innerHTML = '注意：連絡先1件あたり月30通を超えています。実際の送信パターンと違うなら、Brevoの行が不自然に高く見えます — Brevoは送信数で課金します。';
     else mw.innerHTML = '';
   }
+  loadState();
   render();
 })();
 </script>
@@ -174,9 +205,10 @@
 <a href="/ja/software/freshsales-pricing/">Freshsalesの料金</a>
 <a href="/ja/software/close-pricing/">Closeの料金</a>
 <a href="/ja/software/monday-pricing/">monday CRMの料金</a>
+<a href="/ja/about/">このサイトについて・検証方法</a>
 </nav>
 <p class="disclaimer"><strong>免責：</strong>結果は計画用の見積もりです。価格は変わり、ベンダーのプロモーションは反映していません。契約前に必ずベンダーの公式料金ページで最終価格を確認してください。このページのソフトウェア価格は、2026年11月23日に各ベンダーの公式料金ページで確認しました。</p>
 </div></footer>
-<script src="/assets/nav.js?v=read20261123" defer></script>
+<script src="/assets/nav.js?v=audit20261123" defer></script>
 </body>
 </html>

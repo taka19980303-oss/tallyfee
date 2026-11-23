@@ -10,6 +10,42 @@
   var summaries = {};
   var JA = document.documentElement.lang === "ja";
 
+  /* ---- Input persistence + shareable URLs ----
+     On load, URL query parameters win; otherwise the values this
+     browser last used on this page (localStorage) are restored.
+     On any change, both are updated (history.replaceState), so a
+     copied link pre-fills the same numbers for whoever opens it.
+     Values never leave the browser — they are only read back here. */
+  var PERSIST_KEY = "tf-calc:" + location.pathname;
+  function persistFields() {
+    return Array.prototype.slice.call(document.querySelectorAll("input[id], select[id]"));
+  }
+  function collectState() {
+    var st = {};
+    persistFields().forEach(function (el) { st[el.id] = el.value; });
+    if ($("rev-target")) st["rev-mode"] = revMode;
+    return st;
+  }
+  function persistState() {
+    if (!persistFields().length) return;
+    var st = collectState();
+    try { localStorage.setItem(PERSIST_KEY, JSON.stringify(st)); } catch (e) {}
+    var qs = new URLSearchParams(st).toString();
+    try { history.replaceState(null, "", location.pathname + (qs ? "?" + qs : "") + location.hash); } catch (e) {}
+  }
+  function restoreState() {
+    if (!persistFields().length) return;
+    var params = new URLSearchParams(location.search);
+    var saved = {};
+    try { saved = JSON.parse(localStorage.getItem(PERSIST_KEY) || "{}"); } catch (e) { saved = {}; }
+    persistFields().forEach(function (el) {
+      var v = params.has(el.id) ? params.get(el.id) : saved[el.id];
+      if (v !== undefined && v !== null) el.value = v;
+    });
+    var mode = params.get("rev-mode") || saved["rev-mode"];
+    if (mode === "margin" && $("rev-mode-margin")) $("rev-mode-margin").click();
+  }
+
   function setResult(prefix, r, cur) {
     cur = cur || "$";
     var fmt = function (v) { return (v < 0 ? "-" + cur : cur) + Math.abs(v).toFixed(2); };
@@ -56,18 +92,18 @@
     var f = setResult("eb", r);
     $("eb-gross").textContent = f.fmt(r.revenue);
     $("eb-base").textContent = f.fmt(r.base);
-    $("eb-fvf1").textContent = f.nfmt(r.fvf1);
-    $("eb-fvf2").textContent = f.nfmt(r.fvf2);
+    $("eb-fvf1").textContent = f.fmt(r.fvf1);
+    $("eb-fvf2").textContent = f.fmt(r.fvf2);
     $("eb-fvf2-row").style.display = r.base > 7500 ? "" : "none";
-    $("eb-order").textContent = f.nfmt(r.orderFee) + (r.base <= 10 && r.base > 0 ? (JA ? "（$0.30区分）" : " ($0.30 tier)") : "");
-    $("eb-promofee").textContent = f.nfmt(r.promoFee);
+    $("eb-order").textContent = f.fmt(r.orderFee) + (r.base <= 10 && r.base > 0 ? (JA ? "（$0.30区分）" : " ($0.30 tier)") : "");
+    $("eb-promofee").textContent = f.fmt(r.promoFee);
     $("eb-promo-row").style.display = promo > 0 ? "" : "none";
     $("eb-trpdisc").textContent = "+" + f.fmt(r.trpDisc);
     $("eb-trp-row").style.display = trp ? "" : "none";
-    $("eb-intlfee").textContent = f.nfmt(r.intlFee);
+    $("eb-intlfee").textContent = f.fmt(r.intlFee);
     $("eb-intl-label").textContent = intlPct.toFixed(2) + "%";
     $("eb-intl-row").style.display = intlPct > 0 ? "" : "none";
-    $("eb-fees").textContent = f.nfmt(r.fees);
+    $("eb-fees").textContent = f.fmt(r.fees);
     $("eb-keep").textContent = f.fmt(r.keep);
     $("eb-costs").textContent = f.nfmt(r.costs);
     $("eb-eff").textContent = E.pct(r.revenue > 0 ? r.fees / r.revenue * 100 : 0);
@@ -90,12 +126,12 @@
     var r = E.etsyCalc(price, ship, tax, cost, sc, reg, off);
     var f = setResult("et", r);
     $("et-gross").textContent = f.fmt(r.revenue);
-    $("et-trans").textContent = f.nfmt(r.trans);
-    $("et-proc").textContent = f.nfmt(r.proc);
-    $("et-reg").textContent = f.nfmt(r.reg) + (reg === 0 ? (JA ? "（米国：課金なし）" : " (US: not charged)") : "");
-    $("et-offsitefee").textContent = f.nfmt(r.off);
+    $("et-trans").textContent = f.fmt(r.trans);
+    $("et-proc").textContent = f.fmt(r.proc);
+    $("et-reg").textContent = f.fmt(r.reg) + (reg === 0 ? (JA ? "（米国：課金なし）" : " (US: not charged)") : "");
+    $("et-offsitefee").textContent = f.fmt(r.off);
     $("et-offsite-row").style.display = off > 0 ? "" : "none";
-    $("et-fees").textContent = f.nfmt(r.fees);
+    $("et-fees").textContent = f.fmt(r.fees);
     $("et-keep").textContent = f.fmt(r.keep);
     $("et-costs").textContent = f.nfmt(r.costs);
     $("et-eff").textContent = E.pct(r.revenue > 0 ? r.fees / r.revenue * 100 : 0);
@@ -116,8 +152,8 @@
     var f = setResult("pm", r);
     $("pm-gross").textContent = f.fmt(r.revenue);
     $("pm-fee-label").textContent = JA ? (price < 15 ? "Poshmark手数料 — $2.95定額（$15未満の販売）" : "Poshmark手数料 — 販売価格の20%") : (price < 15 ? "Poshmark commission — $2.95 flat (sale under $15)" : "Poshmark commission — 20% of the sale price");
-    $("pm-fee").textContent = f.nfmt(r.fee);
-    $("pm-fees").textContent = f.nfmt(r.fees);
+    $("pm-fee").textContent = f.fmt(r.fee);
+    $("pm-fees").textContent = f.fmt(r.fees);
     $("pm-keep").textContent = f.fmt(r.keep);
     $("pm-costs").textContent = f.nfmt(r.costs);
     $("pm-eff").textContent = E.pct(r.revenue > 0 ? r.fees / r.revenue * 100 : 0);
@@ -137,9 +173,9 @@
     var r = E.mercariCalc(price, ship, cost, sc);
     var f = setResult("mc", r);
     $("mc-gross").textContent = f.fmt(r.revenue);
-    $("mc-fee").textContent = f.nfmt(r.fee);
+    $("mc-fee").textContent = f.fmt(r.fee);
     $("mc-bp").textContent = f.fmt(r.buyerFee);
-    $("mc-fees").textContent = f.nfmt(r.fees);
+    $("mc-fees").textContent = f.fmt(r.fees);
     $("mc-keep").textContent = f.fmt(r.keep);
     $("mc-costs").textContent = f.nfmt(r.costs);
     $("mc-eff").textContent = E.pct(r.revenue > 0 ? r.fees / r.revenue * 100 : 0);
@@ -161,9 +197,9 @@
     $("am-gross").textContent = f.fmt(r.revenue);
     $("am-base").textContent = f.fmt(r.base);
     $("am-fee-label").textContent = r.label;
-    $("am-fee").textContent = f.nfmt(r.fee);
+    $("am-fee").textContent = f.fmt(r.fee);
     $("am-closing-row").style.display = r.closing > 0 ? "" : "none";
-    $("am-fees").textContent = f.nfmt(r.fees);
+    $("am-fees").textContent = f.fmt(r.fees);
     $("am-keep").textContent = f.fmt(r.keep);
     $("am-costs").textContent = f.nfmt(r.costs);
     $("am-eff").textContent = E.pct(r.revenue > 0 ? r.fees / r.revenue * 100 : 0);
@@ -186,9 +222,9 @@
     var r = E.depopCalc(price, ship, tax, cost, sc, region);
     var f = setResult("dp", r, cur);
     $("dp-gross").textContent = f.fmt(r.revenue);
-    $("dp-proc").textContent = f.nfmt(r.proc);
+    $("dp-proc").textContent = f.fmt(r.proc);
     $("dp-proc-label").textContent = JA ? (region === "uk" ? "決済手数料 — 価格＋送料＋税の2.9% ＋ £0.30" : "決済手数料 — 価格＋送料＋税の3.3% ＋ $0.45") : (region === "uk" ? "Payment processing — 2.9% of price + shipping + tax, + £0.30" : "Payment processing — 3.3% of price + shipping + tax, + $0.45");
-    $("dp-fees").textContent = f.nfmt(r.fees);
+    $("dp-fees").textContent = f.fmt(r.fees);
     $("dp-keep").textContent = f.fmt(r.keep);
     $("dp-costs").textContent = f.nfmt(r.costs);
     $("dp-eff").textContent = E.pct(r.revenue > 0 ? r.fees / r.revenue * 100 : 0);
@@ -231,9 +267,9 @@
     var f = setResult("wn", r);
     $("wn-gross").textContent = f.fmt(r.revenue);
     $("wn-comm-label").textContent = JA ? "手数料 — 商品価格のみの" + commPct.toFixed(0) + "%（Standardティア）" : "Commission — " + commPct.toFixed(0) + "% of the item price only (Standard tier)";
-    $("wn-comm").textContent = f.nfmt(r.comm);
-    $("wn-proc").textContent = f.nfmt(r.proc);
-    $("wn-fees").textContent = f.nfmt(r.fees);
+    $("wn-comm").textContent = f.fmt(r.comm);
+    $("wn-proc").textContent = f.fmt(r.proc);
+    $("wn-fees").textContent = f.fmt(r.fees);
     $("wn-keep").textContent = f.fmt(r.keep);
     $("wn-costs").textContent = f.nfmt(r.costs);
     $("wn-eff").textContent = E.pct(r.revenue > 0 ? r.fees / r.revenue * 100 : 0);
@@ -270,8 +306,8 @@
     $("tt-gross").textContent = f.fmt(r.revenue);
     $("tt-base").textContent = f.fmt(r.base);
     $("tt-rate-label").textContent = TT_LABELS[group] || TT_LABELS.standard;
-    $("tt-fee").textContent = f.nfmt(r.fees);
-    $("tt-fees").textContent = f.nfmt(r.fees);
+    $("tt-fee").textContent = f.fmt(r.fees);
+    $("tt-fees").textContent = f.fmt(r.fees);
     $("tt-keep").textContent = f.fmt(r.keep);
     $("tt-costs").textContent = f.nfmt(r.costs);
     $("tt-eff").textContent = E.pct(r.revenue > 0 ? r.fees / r.revenue * 100 : 0);
@@ -294,8 +330,8 @@
     $("fb-gross").textContent = f.fmt(r.revenue);
     $("fb-total").textContent = f.fmt(r.total);
     $("fb-fee-label").textContent = JA ? (shipped ? "販売手数料 — 取引総額の10%、最低$0.80" : "販売手数料 — 対面受取はなし") : (shipped ? "Selling Fee — 10% of the transaction total, $0.80 minimum" : "Selling Fee — none for local pickup");
-    $("fb-fee").textContent = f.nfmt(r.fees);
-    $("fb-fees").textContent = f.nfmt(r.fees);
+    $("fb-fee").textContent = f.fmt(r.fees);
+    $("fb-fees").textContent = f.fmt(r.fees);
     $("fb-keep").textContent = f.fmt(r.keep);
     $("fb-costs").textContent = f.nfmt(r.costs);
     $("fb-eff").textContent = E.pct(r.revenue > 0 ? r.fees / r.revenue * 100 : 0);
@@ -439,11 +475,14 @@
   /* ================= eBay vs Etsy page ================= */
   function calcVs() {
     if (!$("vs-eb-fees")) return;
-    var eb = E.ebayCalc(50, 5, 0, 20, 6, 0, false, 0);
-    var et = E.etsyCalc(50, 5, 0, 20, 6, 0, 0);
+    var price = num("vs-price"), ship = num("vs-ship"), cost = num("vs-cost"), sc = num("vs-shipcost");
+    var eb = E.ebayCalc(price, ship, 0, cost, sc, 0, false, 0);
+    var et = E.etsyCalc(price, ship, 0, cost, sc, 0, 0);
     var set = function (id, v) { var el = $(id); if (el) el.textContent = v; };
-    set("vs-eb-fees", E.money(eb.fees)); set("vs-eb-profit", E.money(eb.profit));
-    set("vs-et-fees", E.money(et.fees)); set("vs-et-profit", E.money(et.profit));
+    set("vs-eb-rev", E.money(eb.revenue)); set("vs-et-rev", E.money(et.revenue));
+    set("vs-eb-fees", E.money(eb.fees)); set("vs-et-fees", E.money(et.fees));
+    set("vs-eb-costs", E.money(eb.costs)); set("vs-et-costs", E.money(et.costs));
+    set("vs-eb-profit", E.money(eb.profit)); set("vs-et-profit", E.money(et.profit));
     var diff = E.r2(et.profit - eb.profit);
     set("vs-diff", diff === 0 ? "$0.00" : (diff > 0 ? E.money(diff) + (JA ? " Etsyの方が多い" : " more on Etsy") : E.money(-diff) + (JA ? " eBayの方が多い" : " more on eBay")));
   }
@@ -469,15 +508,23 @@
   bind(["fb-type"], "change", calcFacebook);
   bind(["cmp-price", "cmp-ship", "cmp-cost", "cmp-shipcost"], "input", calcCompare);
   bind(["rev-target", "rev-ship", "rev-cost", "rev-shipcost"], "input", calcReverse);
-  on("rev-mode-amt", "click", function () { revMode = "amt"; $("rev-mode-amt").setAttribute("aria-pressed", "true"); $("rev-mode-margin").setAttribute("aria-pressed", "false"); $("rev-target-label").textContent = JA ? "1件あたりの目標利益" : "Target profit per sale"; $("rev-target-prefix").textContent = "$"; calcReverse(); });
-  on("rev-mode-margin", "click", function () { revMode = "margin"; $("rev-mode-amt").setAttribute("aria-pressed", "false"); $("rev-mode-margin").setAttribute("aria-pressed", "true"); $("rev-target-label").textContent = JA ? "目標利益率（売上比 %）" : "Target margin (% of revenue)"; $("rev-target-prefix").textContent = "%"; calcReverse(); });
+  bind(["vs-price", "vs-ship", "vs-cost", "vs-shipcost"], "input", calcVs);
+  on("rev-mode-amt", "click", function () { revMode = "amt"; $("rev-mode-amt").setAttribute("aria-pressed", "true"); $("rev-mode-margin").setAttribute("aria-pressed", "false"); $("rev-target-label").textContent = JA ? "1件あたりの目標利益" : "Target profit per sale"; $("rev-target-prefix").textContent = "$"; calcReverse(); persistState(); });
+  on("rev-mode-margin", "click", function () { revMode = "margin"; $("rev-mode-amt").setAttribute("aria-pressed", "false"); $("rev-mode-margin").setAttribute("aria-pressed", "true"); $("rev-target-label").textContent = JA ? "目標利益率（売上比 %）" : "Target margin (% of revenue)"; $("rev-target-prefix").textContent = "%"; calcReverse(); persistState(); });
 
   document.querySelectorAll(".preset").forEach(function (b) {
     b.addEventListener("click", function () {
       var map = JSON.parse(b.getAttribute("data-v"));
       Object.keys(map).forEach(function (id) { var el = $(id); if (el) el.value = map[id]; });
       [calcEbay, calcEtsy, calcPoshmark, calcMercari, calcAmazon, calcDepop, calcVinted, calcWhatnot, calcTiktok, calcFacebook].forEach(function (fn) { fn(); });
+      persistState();
     });
+  });
+
+  restoreState();
+  persistFields().forEach(function (el) {
+    el.addEventListener("input", persistState);
+    el.addEventListener("change", persistState);
   });
 
   calcEbay(); calcEtsy(); calcPoshmark(); calcMercari(); calcAmazon(); calcDepop(); calcVinted(); calcWhatnot(); calcTiktok(); calcFacebook();

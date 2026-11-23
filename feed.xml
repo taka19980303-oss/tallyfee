@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+<title>Fee Calculator Suite — Fee-change history</title>
+<link>https://tallyfee.com/fee-changes/</link>
+<atom:link href="https://tallyfee.com/feed.xml" rel="self" type="application/rss+xml"/>
+<description>Every marketplace fee change behind the tallyfee calculators — dated, and linked to the source it was confirmed on.</description>
+<language>en</language>
+<lastBuildDate>Mon, 23 Nov 2026 00:00:00 +0000</lastBuildDate>
+<item>
+<title>Whatnot — Tiered commission structure took effect</title>
+<link>https://tallyfee.com/fee-changes/</link>
+<guid isPermaLink="false">fee-change-2026-09-21-whatnot</guid>
+<pubDate>Mon, 21 Sep 2026 00:00:00 +0000</pubDate>
+<description>Tiered commission structure took effect — US commission now falls in tiers as four-week sales grow; the Standard tier (every new seller) stays at 8% in most verticals and 4% for Coins &amp; Money, with payment processing unchanged at 2.9% + $0.30. The Whatnot calculator uses the Standard tier.</description>
+</item>
+<item>
+<title>Etsy — Regulatory operating fee revised in nine-country schedule</title>
+<link>https://tallyfee.com/fee-changes/</link>
+<guid isPermaLink="false">fee-change-2026-06-22-etsy</guid>
+<pubDate>Mon, 22 Jun 2026 00:00:00 +0000</pubDate>
+<description>Regulatory operating fee revised in nine-country schedule — UK 0.32% → 0.48%, France 0.47% → 1.14%, Italy 0.32% → 0.80%, Spain 0.72% → 0.88%, Hungary newly introduced at 1.97%. US sellers remain not charged. Announced April 22, 2026; this is the schedule the Etsy calculator uses today.</description>
+</item>
+<item>
+<title>eBay — Final value fee, most categories: 13.25% → 13.6%</title>
+<link>https://tallyfee.com/fee-changes/</link>
+<guid isPermaLink="false">fee-change-2025-02-14-ebay</guid>
+<pubDate>Fri, 14 Feb 2025 00:00:00 +0000</pubDate>
+<description>Final value fee, most categories: 13.25% → 13.6% on the first $7,500 per item (2.35% above unchanged). Books/movies/music 14.95% → 15.3%. This is why calculators still showing 13.25% understate your fees today.</description>
+</item>
+<item>
+<title>Mercari (US) — Seller fee reintroduced at a flat 10%</title>
+<link>https://tallyfee.com/fee-changes/</link>
+<guid isPermaLink="false">fee-change-2025-01-06-mercari-us</guid>
+<pubDate>Mon, 06 Jan 2025 00:00:00 +0000</pubDate>
+<description>Seller fee reintroduced at a flat 10% of the completed item price plus buyer-paid shipping, replacing the 2024 buyer-fee experiment; the separate payment processing fee was removed and a buyer-paid 3.6% Buyer Protection fee introduced. This is the structure the Mercari calculator uses today.</description>
+</item>
+<item>
+<title>TikTok Shop — Fine jewelry referral fee lowered: 6% → 5%</title>
+<link>https://tallyfee.com/fee-changes/</link>
+<guid isPermaLink="false">fee-change-2024-10-31-tiktok-shop</guid>
+<pubDate>Thu, 31 Oct 2024 00:00:00 +0000</pubDate>
+<description>Fine jewelry referral fee lowered: 6% → 5% — for diamond, gold, jade, platinum / carat gold and ruby / sapphire / emerald jewelry. Other jewelry (silver, pearl, crystal, semiprecious) stayed at 6%, as did most categories; Pre-Owned was already 5%. This is the schedule the TikTok Shop calculator uses today.</description>
+</item>
+<item>
+<title>Poshmark — Fee structure reverted to $2.95 / 20%</title>
+<link>https://tallyfee.com/fee-changes/</link>
+<guid isPermaLink="false">fee-change-2024-10-24-poshmark</guid>
+<pubDate>Thu, 24 Oct 2024 00:00:00 +0000</pubDate>
+<description>Fee structure reverted to $2.95 / 20% — a short-lived structure with a buyer protection fee was rolled back, restoring the flat $2.95 under $15 and 20% at $15 or more that remains in force today.</description>
+</item>
+<item>
+<title>Depop — US selling fee removed</title>
+<link>https://tallyfee.com/fee-changes/</link>
+<guid isPermaLink="false">fee-change-2024-07-18-depop</guid>
+<pubDate>Thu, 18 Jul 2024 00:00:00 +0000</pubDate>
+<description>US selling fee removed — US sellers stopped paying Depop’s selling fee and buyers began paying a Marketplace fee at checkout instead; the seller-side cost became the Depop Payments processing fee (3.3% + $0.45). The UK had made the same change for new listings in March 2024.</description>
+</item>
+<item>
+<title>eBay — Per-order fee on orders over $10: $0.30 → $0.40</title>
+<link>https://tallyfee.com/fee-changes/</link>
+<guid isPermaLink="false">fee-change-2024-03-15-ebay</guid>
+<pubDate>Fri, 15 Mar 2024 00:00:00 +0000</pubDate>
+<description>Per-order fee on orders over $10: $0.30 → $0.40 — its first change since managed payments began. Orders of $10 or less stayed at $0.30.</description>
+</item>
+<item>
+<title>Facebook Marketplace — Selling fee doubled: 5% → 10%, minimum $0.40 → $0.80</title>
+<link>https://tallyfee.com/fee-changes/</link>
+<guid isPermaLink="false">fee-change-2024-04-15-facebook-marketplace</guid>
+<pubDate>Mon, 15 Apr 2024 00:00:00 +0000</pubDate>
+<description>Selling fee doubled: 5% → 10%, minimum $0.40 → $0.80 — on shipped orders sold through Marketplace checkout, calculated on the entire transaction amount including shipping fees and applicable taxes. Local pickup sales are not checkout transactions and carry no Selling Fee. Many guides still quote the pre-2024 5% figure.</description>
+</item>
+<item>
+<title>TikTok Shop — Referral fee increased to 6% per qualified order</title>
+<link>https://tallyfee.com/fee-changes/</link>
+<guid isPermaLink="false">fee-change-2024-04-01-tiktok-shop</guid>
+<pubDate>Mon, 01 Apr 2024 00:00:00 +0000</pubDate>
+<description>Referral fee increased to 6% per qualified order — the single fee that, per TikTok’s policy, encompasses all TikTok Shop fees with the exception of shipping and tax fees. The formula (rate × customer payment + platform discount − tax) and the refund administration fee (20% of the referral fee; capped at $5 per SKU from May 15, 2025) are set out in the same update.</description>
+</item>
+<item>
+<title>Etsy — Transaction fee: 5% → 6.5%</title>
+<link>https://tallyfee.com/fee-changes/</link>
+<guid isPermaLink="false">fee-change-2022-04-11-etsy</guid>
+<pubDate>Mon, 11 Apr 2022 00:00:00 +0000</pubDate>
+<description>Transaction fee: 5% → 6.5% of the order total (item price + shipping + gift wrap) — the increase that prompted the April 2022 seller strike. The $0.20 listing fee and US processing rate (3% + $0.25) were unchanged.</description>
+</item>
+</channel>
+</rss>

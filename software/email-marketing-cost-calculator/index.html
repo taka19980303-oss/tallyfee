@@ -12,7 +12,7 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="stylesheet" href="/assets/style.css?v=read20261123">
+<link rel="stylesheet" href="/assets/style.css?v=audit20261123">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Fee Calculator Suite">
 <meta property="og:title" content="Email Marketing Cost Calculator — True Cost of 6 Tools | Fee Calculator Suite">
@@ -49,6 +49,7 @@
 <table class="fees"><tr><th>Tool</th><th class="num">Per month</th><th class="num">Year one</th><th class="num">3 years</th></tr><tbody id="results"></tbody></table>
 <div class="cmp-verdict" id="verdict" aria-live="polite"></div>
 <p class="hint" id="mismatch" aria-live="polite"></p>
+<details class="advanced"><summary>All plans at these numbers</summary><div id="allplans"></div></details>
 <p class="hint">All prices in US dollars. The 3-year column repeats today's prices for three years — no price rises are modelled.</p>
 <p class="privacy-note">Nothing you type leaves your browser — every calculation runs on this page, on your device.</p>
 <p><button class="btn ghost" type="button" onclick="window.print()">Print or save this comparison</button></p>
@@ -68,26 +69,43 @@
 <p><strong>Tier jumps are the price.</strong> Most of these tools auto-upgrade you the moment you cross a tier — there is no per-contact overage to model, just the next tier's price. Constant Contact and ActiveCampaign instead charge per-send overage fees on top of a send allowance; Mailchimp auto-charges for contact blocks. The plan prices here are the list prices before any overage.</p>
 <p><strong>“Not published” is an answer too.</strong> ActiveCampaign does not publish monthly-billing prices, and Mailchimp publishes no annual rate card — switch the billing toggle and those rows say so instead of inventing a number.</p>
 
-<script src="/assets/saas-data.js?v=read20261123"></script>
-<script src="/assets/pricing.js?v=read20261123"></script>
+<script src="/assets/saas-data.js?v=audit20261123"></script>
+<script src="/assets/pricing.js?v=audit20261123"></script>
 <script>
 (function(){
   var D = window.SAAS_DATA.email, E = window.PricingEngine;
   var ids = ['mailchimp','brevo','kit','activecampaign','mailerlite','constantcontact'];
   var contacts = document.getElementById('in-contacts'), sends = document.getElementById('in-sends');
   var billing = 'annual';
+  var PKEY = 'tf-calc:' + location.pathname;
+  function setBilling(bv){
+    billing = bv;
+    document.querySelectorAll('[data-billing]').forEach(function(x){ x.setAttribute('aria-pressed', x.getAttribute('data-billing') === bv ? 'true' : 'false'); });
+  }
+  function saveState(){
+    var st = { contacts: contacts.value, sends: sends.value, billing: billing };
+    try { localStorage.setItem(PKEY, JSON.stringify(st)); } catch(e) {}
+    try { history.replaceState(null, '', location.pathname + '?' + new URLSearchParams(st).toString()); } catch(e) {}
+  }
+  function loadState(){
+    var p = new URLSearchParams(location.search), sv = {};
+    try { sv = JSON.parse(localStorage.getItem(PKEY) || '{}'); } catch(e) {}
+    var get = function(k){ return p.has(k) ? p.get(k) : sv[k]; };
+    var cv = get('contacts'); if (cv !== undefined && cv !== null) contacts.value = cv;
+    var svv = get('sends'); if (svv !== undefined && svv !== null) sends.value = svv;
+    var bv = get('billing'); if (bv === 'monthly' || bv === 'annual') setBilling(bv);
+  }
   document.querySelectorAll('[data-billing]').forEach(function(b){
     b.addEventListener('click', function(){
-      billing = b.getAttribute('data-billing');
-      document.querySelectorAll('[data-billing]').forEach(function(x){ x.setAttribute('aria-pressed', x===b ? 'true' : 'false'); });
-      render();
+      setBilling(b.getAttribute('data-billing'));
+      render(); saveState();
     });
   });
-  [contacts, sends].forEach(function(el){ el.addEventListener('input', render); });
+  [contacts, sends].forEach(function(el){ el.addEventListener('input', function(){ render(); saveState(); }); });
   document.querySelectorAll('[data-preset]').forEach(function(b){
     b.addEventListener('click', function(){
       var p = b.getAttribute('data-preset').split(',');
-      contacts.value = p[0]; sends.value = p[1]; render();
+      contacts.value = p[0]; sends.value = p[1]; render(); saveState();
     });
   });
   function render(){
@@ -121,11 +139,24 @@
     } else {
       v.innerHTML = 'Cheapest at this size: <strong>'+winners[0].name+'</strong> ('+winners[0].cost.plan+') at <strong>'+E.fmt(winners[0].cost.monthly)+'/month</strong> — '+E.fmt(winners[0].cost.annualTotal)+' in year one.';
     }
+    var ap = document.getElementById('allplans');
+    if (ap) {
+      ap.innerHTML = ids.map(function(id){
+        var t = Object.assign({id:id}, D[id]);
+        var usage = t.model === 'send_volume' ? s : c;
+        var rows = E.allPlans(t, usage, 1, billing).map(function(p){
+          if (!p.fits) return '<tr><td>'+p.plan+'</td><td colspan="3" class="hint">'+(p.reason === 'price' ? 'No published price for this billing period.' : 'Over plan limits at this size.')+'</td></tr>';
+          return '<tr><td>'+p.plan+(p.oneTime ? '<br><span class="hint">incl. '+E.fmt(p.oneTime)+' one-time onboarding</span>' : '')+'</td><td class="num">'+E.fmt(p.monthly)+'</td><td class="num">'+E.fmt(p.annualTotal)+'</td><td class="num">'+E.fmt(p.threeYear)+'</td></tr>';
+        }).join('');
+        return '<h3>'+t.name+'</h3><table class="fees"><tr><th>Plan</th><th class="num">Per month</th><th class="num">Year one</th><th class="num">3 years</th></tr>'+rows+'</table>';
+      }).join('');
+    }
     var mw = document.getElementById('mismatch');
     if (c > 0 && s > 0 && s < c) mw.innerHTML = 'Heads up: that is fewer emails per month than contacts — you could not email everyone on your list even once. Brevo’s row will look unusually cheap.';
     else if (c > 0 && s > c * 30) mw.innerHTML = 'Heads up: that is more than 30 emails per contact per month. If that is not really your sending pattern, Brevo’s row will look unusually expensive — Brevo bills on sends.';
     else mw.innerHTML = '';
   }
+  loadState();
   render();
 })();
 </script>
@@ -155,9 +186,10 @@
 <a href="/software/freshsales-pricing/">Freshsales pricing</a>
 <a href="/software/close-pricing/">Close pricing</a>
 <a href="/software/monday-pricing/">monday CRM pricing</a>
+<a href="/about/">About &amp; how we verify</a>
 </nav>
 <p class="disclaimer"><strong>Disclaimer:</strong> Results are estimates for planning only. Prices change, and vendors run promotions that are not modelled here. Always confirm the final price on the vendor's official pricing page before subscribing. Software prices on this page were verified on the vendors' official pricing pages on November 23, 2026.</p>
 </div></footer>
-<script src="/assets/nav.js?v=read20261123" defer></script>
+<script src="/assets/nav.js?v=audit20261123" defer></script>
 </body>
 </html>

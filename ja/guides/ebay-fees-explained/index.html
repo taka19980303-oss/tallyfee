@@ -12,7 +12,7 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="stylesheet" href="/assets/style.css?v=read20261123">
+<link rel="stylesheet" href="/assets/style.css?v=audit20261123">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Fee Calculator Suite">
 <meta property="og:title" content="eBay手数料ガイド（2026）：全手数料を実例つきで解説">
@@ -42,7 +42,8 @@
 <div class="badge-band"><span class="pill">✓ 料率確認済み</span>
 <span><strong>2026年11月18日</strong> — プラットフォームの公式手数料ページで照合。出典：<a href="https://www.ebay.com/sellercenter/selling/start-selling-on-ebay/seller-fees" target="_blank" rel="noopener">eBay Seller Center — Seller fees</a></span></div>
 </div>
-<h2>手数料表</h2>
+<div class="glossary"><p><strong>目次</strong></p><ul><li><a href="#section-1">手数料表</a></li><li><a href="#1-100">実例1 — $100の売上</a></li><li><a href="#2-8-000">実例2 — $8,000で段階制が効く理由</a></li><li><a href="#section-4">よくある誤解</a></li><li><a href="#section-5">よくある質問</a></li><li><a href="#section-6x">関連ツール</a></li></ul></div>
+<h2 id="section-1">手数料表</h2>
 <table class="fees"><thead><tr><th>手数料</th><th>料率</th><th>課金の対象</th></tr></thead><tbody>
 <tr><td>落札手数料 — 第1段階</td><td class="num">13.6%</td><td>取引総額、商品ごとに$7,500まで（大半のカテゴリ）</td></tr>
 <tr><td>落札手数料 — 第2段階</td><td class="num">2.35%</td><td>取引総額のうち商品ごとに$7,500を超える部分</td></tr>
@@ -52,22 +53,22 @@
 <tr><td>Promoted Listings（任意）</td><td class="num">設定した%</td><td>取引総額、プロモーションした商品が売れたときのみ</td></tr>
 <tr><td>決済手数料</td><td class="num">込み</td><td>—（マネージドペイメントではPayPal手数料は別途なし）</td></tr>
 </tbody></table>
-<h2>実例1 — $100の売上</h2>
+<h2 id="1-100">実例1 — $100の売上</h2>
 <p>商品価格$100、送料請求$10、税金なし。取引総額は$110。落札手数料：$110 × 13.6% = <strong>$14.96</strong>。注文ごとの手数料：<strong>$0.40</strong>。eBay手数料の合計：<strong>$15.36</strong>。仕入れ値が$40、送料の実費が$8なら、純利益は $110 − $15.36 − $48 = <strong>$46.64</strong>。<a href="/ja/ebay-fee-calculator/">計算機</a>で「$100 + 送料$10」のプリセットを読み込めば、まったく同じ数字が1行ずつ表示されます。</p>
-<h2>実例2 — $8,000で段階制が効く理由</h2>
+<h2 id="2-8-000">実例2 — $8,000で段階制が効く理由</h2>
 <p>$8,000の商品（送料請求なし）：最初の$7,500は13.6% = $1,020.00、残りの$500は2.35% = $11.75。落札手数料は<strong>$1,031.75</strong>（＋注文ごとの手数料$0.40）。全額に一律13.6%を適用する計算機だと$1,088.00になり、手数料を$56.25過大に表示して、利益の出る売上を諦めさせるおそれがあります。これがeBay手数料計算機で最も多い誤りであり、このサイトで段階制をモデル化している理由です。</p>
-<h2>よくある誤解</h2>
+<h2 id="section-4">よくある誤解</h2>
 <p><strong>「eBayは商品価格の13.6%を取る」</strong>課金されるのは取引総額 — 価格＋請求した送料＋売上税です。送料無料にしても手数料は避けられません。金額が価格側に移るだけです。</p>
 <p><strong>「料率は13.25%」</strong>かつてはそうでした — 2025年2月14日に13.6%へ上がりました（<a href="/ja/fee-changes/">料率変更履歴</a>参照）。いまだに13.25%と表示するページは、$100ごとに手数料を$0.35過小に出します。</p>
 <p><strong>「Top Rated Plusは料率から10ポイント引く」</strong>引かれるのは<em>手数料</em>の10%です：13.6%は実効12.24%になり、注文ごとの手数料は割引されません。</p>
 <p><strong>「PayPal手数料も別途かかる」</strong>eBayマネージドペイメントではかかりません — 決済処理は落札手数料に含まれています。</p>
-<h2>よくある質問</h2><div class="faq">
+<h2 id="section-5">よくある質問</h2><div class="faq">
 <details><summary>eBayの手数料は$1,000だといくらですか？</summary><p>送料・税金なしなら：$1,000 × 13.6% = $136.00、＋注文ごとの手数料$0.40で、手数料合計$136.40。</p></details>
 <details><summary>全カテゴリが13.6%ですか？</summary><p>いいえ — eBay公式のカテゴリ別レンジは2.5%〜15.3%です。Books &amp; Magazines、Movies &amp; TV、大半のMusicは$7,500まで15.3%。このガイドと計算機はストアを持たない販売者向けの「大半のカテゴリ」のスケジュールを使います。自分のカテゴリはeBayの手数料ページで確認してください。</p></details>
 <details><summary>eBayが13.6%に上げたのはいつですか？</summary><p>2025年2月14日、13.25%からの引き上げです。$10超の注文の注文ごとの手数料はそれより早く、2024年3月15日に$0.30から$0.40へ上がっていました。</p></details>
 <details><summary>この料率を自分で確認するには？</summary><p>eBay公式Seller Centerの手数料ページ（上のバッジのリンク）を開き、上の実例と比べてください — 1行ずつ検算できるように作ってあります。</p></details>
 </div>
-<h2>関連ツール</h2><ul><li><a href="/ja/ebay-fee-calculator/">eBay手数料計算機</a></li><li><a href="/ja/ebay-profit-calculator/">eBay利益計算機 — 目標利益からの逆算</a></li><li><a href="/ja/marketplace-fees-compared/">8プラットフォーム比較</a>
+<h2 id="section-6x">関連ツール</h2><ul><li><a href="/ja/ebay-fee-calculator/">eBay手数料計算機</a></li><li><a href="/ja/ebay-profit-calculator/">eBay利益計算機 — 目標利益からの逆算</a></li><li><a href="/ja/marketplace-fees-compared/">8プラットフォーム比較</a>
 <a href="/ja/batch-fee-calculator/">バッチ手数料計算機＋CSV</a></li><li><a href="/ja/fee-changes/">料率変更履歴</a></li></ul>
 <p class="src-list">出典：eBay Seller Center — <a href="https://www.ebay.com/sellercenter/selling/start-selling-on-ebay/seller-fees" target="_blank" rel="noopener">Seller fees</a> · eBay Help — <a href="https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4364" target="_blank" rel="noopener">Selling fees</a>。料率は2026年11月18日に確認。</p>
 
@@ -98,11 +99,12 @@
 <a href="/ja/kdp-print-cost-calculator/">KDP印刷コスト計算機</a>
 <a href="/ja/kdp-royalty-calculator/">KDPロイヤルティ計算機</a>
 <a href="/ja/guides/kdp-royalties-explained/">KDPロイヤルティガイド</a>
+<a href="/ja/about/">このサイトについて・検証方法</a>
 </nav>
 <p class="disclaimer"><strong>免責：</strong>結果は計画用の見積もりです。手数料はカテゴリ・販売者の国・ストア購読・プロモーションにより変わります。出品前に必ず各プラットフォームの公式手数料ページで最終額を確認してください。このサイトの料率は公式ページで確認済みです（マーケットプレイスは2026年11月18日、TikTok ShopとFacebook Marketplaceは2026年11月23日）。</p>
 </div></footer>
-<script src="/assets/engines.js?v=read20261123"></script>
-<script src="/assets/calc.js?v=read20261123"></script>
-<script src="/assets/nav.js?v=read20261123" defer></script>
+<script src="/assets/engines.js?v=audit20261123"></script>
+<script src="/assets/calc.js?v=audit20261123"></script>
+<script src="/assets/nav.js?v=audit20261123" defer></script>
 </body>
 </html>

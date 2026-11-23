@@ -402,6 +402,49 @@
     summaries.kr = JA ? "KDP" + (inp.format === "hardcover" ? "ハードカバー" : "ペーパーバック") + "の印税 — 定価 " + money(m2.sym, list, m2.dec) + "、" + inp.pages + "ページ、" + m2.name + ": 印刷 " + money(m2.sym, rr.print.cost, 2) + "、印税率 " + Math.round(rr.rate * 100) + "% で1冊あたり " + money(m2.sym, rr.royalty, m2.dec) + "。出典：tallyfee.com/ja/kdp-royalty-calculator/" : "KDP " + inp.format + " royalty — list " + money(m2.sym, list, m2.dec) + ", " + inp.pages + " pages, " + m2.name + ": printing " + money(m2.sym, rr.print.cost, 2) + ", royalty " + money(m2.sym, rr.royalty, m2.dec) + " per sale at the " + Math.round(rr.rate * 100) + "% rate. Via tallyfee.com/kdp-royalty-calculator/";
   }
 
+  /* PNG-DPI-BEGIN — stamp a pHYs chunk (300 DPI = 11811 px/m) into a
+     canvas PNG, which otherwise carries no resolution metadata and is
+     read as 72 DPI by image editors. Pixel data is untouched. */
+  var PNG_CRC_TABLE = null;
+  function pngCrc32(bytes) {
+    if (!PNG_CRC_TABLE) {
+      PNG_CRC_TABLE = [];
+      for (var n = 0; n < 256; n++) {
+        var c = n;
+        for (var k = 0; k < 8; k++) c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+        PNG_CRC_TABLE[n] = c >>> 0;
+      }
+    }
+    var crc = 0xFFFFFFFF;
+    for (var i = 0; i < bytes.length; i++) crc = PNG_CRC_TABLE[(crc ^ bytes[i]) & 0xFF] ^ (crc >>> 8);
+    return (crc ^ 0xFFFFFFFF) >>> 0;
+  }
+  function pngWithDpi(pngBytes) {
+    /* PNG signature (8) + IHDR chunk (4 len + 4 type + 13 data + 4 CRC) = 33. */
+    if (!pngBytes || pngBytes.length < 33 || pngBytes[0] !== 0x89 || pngBytes[1] !== 0x50) return pngBytes;
+    /* Skip if a pHYs chunk is already present before IDAT. */
+    var off = 8;
+    while (off + 8 <= pngBytes.length) {
+      var len = ((pngBytes[off] << 24) | (pngBytes[off + 1] << 16) | (pngBytes[off + 2] << 8) | pngBytes[off + 3]) >>> 0;
+      var type = String.fromCharCode(pngBytes[off + 4], pngBytes[off + 5], pngBytes[off + 6], pngBytes[off + 7]);
+      if (type === "pHYs") return pngBytes;
+      if (type === "IDAT") break;
+      off += 12 + len;
+    }
+    var chunk = new Uint8Array(21);
+    var dv = new DataView(chunk.buffer);
+    dv.setUint32(0, 9);
+    chunk[4] = 0x70; chunk[5] = 0x48; chunk[6] = 0x59; chunk[7] = 0x73; /* pHYs */
+    dv.setUint32(8, 11811); dv.setUint32(12, 11811); chunk[16] = 1; /* unit: metre */
+    dv.setUint32(17, pngCrc32(chunk.subarray(4, 17)));
+    var out = new Uint8Array(pngBytes.length + chunk.length);
+    out.set(pngBytes.subarray(0, 33), 0);
+    out.set(chunk, 33);
+    out.set(pngBytes.subarray(33), 33 + chunk.length);
+    return out;
+  }
+  /* PNG-DPI-END */
+
   /* Draws the full-size 300 DPI cover template (bleed, trim, fold lines,
      safe areas, barcode box, labels) from coverTemplateGeom and downloads
      it as a PNG. Everything is drawn client-side; nothing is uploaded. */
@@ -483,15 +526,27 @@
       a.href = href; a.download = name;
       document.body.appendChild(a); a.click(); a.remove();
     }
+    function saveBytes(bytes) {
+      var url = URL.createObjectURL(new Blob([bytes], { type: "image/png" }));
+      save(url);
+      setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+    }
+    function saveDataUrl(dataUrl) {
+      var b64 = dataUrl.split(",")[1] || "";
+      var bin = atob(b64);
+      var bytes = new Uint8Array(bin.length);
+      for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+      saveBytes(pngWithDpi(bytes));
+    }
     if (cv.toBlob) {
       cv.toBlob(function (blob) {
-        if (!blob) { save(cv.toDataURL("image/png")); return; }
-        var url = URL.createObjectURL(blob);
-        save(url);
-        setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+        if (!blob) { saveDataUrl(cv.toDataURL("image/png")); return; }
+        blob.arrayBuffer().then(function (buf) {
+          saveBytes(pngWithDpi(new Uint8Array(buf)));
+        }, function () { saveDataUrl(cv.toDataURL("image/png")); });
       }, "image/png");
     } else {
-      save(cv.toDataURL("image/png"));
+      saveDataUrl(cv.toDataURL("image/png"));
     }
   }
 

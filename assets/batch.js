@@ -21,7 +21,7 @@
       + '<td data-label="' + (JA ? "請求送料" : "Shipping charged") + '"><input class="b-ship" type="number" inputmode="decimal" min="0" step="0.01"></td>'
       + '<td data-label="' + (JA ? "仕入価格" : "Item cost") + '"><input class="b-cost" type="number" inputmode="decimal" min="0" step="0.01"></td>'
       + '<td data-label="' + (JA ? "実際の送料" : "Actual shipping") + '"><input class="b-shipcost" type="number" inputmode="decimal" min="0" step="0.01"></td>'
-      + '<td class="num mono" data-label="' + (JA ? "手数料合計" : "Total fees") + '">-$0.00</td>'
+      + '<td class="num mono" data-label="' + (JA ? "手数料合計" : "Total fees") + '">$0.00</td>'
       + '<td class="num mono" data-label="' + (JA ? "純利益" : "Net profit") + '">$0.00</td>'
       + '<td class="num mono" data-label="' + (JA ? "利益率" : "Margin") + '">0%</td>'
       + '<td data-label=""><button type="button" class="row-del" aria-label="' + (JA ? "行を削除" : "Remove row") + '">×</button></td>';
@@ -48,7 +48,7 @@
           cost = rowNum(tr, ".b-cost"), sc = rowNum(tr, ".b-shipcost");
       var r = E.platformCalc(key, price, ship, cost, sc);
       var cells = tr.querySelectorAll("td");
-      cells[5].textContent = neg(r.fees);
+      cells[5].textContent = money(r.fees);
       cells[6].textContent = money(r.profit);
       cells[6].style.color = r.profit < 0 ? "var(--neg)" : "";
       cells[7].textContent = pct(r.revenue > 0 ? r.profit / r.revenue * 100 : 0);
@@ -60,7 +60,7 @@
     $("bt-ship").textContent = money(tShip);
     $("bt-cost").textContent = money(tCost);
     $("bt-shipcost").textContent = money(tShipcost);
-    $("bt-fees").textContent = neg(tFees);
+    $("bt-fees").textContent = money(tFees);
     $("bt-profit").textContent = money(tProfit);
     $("bt-margin").textContent = pct(tRevenue > 0 ? tProfit / tRevenue * 100 : 0);
   }
@@ -75,18 +75,22 @@
   $("batch-csv").addEventListener("click", function () {
     var key = $("batch-platform").value;
     var lines = [JA ? "商品名,販売価格,請求送料,仕入価格,実際の送料,売上,手数料合計,純利益,利益率 %" : "Item name,Sale price,Shipping charged,Item cost,Actual shipping,Revenue,Total fees,Net profit,Margin %"];
-    var tFees = 0, tProfit = 0;
+    var tPrice = 0, tShip = 0, tCost = 0, tShipcost = 0, tRevenue = 0, tFees = 0, tProfit = 0;
     batchBody.querySelectorAll("tr").forEach(function (tr) {
       var name = tr.querySelector(".b-name").value;
       var price = rowNum(tr, ".b-price"), ship = rowNum(tr, ".b-ship"),
           cost = rowNum(tr, ".b-cost"), sc = rowNum(tr, ".b-shipcost");
+      if (!name && price === 0 && ship === 0 && cost === 0 && sc === 0) return; // skip fully-empty rows
       var r = E.platformCalc(key, price, ship, cost, sc);
       var margin = r.revenue > 0 ? (r.profit / r.revenue * 100) : 0;
       lines.push([csvCell(name), price.toFixed(2), ship.toFixed(2), cost.toFixed(2), sc.toFixed(2),
                   r.revenue.toFixed(2), r.fees.toFixed(2), r.profit.toFixed(2), margin.toFixed(1)].join(","));
-      tFees = r2(tFees + r.fees); tProfit = r2(tProfit + r.profit);
+      tPrice = r2(tPrice + price); tShip = r2(tShip + ship); tCost = r2(tCost + cost); tShipcost = r2(tShipcost + sc);
+      tRevenue = r2(tRevenue + r.revenue); tFees = r2(tFees + r.fees); tProfit = r2(tProfit + r.profit);
     });
-    lines.push([JA ? "合計" : "TOTAL", "", "", "", "", "", tFees.toFixed(2), tProfit.toFixed(2), ""].join(","));
+    var tMargin = tRevenue > 0 ? (tProfit / tRevenue * 100) : 0;
+    lines.push([JA ? "合計" : "TOTAL", tPrice.toFixed(2), tShip.toFixed(2), tCost.toFixed(2), tShipcost.toFixed(2),
+                tRevenue.toFixed(2), tFees.toFixed(2), tProfit.toFixed(2), tMargin.toFixed(1)].join(","));
     var blob = new Blob([lines.join("\n")], { type: "text/csv" });
     var a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
