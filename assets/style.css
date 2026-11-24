@@ -44,6 +44,7 @@ p{margin:0 0 12px}
 
 /* Layout */
 .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+.calc-grid>*{min-width:0}
 @media (max-width:840px){.calc-grid{grid-template-columns:1fr} h1{font-size:28px}}
 .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px}
 .card h2,.card h3{margin-top:0}
