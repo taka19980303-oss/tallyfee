@@ -188,6 +188,43 @@
         ", net profit " + f.fmt(r.profit) + " (margin " + E.pct(r.revenue > 0 ? r.profit / r.revenue * 100 : 0) + "). Rates verified November 18, 2026.";
   }
 
+  /* ================= Mercari Japan ================= */
+  function yen(v) { return (v < 0 ? "-¥" : "¥") + Math.abs(Math.round(v)).toLocaleString("en-US"); }
+  function calcMercariJp() {
+    if (!$("mj-price")) return;
+    var price = num("mj-price"), sc = num("mj-shipcost");
+    var tOn = $("mj-transfer-on");
+    var transfer = tOn && tOn.checked ? num("mj-transfer") : 0;
+    var tIn = $("mj-transfer"); if (tIn && tOn) tIn.disabled = !tOn.checked;
+    var r = E.mercariJpCalc(price, sc, transfer);
+    $("mj-profit").textContent = yen(r.profit);
+    var hero = $("mj-hero"); if (hero) hero.classList.toggle("neg", r.profit < 0);
+    var v = E.verdictFor(r.profit, r.revenue);
+    $("mj-margin-line").innerHTML =
+      '<span class="verdict ' + v.cls + '">' + v.label + '</span>' +
+      '<div class="verdict-reason">' + (JA ? "手取り率" : "Net margin") + ' <span class="pill mono">' + E.pct(v.margin) + '</span> &nbsp;' +
+      v.word + ' — ' + v.reason + '</div>';
+    var pSeg = Math.max(0, r.profit), denom = pSeg + r.fees + r.costs;
+    var set = function (id, val) { var el = $(id); if (el) el.style.width = (denom > 0 ? (val / denom * 100) : 0) + "%"; };
+    set("mj-bar-profit", pSeg); set("mj-bar-fees", r.fees); set("mj-bar-costs", r.costs);
+    var lv = function (id, val) { var el = $(id); if (el) el.textContent = yen(val); };
+    lv("mj-bar-profit-v", r.profit); lv("mj-bar-fees-v", r.fees); lv("mj-bar-costs-v", r.costs);
+    $("mj-gross").textContent = yen(r.revenue);
+    $("mj-fee").textContent = yen(r.fee);
+    $("mj-keep").textContent = yen(r.keep);
+    $("mj-ship").textContent = yen(sc);
+    $("mj-transfer-v").textContent = yen(transfer);
+    $("mj-costs").textContent = yen(r.fee + r.costs);
+    $("mj-eff").textContent = E.pct(r.revenue > 0 ? (r.fee + r.costs) / r.revenue * 100 : 0);
+    var be = E.breakEven(function (p) { return E.mercariJpCalc(p, sc, transfer).profit; });
+    $("mj-be").textContent = be === null ? "—" : yen(be);
+    summaries.mj = JA
+      ? "メルカリ（日本）: 販売価格 " + yen(price) + " → 販売手数料 " + yen(r.fee) + "、送料 " + yen(sc) + "、振込手数料 " + yen(transfer) +
+        "、手取り " + yen(r.profit) + "（手取り率 " + E.pct(r.revenue > 0 ? r.profit / r.revenue * 100 : 0) + "）。料率は2026年11月24日に確認。"
+      : "Mercari Japan: price " + yen(price) + " → selling fee " + yen(r.fee) + ", shipping " + yen(sc) + ", payout fee " + yen(transfer) +
+        ", net proceeds " + yen(r.profit) + " (net margin " + E.pct(r.revenue > 0 ? r.profit / r.revenue * 100 : 0) + "). Rates verified November 24, 2026.";
+  }
+
   /* ================= Amazon ================= */
   function calcAmazon() {
     if (!$("am-price")) return;
@@ -495,6 +532,8 @@
   bind(["et-country", "et-offsite"], "change", calcEtsy);
   bind(["pm-price", "pm-cost", "pm-shipcost"], "input", calcPoshmark);
   bind(["mc-price", "mc-ship", "mc-cost", "mc-shipcost"], "input", calcMercari);
+  bind(["mj-price", "mj-shipcost", "mj-transfer"], "input", calcMercariJp);
+  bind(["mj-transfer-on"], "change", calcMercariJp);
   bind(["am-price", "am-ship", "am-cost", "am-shipcost"], "input", calcAmazon);
   bind(["am-cat"], "change", calcAmazon);
   bind(["dp-price", "dp-ship", "dp-tax", "dp-cost", "dp-shipcost"], "input", calcDepop);
@@ -527,7 +566,7 @@
     el.addEventListener("change", persistState);
   });
 
-  calcEbay(); calcEtsy(); calcPoshmark(); calcMercari(); calcAmazon(); calcDepop(); calcVinted(); calcWhatnot(); calcTiktok(); calcFacebook();
+  calcEbay(); calcEtsy(); calcPoshmark(); calcMercari(); calcMercariJp(); calcAmazon(); calcDepop(); calcVinted(); calcWhatnot(); calcTiktok(); calcFacebook();
   calcCompare(); calcReverse(); calcVs();
 
   /* ---- Sticky comparison input bar (comparison pages only) ----

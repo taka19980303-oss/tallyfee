@@ -119,6 +119,21 @@
     return { revenue: revenue, fee: fee, buyerFee: r2(revenue * 0.036), fees: fees, keep: keep, costs: r2(cost + shipcost), profit: profit };
   }
 
+  /* ---- Mercari Japan engine — official Japanese Help guide (Nov 24 2026)
+     Selling fee 10% of the listed sale price, charged when the transaction
+     completes; listing is free. Fractions of a yen in the fee are truncated
+     (¥999 -> ¥99). Payout to a bank account is a flat ¥200 per request.
+     JPY-native: whole yen throughout. `transfer` is the payout fee amount
+     the seller chooses to allocate to this sale (0 or ¥200). */
+  function mercariJpCalc(price, shipcost, transfer) {
+    var revenue = Math.max(0, Math.floor(price));
+    var fee = Math.floor(revenue * 0.10);
+    var keep = revenue - fee;
+    var costs = shipcost + transfer;
+    var profit = keep - costs;
+    return { revenue: revenue, fee: fee, fees: fee, transfer: transfer, keep: keep, costs: costs, profit: profit };
+  }
+
   /* ---- Amazon engine — official pricing page (Nov 18 2026), referral only.
      Base = total sales price (item + shipping charged). Bracket categories
      (clothing/beauty/baby/grocery) apply one rate to the whole total, set by
@@ -281,7 +296,7 @@
   var PLATFORM_NAMES = { ebay: "eBay (US)", etsy: "Etsy (US)", poshmark: "Poshmark (US)", mercari: "Mercari (US)", amazon: "Amazon (US)", depop: "Depop (US)", vinted: "Vinted (US)", whatnot: "Whatnot (US)" };
 
   var api = { r2: r2, money: money, neg: neg, pct: pct, verdictFor: verdictFor, breakEven: breakEven,
-              ebayCalc: ebayCalc, etsyCalc: etsyCalc, poshCalc: poshCalc, mercariCalc: mercariCalc,
+              ebayCalc: ebayCalc, etsyCalc: etsyCalc, poshCalc: poshCalc, mercariCalc: mercariCalc, mercariJpCalc: mercariJpCalc,
               amazonReferral: amazonReferral, amazonCalc: amazonCalc, depopCalc: depopCalc,
               vintedCalc: vintedCalc, whatnotCalc: whatnotCalc, tiktokCalc: tiktokCalc, fbCalc: fbCalc, platformCalc: platformCalc,
               PLATFORM_NAMES: PLATFORM_NAMES };
