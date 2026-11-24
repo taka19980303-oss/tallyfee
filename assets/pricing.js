@@ -108,6 +108,29 @@
     return '$' + r.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   }
 
-  window.PricingEngine = { tierFor: tierFor, planPriceAt: planPriceAt, toolCost: toolCost, planCost: planCost, allPlans: allPlans, compareTools: compareTools, breakEven: breakEven, fmt: fmt };
+  // Monthly cost of one AI API model at a given workload.
+  // model: {input_per_1m, cached_input_per_1m, output_per_1m, batch_*_per_1m, ...}
+  // mode: 'standard' | 'batch'. In batch mode, returns null when the provider
+  // publishes no batch rates for the model (caller renders "—" and excludes it
+  // from the verdict). ratesOverride (e.g. a model's scheduled_change) replaces
+  // the rate fields for a what-if computation.
+  function aiModelCost(model, requests, avgIn, avgOut, cacheShare, mode, ratesOverride) {
+    var r = ratesOverride ? Object.assign({}, model, ratesOverride) : model;
+    var pin, pcache, pout;
+    if (mode === 'batch') {
+      pin = r.batch_input_per_1m; pcache = r.batch_cached_input_per_1m; pout = r.batch_output_per_1m;
+      if (pin === null || pin === undefined || pout === null || pout === undefined) return null;
+    } else {
+      pin = r.input_per_1m; pcache = r.cached_input_per_1m; pout = r.output_per_1m;
+      if (pin === null || pin === undefined || pout === null || pout === undefined) return null;
+    }
+    if (pcache === null || pcache === undefined) pcache = pin; // no published cache discount: cached tokens billed as input
+    var inTok = requests * avgIn, outTok = requests * avgOut;
+    var cachedTok = inTok * cacheShare, uncachedTok = inTok - cachedTok;
+    var monthly = (uncachedTok * pin + cachedTok * pcache + outTok * pout) / 1e6;
+    return { monthly: monthly, per1k: requests > 0 ? monthly / requests * 1000 : null, annual: monthly * 12 };
+  }
+
+  window.PricingEngine = { tierFor: tierFor, planPriceAt: planPriceAt, toolCost: toolCost, planCost: planCost, allPlans: allPlans, compareTools: compareTools, breakEven: breakEven, aiModelCost: aiModelCost, fmt: fmt };
   if (typeof module !== 'undefined' && module.exports) module.exports = window.PricingEngine;
 })();

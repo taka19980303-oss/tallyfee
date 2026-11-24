@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI APIコスト計算機 — リクエスト数とトークン数から月額を計算 | Fee Calculator Suite</title>
+<meta name="description" content="OpenAI・Claude・GeminiのAPI月額を、月間リクエスト数・平均トークン数・キャッシュ率から計算。Standard／Batch切替つき、公式料金ページで確認済み。">
+<link rel="canonical" href="https://tallyfee.com/ja/software/ai-api-cost-calculator/">
+<link rel="alternate" hreflang="en" href="https://tallyfee.com/software/ai-api-cost-calculator/">
+<link rel="alternate" hreflang="ja" href="https://tallyfee.com/ja/software/ai-api-cost-calculator/">
+<link rel="alternate" hreflang="x-default" href="https://tallyfee.com/software/ai-api-cost-calculator/">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<script>document.documentElement.classList.add('js')</script><link rel="stylesheet" href="/assets/style.css?v=aiapi20261124">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Fee Calculator Suite">
+<meta property="og:title" content="AI APIコスト計算機 — リクエスト数とトークン数から月額を計算 | Fee Calculator Suite">
+<meta property="og:description" content="OpenAI・Claude・GeminiのAPI月額を、月間リクエスト数・平均トークン数・キャッシュ率から計算。Standard／Batch切替つき、公式料金ページで確認済み。">
+<meta property="og:url" content="https://tallyfee.com/ja/software/ai-api-cost-calculator/">
+<meta property="og:image" content="https://tallyfee.com/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI APIコスト計算機 — リクエスト数とトークン数から月額を計算 | Fee Calculator Suite">
+<meta name="twitter:description" content="OpenAI・Claude・GeminiのAPI月額を、月間リクエスト数・平均トークン数・キャッシュ率から計算。Standard／Batch切替つき、公式料金ページで確認済み。">
+<meta name="twitter:image" content="https://tallyfee.com/assets/og.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "AI API Cost Calculator", "url": "https://tallyfee.com/ja/software/ai-api-cost-calculator/", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}</script>
+</head>
+<body>
+<header class="site-header"><div class="in">
+<a class="brand" href="/ja/"><svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect width="64" height="64" rx="14" fill="#0e7a43"/><g fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round"><circle cx="23.5" cy="21.5" r="6.5"/><circle cx="40.5" cy="42.5" r="6.5"/><path d="M43 15 L21 49"/></g></svg>Fee<span>Calculator</span>Suite</a>
+<button class="nav-burger" type="button" aria-label="メニュー" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button><nav class="site-nav" id="site-nav">
+<div class="nav-item has-drop"><a class="nav-top" href="/ja/marketplace-fees-compared/">マーケットプレイス手数料<span class="caret">▾</span></a><div class="drop"><a href="/ja/">全計算機</a><a href="/ja/marketplace-fees-compared/">8プラットフォーム比較</a><a href="/ja/ebay-vs-etsy-fees/">eBay vs Etsy 手数料</a><a href="/ja/batch-fee-calculator/">バッチ計算機＋CSV</a><a href="/ja/fee-changes/">料率変更履歴</a></div></div><div class="nav-item has-drop"><a class="nav-top" href="/ja/kdp/">KDP<span class="caret">▾</span></a><div class="drop"><a href="/ja/kdp/">KDP計算機すべて</a><a href="/ja/kdp-cover-calculator/">表紙サイズ計算機</a><a href="/ja/kdp-print-cost-calculator/">印刷コスト計算機</a><a href="/ja/kdp-royalty-calculator/">ロイヤルティ計算機</a><a href="/ja/guides/kdp-royalties-explained/">KDPロイヤルティ解説</a></div></div><div class="nav-item has-drop"><a class="nav-top active" href="/ja/software/">ソフトウェア料金<span class="caret">▾</span></a><div class="drop"><a href="/ja/software/">ソフトウェア料金ハブ</a><a href="/ja/software/email-marketing/">メール配信ツール比較</a><a href="/ja/software/email-marketing-cost-calculator/">メール配信コスト計算機</a><a href="/ja/software/crm/">CRM比較</a><a href="/ja/software/crm-cost-calculator/">CRMコスト計算機</a><a href="/ja/software/ai-api/">AI API料金比較</a><a href="/ja/software/ai-api-cost-calculator/">AI APIコスト計算機</a><a href="/ja/software/guides/per-seat-pricing-explained/">席課金とは</a></div></div><div class="nav-item has-drop"><a class="nav-top" href="/ja/guides/ebay-fees-explained/">ガイド<span class="caret">▾</span></a><div class="drop"><a href="/ja/guides/ebay-fees-explained/">eBay手数料ガイド</a><a href="/ja/guides/etsy-fees-explained/">Etsy手数料ガイド</a><a href="/ja/guides/mercari-fees-explained/">Mercari手数料ガイド</a><a href="/ja/guides/kdp-royalties-explained/">KDPロイヤルティ解説</a><a href="/ja/software/guides/per-seat-pricing-explained/">席課金とは</a></div></div><a class="nav-top" href="/software/ai-api-cost-calculator/">English</a>
+</nav></div></header>
+<main class="wrap">
+<div class="ad-banner" data-affiliate-banner data-active="false"><strong>広告について</strong>：本ページにはアフィリエイトリンク（広告）が含まれます。リンク先の公式サイトで申込みや購入が行われた場合、本サイトの運営者が紹介料を受け取ることがあります。紹介料の有無や金額によって、掲載する価格・順位・比較結果が変わることはありません。掲載する価格はすべて各社の公式ページで確認し、確認日を明記しています。</div>
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/ja/">ホーム</a><span class="sep">›</span><a href="/ja/software/">ソフトウェア料金</a><span class="sep">›</span><a href="/ja/software/ai-api/">AI API</a><span class="sep">›</span><span aria-current="page">AI APIコスト計算機</span></nav>
+
+<div class="hero"><h1>AI APIコスト計算機</h1>
+<p class="lede">月間リクエスト数と平均トークン数を入れると、OpenAI・Claude・Geminiの<strong>全モデルの月額</strong>が安い順に出ます。入力の一部がキャッシュから返る割合も指定できます。料金は2026年11月24日に各社の公式料金ページで確認したものです。</p>
+<div class="badge-band"><span class="pill">✓ 価格確認済み</span><span><strong>2026年11月24日</strong> — このページの価格はすべてベンダーの公式料金ページで読み取ったものです。プロモーション価格を定価として使うことはありません。</span></div>
+</div>
+<div class="card">
+<div class="cmp-inputs cmp-2">
+<div class="field" style="margin:0"><label for="ai-requests">月間リクエスト数</label><div class="input-wrap"><input id="ai-requests" type="number" min="0" step="1000" value="100000"></div></div>
+<div class="field" style="margin:0"><label for="ai-tin">1リクエストの平均入力トークン</label><div class="input-wrap"><input id="ai-tin" type="number" min="0" step="50" value="1500"></div></div>
+<div class="field" style="margin:0"><label for="ai-tout">1リクエストの平均出力トークン</label><div class="input-wrap"><input id="ai-tout" type="number" min="0" step="50" value="500"></div></div>
+<div class="field" style="margin:0"><label for="ai-cache">入力のうちキャッシュから返る割合：<span id="ai-cache-val">40%</span></label><div class="input-wrap"><input id="ai-cache" type="range" min="0" max="90" step="5" value="40"></div><p class="hint">システムプロンプトや共通の文脈がキャッシュに載る割合です。キャッシュ入力は通常入力より大幅に安く読めます。</p></div>
+</div>
+<div class="preset-row" role="group" aria-label="リクエスト数のプリセット"><button type="button" data-preset="10000">月1万リクエスト</button><button type="button" data-preset="100000">月10万</button><button type="button" data-preset="1000000">月100万</button><button type="button" data-preset="10000000">月1,000万</button></div>
+<div class="mode-toggle" style="margin-top:16px"><button data-mode="standard" aria-pressed="true">Standard（即時）</button><button data-mode="batch" aria-pressed="false">Batch（非同期・割引）</button></div>
+<p class="hint">Batchは非同期処理の代わりに割引になるモードです。割引率はプロバイダーが公式ページで公開している場合だけ適用します。</p>
+<div class="preset-row" role="group" aria-label="プロバイダー"><label><input type="checkbox" id="ai-prov-openai" checked> OpenAI</label> <label><input type="checkbox" id="ai-prov-anthropic" checked> Anthropic</label> <label><input type="checkbox" id="ai-prov-gemini" checked> Google Gemini</label></div>
+<table class="fees"><tr><th>モデル</th><th class="num">入力 /100万</th><th class="num">キャッシュ /100万</th><th class="num">出力 /100万</th><th class="num">1,000リクエストあたり</th><th class="num">月額</th><th class="num">年額</th></tr><tbody id="ai-results"></tbody></table>
+<div class="cmp-verdict" id="ai-verdict" aria-live="polite"></div>
+<p class="hint" id="ai-batchnote" style="display:none">バッチ料金を公式ページで公開していないプロバイダーのモデルは「—」表示で、判定からは除外しています。</p>
+<div id="ai-scheduled"></div>
+<p class="hint" id="ai-freenote">無料枠（ランキング外）：Google Gemini — 対象モデル（Gemini 3.8 Flashなど）はレート制限の範囲内で入力・出力とも無料。フラッグシップのGemini 4は無料枠の対象外です。コンテンツがGoogleの製品改善に使われる場合があります。</p>
+<div id="ai-scale"></div>
+<details class="advanced"><summary>旧世代モデル</summary><table class="fees"><tr><th>モデル</th><th class="num">入力 /100万</th><th class="num">キャッシュ /100万</th><th class="num">出力 /100万</th><th class="num">1,000リクエストあたり</th><th class="num">月額</th><th class="num">年額</th></tr><tbody id="ai-results-legacy"></tbody></table></details>
+<p class="hint">金額はすべて米ドル、現在の定価で計算しています。告知済みの値上げは、対象モデルに注記が出ます。</p>
+<p class="privacy-note">入力した数字はブラウザの外に出ません — 計算はすべてこのページ上で行われます。</p>
+<p><button class="btn ghost" type="button" onclick="window.print()">この比較を印刷・保存</button></p>
+</div>
+<h2>この計算機に入れていないもの</h2>
+<div class="glossary">
+<p><strong>長コンテキストの追加料金。</strong>プロンプトが一定量を超えると単価が上がるモデルがあります（Claude Haiku 5.5の100K超ティアは独立した行として掲載）。ティアの自動切り替えはしません。</p>
+<p><strong>キャッシュ書き込み料。</strong>計算機が価格づけるのはキャッシュの読み取りです。書き込みは別料金で、OpenAIとAnthropicが公式に単価を公開しています（各プロバイダーのページに掲載）。</p>
+<p><strong>Geminiのキャッシュ保管料とグラウンディング料金。</strong>コンテキストキャッシュの保管は100万トークンあたり$0.50/時間、検索グラウンディングは月5,000リクエストまで無料・以降1,000件あたり$14です。</p>
+<p><strong>地域処理の上乗せ。</strong>OpenAIのリージョナルエンドポイントは+10%、Anthropicの米国限定推論は1.1倍 — どちらも任意の上乗せなので基本計算には入れていません。</p>
+</div>
+<h2>単価表で比べる</h2>
+<p>モデルごとの単価と注記は<a href="/ja/software/ai-api/">AI API料金比較ハブ</a>と各プロバイダーのページ（<a href="/ja/software/openai-api-pricing/">OpenAI</a>・<a href="/ja/software/claude-api-pricing/">Claude</a>・<a href="/ja/software/gemini-api-pricing/">Gemini</a>）にあります。仕組みの解説は<a href="/ja/software/guides/ai-api-pricing-explained/">AI API料金の仕組み</a>へ。</p>
+<script src="/assets/saas-data.js?v=aiapi20261124"></script>
+<script src="/assets/pricing.js?v=aiapi20261124"></script>
+<script>
+(function(){
+var JA = document.documentElement.lang === 'ja';
+var S = JA ? {
+  per1k: '1,000リクエストあたり', monthly: '月額', annual: '年額', model: 'モデル',
+  tie: '同額', cheapest: 'が最安', atSettings: '（この設定では月額', perMonth: '）',
+  batchNote: 'バッチ料金を公式ページで公開していないプロバイダーのモデルは「—」表示で、判定からは除外しています。',
+  schedNote: '{d}から：{n}は月額{v}（この設定）に上がります。',
+  schedFlip: '変更後の単価では、最安モデルは{n}に変わります。',
+  scaleHead: '規模を変えると（上位5モデル）', requests: 'リクエスト',
+  noBatch: 'バッチ料金は未公開'
+} : {
+  per1k: 'Per 1,000 requests', monthly: 'Per month', annual: 'Per year', model: 'Model',
+  tie: 'tie', cheapest: 'is cheapest', atSettings: 'at these settings (', perMonth: '/month)',
+  batchNote: 'Models whose provider publishes no batch rates on its official pricing page show — and are excluded from the verdict in Batch mode.',
+  schedNote: 'From {d}: {n} rises to {v} a month at these settings.',
+  schedFlip: 'At the new rates the cheapest model becomes {n}.',
+  scaleHead: 'What scale does to the top 5', requests: 'requests',
+  noBatch: 'No published batch price'
+};
+var D = window.SAAS_DATA.aiapi, E = window.PricingEngine;
+var ORDER = ['openai', 'anthropic', 'gemini'];
+var state = { requests: 100000, tin: 1500, tout: 500, cache: 40, mode: 'standard', providers: { openai: true, anthropic: true, gemini: true } };
+try { var saved = JSON.parse(localStorage.getItem('aiapi-calc') || 'null'); if (saved) { for (var k in saved) state[k] = saved[k]; } } catch (e) {}
+var qs = new URLSearchParams(location.search);
+['requests', 'tin', 'tout', 'cache'].forEach(function(k){ var v = qs.get(k); if (v !== null && v !== '' && !isNaN(+v)) state[k] = +v; });
+if (qs.get('mode') === 'batch' || qs.get('mode') === 'standard') state.mode = qs.get('mode');
+function el(id){ return document.getElementById(id); }
+function fmt(n){ return E.fmt(n); }
+function rates(m){
+  if (state.mode === 'batch') return [m.batch_input_per_1m, m.batch_cached_input_per_1m, m.batch_output_per_1m];
+  return [m.input_per_1m, m.cached_input_per_1m, m.output_per_1m];
+}
+function rateTxt(v){ if (v === null || v === undefined) return '—'; var s = v.toFixed(4).replace(/0+$/, '').replace(/\.$/, ''); var parts = s.split('.'); if (!parts[1]) s += '.00'; else if (parts[1].length === 1) s += '0'; return '$' + s; }
+function cost(m, req, override){ return E.aiModelCost(m, req || state.requests, state.tin, state.tout, state.cache / 100, state.mode, override || null); }
+function rowHtml(item){
+  var m = item.m, r = rates(m), c = item.cost;
+  var note = (!c && state.mode === 'batch') ? '<br><span class="hint">' + S.noBatch + '</span>' : '';
+  return '<tr><td>' + m.name + '<br><span class="hint">' + D[item.pid].name + '</span>' + note + '</td>' +
+    '<td class="num">' + rateTxt(r[0]) + '</td><td class="num">' + rateTxt(r[1]) + '</td><td class="num">' + rateTxt(r[2]) + '</td>' +
+    '<td class="num">' + (c ? fmt(c.per1k) : '—') + '</td><td class="num">' + (c ? fmt(c.monthly) : '—') + '</td><td class="num">' + (c ? fmt(c.annual) : '—') + '</td></tr>';
+}
+function byCost(a, b){ if (a.cost && b.cost) return a.cost.monthly - b.cost.monthly; if (a.cost) return -1; if (b.cost) return 1; return 0; }
+function render(){
+  var cur = [], leg = [];
+  ORDER.forEach(function(pid){
+    if (!state.providers[pid]) return;
+    D[pid].models.forEach(function(m){
+      var item = { pid: pid, m: m, cost: cost(m) };
+      (m.status === 'legacy' ? leg : cur).push(item);
+    });
+  });
+  cur.sort(byCost); leg.sort(byCost);
+  el('ai-results').innerHTML = cur.map(rowHtml).join('');
+  el('ai-results-legacy').innerHTML = leg.map(rowHtml).join('');
+  var priced = cur.filter(function(i){ return i.cost; });
+  var v = el('ai-verdict');
+  if (priced.length) {
+    var min = priced[0].cost.monthly;
+    var tied = priced.filter(function(i){ return Math.abs(i.cost.monthly - min) < 0.01; });
+    if (tied.length > 1) {
+      v.innerHTML = '<strong>' + tied.map(function(i){ return i.m.name; }).join(' · ') + '</strong> ' + S.tie + ' — ' + fmt(min) + (JA ? '／月（この設定）。' : '/month at these settings.');
+    } else {
+      v.innerHTML = '<strong>' + priced[0].m.name + '</strong> ' + S.cheapest + ' ' + S.atSettings + fmt(min) + S.perMonth + (JA ? '。' : '.');
+    }
+  } else { v.innerHTML = ''; }
+  el('ai-batchnote').style.display = (state.mode === 'batch' && cur.some(function(i){ return !i.cost; })) ? '' : 'none';
+  var notes = [];
+  var alt = priced.map(function(i){ return { m: i.m, now: i.cost, alt: i.m.scheduled_change ? cost(i.m, state.requests, i.m.scheduled_change) : i.cost }; });
+  alt.forEach(function(a){
+    if (a.m.scheduled_change && a.alt && Math.abs(a.alt.monthly - a.now.monthly) > 0.005) {
+      notes.push(S.schedNote.replace('{d}', a.m.scheduled_change.effective_date).replace('{n}', a.m.name).replace('{v}', fmt(a.alt.monthly)));
+    }
+  });
+  if (priced.length && alt.length) {
+    var altSorted = alt.slice().sort(function(a, b){ return (a.alt ? a.alt.monthly : 1e18) - (b.alt ? b.alt.monthly : 1e18); });
+    if (altSorted[0].alt && altSorted[0].m.name !== priced[0].m.name) {
+      notes.push(S.schedFlip.replace('{n}', altSorted[0].m.name));
+    }
+  }
+  el('ai-scheduled').innerHTML = notes.length ? '<p class="hint">' + notes.join('<br>') + '</p>' : '';
+  var top = priced.slice(0, 5), factors = [0.1, 1, 10, 100];
+  if (top.length) {
+    var head = '<tr><th>' + S.model + '</th>' + factors.map(function(f){ return '<th class="num">' + Math.round(state.requests * f).toLocaleString('en-US') + ' ' + S.requests + '</th>'; }).join('') + '</tr>';
+    var rows = top.map(function(i){
+      return '<tr><td>' + i.m.name + '</td>' + factors.map(function(f){ var c = cost(i.m, Math.round(state.requests * f)); return '<td class="num">' + (c ? fmt(c.monthly) : '—') + '</td>'; }).join('') + '</tr>';
+    }).join('');
+    el('ai-scale').innerHTML = '<h2>' + S.scaleHead + '</h2><table class="fees">' + head + rows + '</table>';
+  } else { el('ai-scale').innerHTML = ''; }
+  var fn = el('ai-freenote'); if (fn) fn.style.display = state.providers.gemini ? '' : 'none';
+  try { localStorage.setItem('aiapi-calc', JSON.stringify(state)); } catch (e) {}
+  var p = new URLSearchParams({ requests: state.requests, tin: state.tin, tout: state.tout, cache: state.cache, mode: state.mode });
+  history.replaceState(null, '', location.pathname + '?' + p.toString());
+}
+function syncInputs(){
+  el('ai-requests').value = state.requests;
+  el('ai-tin').value = state.tin;
+  el('ai-tout').value = state.tout;
+  el('ai-cache').value = state.cache;
+  el('ai-cache-val').textContent = state.cache + '%';
+  document.querySelectorAll('[data-mode]').forEach(function(b){ b.setAttribute('aria-pressed', b.getAttribute('data-mode') === state.mode ? 'true' : 'false'); });
+  ORDER.forEach(function(pid){ var cb = el('ai-prov-' + pid); if (cb) cb.checked = !!state.providers[pid]; });
+}
+el('ai-requests').addEventListener('input', function(){ state.requests = Math.max(0, +this.value || 0); render(); });
+el('ai-tin').addEventListener('input', function(){ state.tin = Math.max(0, +this.value || 0); render(); });
+el('ai-tout').addEventListener('input', function(){ state.tout = Math.max(0, +this.value || 0); render(); });
+el('ai-cache').addEventListener('input', function(){ state.cache = +this.value; el('ai-cache-val').textContent = state.cache + '%'; render(); });
+document.querySelectorAll('[data-preset]').forEach(function(b){ b.addEventListener('click', function(){ state.requests = +b.getAttribute('data-preset'); el('ai-requests').value = state.requests; render(); }); });
+document.querySelectorAll('[data-mode]').forEach(function(b){ b.addEventListener('click', function(){ state.mode = b.getAttribute('data-mode'); syncInputs(); render(); }); });
+ORDER.forEach(function(pid){ var cb = el('ai-prov-' + pid); if (cb) cb.addEventListener('change', function(){ state.providers[pid] = cb.checked; render(); }); });
+syncInputs();
+render();
+})();
+</script>
+
+
+</main>
+<footer class="site-footer"><div class="in">
+<h2>このスイートの全計算機</h2>
+<nav class="foot-links">
+<a href="/ja/ebay-fee-calculator/">eBay手数料計算機</a>
+<a href="/ja/ebay-profit-calculator/">eBay利益計算機</a>
+<a href="/ja/etsy-fee-calculator/">Etsy手数料計算機</a>
+<a href="/ja/poshmark-fee-calculator/">Poshmark手数料計算機</a>
+<a href="/ja/mercari-fee-calculator/">Mercari手数料計算機</a>
+<a href="/ja/mercari-japan-fee-calculator/">メルカリ（日本）手数料計算機</a>
+<a href="/ja/amazon-referral-fee-calculator/">Amazon販売手数料計算機</a>
+<a href="/ja/depop-fee-calculator/">Depop手数料計算機</a>
+<a href="/ja/vinted-fee-calculator/">Vinted手数料計算機</a>
+<a href="/ja/whatnot-fee-calculator/">Whatnot手数料計算機</a>
+<a href="/ja/tiktok-shop-fee-calculator/">TikTok Shop手数料計算機</a>
+<a href="/ja/facebook-marketplace-fee-calculator/">Facebook Marketplace手数料計算機</a>
+<a href="/ja/marketplace-fees-compared/">8プラットフォーム比較</a>
+<a href="/ja/batch-fee-calculator/">バッチ計算機＋CSV</a>
+<a href="/ja/ebay-vs-etsy-fees/">eBay vs Etsy 手数料</a>
+<a href="/ja/fee-changes/">料率変更履歴</a>
+<a href="/ja/guides/ebay-fees-explained/">eBay手数料ガイド</a>
+<a href="/ja/guides/etsy-fees-explained/">Etsy手数料ガイド</a>
+<a href="/ja/guides/mercari-fees-explained/">Mercari手数料ガイド</a>
+<a href="/ja/kdp/">KDP計算機</a>
+<a href="/ja/kdp-cover-calculator/">KDP表紙サイズ計算機</a>
+<a href="/ja/kdp-print-cost-calculator/">KDP印刷コスト計算機</a>
+<a href="/ja/kdp-royalty-calculator/">KDPロイヤルティ計算機</a>
+<a href="/ja/guides/kdp-royalties-explained/">KDPロイヤルティガイド</a>
+<a href="/ja/software/">ソフトウェア料金ハブ</a>
+<a href="/ja/software/email-marketing-cost-calculator/">メール配信コスト計算機</a>
+<a href="/ja/software/crm-cost-calculator/">CRMコスト計算機</a>
+<a href="/ja/software/email-marketing/">メール配信ツール比較</a>
+<a href="/ja/software/crm/">CRM比較</a>
+<a href="/ja/software/mailchimp-pricing/">Mailchimpの料金</a>
+<a href="/ja/software/brevo-pricing/">Brevoの料金</a>
+<a href="/ja/software/kit-pricing/">Kitの料金</a>
+<a href="/ja/software/activecampaign-pricing/">ActiveCampaignの料金</a>
+<a href="/ja/software/mailerlite-pricing/">MailerLiteの料金</a>
+<a href="/ja/software/constantcontact-pricing/">Constant Contactの料金</a>
+<a href="/ja/software/hubspot-pricing/">HubSpotの料金</a>
+<a href="/ja/software/pipedrive-pricing/">Pipedriveの料金</a>
+<a href="/ja/software/zoho-pricing/">Zoho CRMの料金</a>
+<a href="/ja/software/freshsales-pricing/">Freshsalesの料金</a>
+<a href="/ja/software/close-pricing/">Closeの料金</a>
+<a href="/ja/software/monday-pricing/">monday CRMの料金</a>
+<a href="/ja/software/ai-api/">AI API料金比較</a>
+<a href="/ja/software/ai-api-cost-calculator/">AI APIコスト計算機</a>
+<a href="/ja/software/openai-api-pricing/">OpenAI APIの料金</a>
+<a href="/ja/software/claude-api-pricing/">Claude APIの料金</a>
+<a href="/ja/software/gemini-api-pricing/">Gemini APIの料金</a>
+<a href="/ja/about/">このサイトについて・検証方法</a>
+<a href="/ja/disclosure/">広告と収益について</a>
+<a href="/ja/privacy/">プライバシーポリシー</a>
+</nav>
+<p class="disclaimer"><strong>免責：</strong>結果は計画用の見積もりです。価格は変わり、ベンダーのプロモーションは反映していません。契約前に必ずベンダーの公式料金ページで最終価格を確認してください。このページのソフトウェア価格は、2026年11月24日に各ベンダーの公式料金ページで確認しました。</p>
+<p class="disclaimer site-legal"><strong>非提携：</strong>本サイトは、eBay、Etsy、Amazonその他本サイトに記載の各プラットフォーム・ベンダーとは提携していません。各名称は各社の商標です。</p>
+<p class="disclaimer site-legal">運営者：小倉 嵩弘（Takahiro Ogura）。個人で運営する独立したプロジェクトです。</p>
+</div></footer>
+<script src="/assets/nav.js?v=aiapi20261124" defer></script>
+<script src="/assets/events.js?v=aiapi20261124" defer></script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anthropic APIの料金 — 全モデル単価表、2026年11月24日確認 | Fee Calculator Suite</title>
+<meta name="description" content="Anthropic APIの料金を全モデル分：入力・キャッシュ・出力のトークン単価、バッチ割引、キャッシュ書き込み料 — 2026年11月24日に公式料金ページで確認。">
+<link rel="canonical" href="https://tallyfee.com/ja/software/claude-api-pricing/">
+<link rel="alternate" hreflang="en" href="https://tallyfee.com/software/claude-api-pricing/">
+<link rel="alternate" hreflang="ja" href="https://tallyfee.com/ja/software/claude-api-pricing/">
+<link rel="alternate" hreflang="x-default" href="https://tallyfee.com/software/claude-api-pricing/">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<script>document.documentElement.classList.add('js')</script><link rel="stylesheet" href="/assets/style.css?v=aiapi20261124">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Fee Calculator Suite">
+<meta property="og:title" content="Anthropic APIの料金 — 全モデル単価表、2026年11月24日確認 | Fee Calculator Suite">
+<meta property="og:description" content="Anthropic APIの料金を全モデル分：入力・キャッシュ・出力のトークン単価、バッチ割引、キャッシュ書き込み料 — 2026年11月24日に公式料金ページで確認。">
+<meta property="og:url" content="https://tallyfee.com/ja/software/claude-api-pricing/">
+<meta property="og:image" content="https://tallyfee.com/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Anthropic APIの料金 — 全モデル単価表、2026年11月24日確認 | Fee Calculator Suite">
+<meta name="twitter:description" content="Anthropic APIの料金を全モデル分：入力・キャッシュ・出力のトークン単価、バッチ割引、キャッシュ書き込み料 — 2026年11月24日に公式料金ページで確認。">
+<meta name="twitter:image" content="https://tallyfee.com/assets/og.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Anthropic APIでいちばん安い現行モデルはどれですか？", "acceptedAnswer": {"@type": "Answer", "text": "基準ワークロード（月10万リクエスト、平均入力1,500トークン・出力500トークン、入力の40%がキャッシュ）ではClaude Haiku 5.5が月額$34.60で最安です。あなたの数字では<a href=\"/software/ai-api-cost-calculator/\">AI APIコスト計算機</a>で並べ替えられます。"}}, {"@type": "Question", "name": "Anthropic APIにバッチ割引はありますか？", "acceptedAnswer": {"@type": "Answer", "text": "Batch API is 50% off input and output (stated in the official pricing table); the batch discount also applies on top of cache rates."}}, {"@type": "Question", "name": "このページの料金はいつ確認しましたか？", "acceptedAnswer": {"@type": "Answer", "text": "2026年11月24日にAnthropicの公式料金ページで読み取りました。出典はページ末尾にリンクしています。"}}]}</script>
+</head>
+<body>
+<header class="site-header"><div class="in">
+<a class="brand" href="/ja/"><svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect width="64" height="64" rx="14" fill="#0e7a43"/><g fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round"><circle cx="23.5" cy="21.5" r="6.5"/><circle cx="40.5" cy="42.5" r="6.5"/><path d="M43 15 L21 49"/></g></svg>Fee<span>Calculator</span>Suite</a>
+<button class="nav-burger" type="button" aria-label="メニュー" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button><nav class="site-nav" id="site-nav">
+<div class="nav-item has-drop"><a class="nav-top" href="/ja/marketplace-fees-compared/">マーケットプレイス手数料<span class="caret">▾</span></a><div class="drop"><a href="/ja/">全計算機</a><a href="/ja/marketplace-fees-compared/">8プラットフォーム比較</a><a href="/ja/ebay-vs-etsy-fees/">eBay vs Etsy 手数料</a><a href="/ja/batch-fee-calculator/">バッチ計算機＋CSV</a><a href="/ja/fee-changes/">料率変更履歴</a></div></div><div class="nav-item has-drop"><a class="nav-top" href="/ja/kdp/">KDP<span class="caret">▾</span></a><div class="drop"><a href="/ja/kdp/">KDP計算機すべて</a><a href="/ja/kdp-cover-calculator/">表紙サイズ計算機</a><a href="/ja/kdp-print-cost-calculator/">印刷コスト計算機</a><a href="/ja/kdp-royalty-calculator/">ロイヤルティ計算機</a><a href="/ja/guides/kdp-royalties-explained/">KDPロイヤルティ解説</a></div></div><div class="nav-item has-drop"><a class="nav-top active" href="/ja/software/">ソフトウェア料金<span class="caret">▾</span></a><div class="drop"><a href="/ja/software/">ソフトウェア料金ハブ</a><a href="/ja/software/email-marketing/">メール配信ツール比較</a><a href="/ja/software/email-marketing-cost-calculator/">メール配信コスト計算機</a><a href="/ja/software/crm/">CRM比較</a><a href="/ja/software/crm-cost-calculator/">CRMコスト計算機</a><a href="/ja/software/ai-api/">AI API料金比較</a><a href="/ja/software/ai-api-cost-calculator/">AI APIコスト計算機</a><a href="/ja/software/guides/per-seat-pricing-explained/">席課金とは</a></div></div><div class="nav-item has-drop"><a class="nav-top" href="/ja/guides/ebay-fees-explained/">ガイド<span class="caret">▾</span></a><div class="drop"><a href="/ja/guides/ebay-fees-explained/">eBay手数料ガイド</a><a href="/ja/guides/etsy-fees-explained/">Etsy手数料ガイド</a><a href="/ja/guides/mercari-fees-explained/">Mercari手数料ガイド</a><a href="/ja/guides/kdp-royalties-explained/">KDPロイヤルティ解説</a><a href="/ja/software/guides/per-seat-pricing-explained/">席課金とは</a></div></div><a class="nav-top" href="/software/claude-api-pricing/">English</a>
+</nav></div></header>
+<main class="wrap">
+<div class="ad-banner" data-affiliate-banner data-active="false"><strong>広告について</strong>：本ページにはアフィリエイトリンク（広告）が含まれます。リンク先の公式サイトで申込みや購入が行われた場合、本サイトの運営者が紹介料を受け取ることがあります。紹介料の有無や金額によって、掲載する価格・順位・比較結果が変わることはありません。掲載する価格はすべて各社の公式ページで確認し、確認日を明記しています。</div>
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/ja/">ホーム</a><span class="sep">›</span><a href="/ja/software/">ソフトウェア料金</a><span class="sep">›</span><a href="/ja/software/ai-api/">AI API</a><span class="sep">›</span><span aria-current="page">Anthropic APIの料金</span></nav>
+
+<div class="hero"><h1>Anthropic APIの料金 — 全モデルの単価表</h1>
+<p class="lede">Anthropicはトークン（MTok）単位の課金で、3社の中でキャッシュ料金がいちばん明示的です：キャッシュ書き込みは入力の1.25倍（5分）／2倍（1時間）、読み取りは10分の1以下、Batch APIは一律50%オフ — すべて公式の表に印刷されています。 以下は公開されている単価の全構造です — 全モデルを、2026年11月24日にAnthropicの公式料金ページで読み取りました。</p>
+<div class="badge-band"><span class="pill">✓ 価格確認済み</span><span><strong>2026年11月24日</strong> — このページの価格はすべてベンダーの公式料金ページで読み取ったものです。プロモーション価格を定価として使うことはありません。</span></div>
+</div>
+<h2>現行モデルの単価（100万トークンあたり）</h2>
+<table class="fees"><tr><th>モデル</th><th class="num">入力</th><th class="num">キャッシュ入力</th><th class="num">出力</th><th class="num">バッチ入力</th><th class="num">バッチ出力</th><th class="num">キャッシュ書込（5分/1時間）</th></tr><tr><td>Claude Opus 5.5</td><td class="num">$4.00</td><td class="num">$0.20</td><td class="num">$20.00</td><td class="num">$2.00</td><td class="num">$10.00</td><td class="num">$5.00 / $8.00</td></tr><tr><td>Claude Sonnet 5.5</td><td class="num">$2.00</td><td class="num">$0.10</td><td class="num">$10.00</td><td class="num">$1.00</td><td class="num">$5.00</td><td class="num">$2.50 / $4.00</td></tr><tr><td>Claude Haiku 5.5</td><td class="num">$0.10</td><td class="num">$0.01</td><td class="num">$0.50</td><td class="num">$0.05</td><td class="num">$0.25</td><td class="num">$0.125 / $0.20</td></tr><tr><td>Claude Haiku 5.5 (>100K prompts)</td><td class="num">$0.50</td><td class="num">$0.05</td><td class="num">$2.50</td><td class="num">$0.25</td><td class="num">$1.25</td><td class="num">$0.625 / $1.00</td></tr></table>
+<p class="sub">出典：<a href="https://platform.claude.com/docs/en/about-claude/pricing" rel="nofollow noopener">https://platform.claude.com/docs/en/about-claude/pricing</a> · 2026年11月24日確認。プロモーション価格は除いた定価です。</p>
+<p>Claude Opus 5.5 — cached_input_per_1m is the cache READ rate. Cache writes: 5-minute = 1.25x input, 1-hour = 2x input.</p><p>Claude Sonnet 5.5 — cached_input_per_1m is the cache READ rate.</p><p>Claude Haiku 5.5 — Rates for prompts up to 100K tokens. A separate long-context tier applies above 100K (see claude-haiku-5.5-long).</p><p>Claude Haiku 5.5 (>100K prompts) — Long-context tier: applies when the prompt exceeds 100K tokens. The calculator does not switch tiers automatically — pick this row if your prompts are consistently above 100K.</p><p>Claude Opus 5 — cached_input_per_1m is the cache READ rate.</p><p>Claude Sonnet 4.6 / 4.5 — Sonnet 4.6 and Sonnet 4.5 share the same published rates.</p><p>Claude Haiku 4.5 — cached_input_per_1m is the cache READ rate.</p><h2>バッチとバックグラウンドの割引</h2>
+<p>Batch API is 50% off input and output (stated in the official pricing table); the batch discount also applies on top of cache rates.</p>
+<h2>旧世代モデル</h2>
+<table class="fees"><tr><th>モデル</th><th class="num">入力</th><th class="num">キャッシュ入力</th><th class="num">出力</th><th class="num">バッチ入力</th><th class="num">バッチ出力</th><th class="num">キャッシュ書込（5分/1時間）</th></tr><tr><td>Claude Opus 5</td><td class="num">$5.00</td><td class="num">$0.50</td><td class="num">$25.00</td><td class="num">$2.50</td><td class="num">$12.50</td><td class="num">$6.25 / $10.00</td></tr><tr><td>Claude Sonnet 4.6 / 4.5</td><td class="num">$3.00</td><td class="num">$0.30</td><td class="num">$15.00</td><td class="num">$1.50</td><td class="num">$7.50</td><td class="num">$3.75 / $6.00</td></tr><tr><td>Claude Haiku 4.5</td><td class="num">$1.00</td><td class="num">$0.10</td><td class="num">$5.00</td><td class="num">$0.50</td><td class="num">$2.50</td><td class="num">$1.25 / $2.00</td></tr></table>
+<h2>あなたの規模だといくらか</h2>
+<p>単価だけでは月額は分かりません。リクエスト数とトークン数で全プロバイダーを並べ替える計算機はこちら：</p>
+<p><a class="btn" href="/ja/software/ai-api-cost-calculator/">AI APIコスト計算機を開く</a> <a class="btn ghost" href="/ja/software/ai-api/">3社を比べる</a></p>
+<p>他のプロバイダー：<a href="/ja/software/openai-api-pricing/">OpenAI API</a> · <a href="/ja/software/gemini-api-pricing/">Google Gemini API</a>。</p>
+<div class="vendor-cta" data-cta-vendor="anthropic"><div class="vendor-cta-body"><strong>次の一手：</strong>Anthropicの最終価格と申込み条件は、公式料金ページで確認できます。</div><div class="vendor-cta-action"><a class="btn" href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="nofollow noopener" data-vendor-cta="anthropic">公式サイトで料金を確認する ↗</a><span class="ad-label" data-ad-label data-active="false">（広告）</span></div><p class="cta-note">紹介料の有無・金額によって、掲載する価格・順位・比較結果が変わることはありません</p></div>
+<h2>よくある質問</h2><div class="faq"><details><summary>Anthropic APIでいちばん安い現行モデルはどれですか？</summary><p>基準ワークロード（月10万リクエスト、平均入力1,500トークン・出力500トークン、入力の40%がキャッシュ）ではClaude Haiku 5.5が月額$34.60で最安です。あなたの数字では<a href="/ja/software/ai-api-cost-calculator/">AI APIコスト計算機</a>で並べ替えられます。</p></details><details><summary>Anthropic APIにバッチ割引はありますか？</summary><p>Batch API is 50% off input and output (stated in the official pricing table); the batch discount also applies on top of cache rates.</p></details><details><summary>このページの料金はいつ確認しましたか？</summary><p>2026年11月24日にAnthropicの公式料金ページで読み取りました。出典はページ末尾にリンクしています。</p></details></div>
+
+</main>
+<footer class="site-footer"><div class="in">
+<h2>このスイートの全計算機</h2>
+<nav class="foot-links">
+<a href="/ja/ebay-fee-calculator/">eBay手数料計算機</a>
+<a href="/ja/ebay-profit-calculator/">eBay利益計算機</a>
+<a href="/ja/etsy-fee-calculator/">Etsy手数料計算機</a>
+<a href="/ja/poshmark-fee-calculator/">Poshmark手数料計算機</a>
+<a href="/ja/mercari-fee-calculator/">Mercari手数料計算機</a>
+<a href="/ja/mercari-japan-fee-calculator/">メルカリ（日本）手数料計算機</a>
+<a href="/ja/amazon-referral-fee-calculator/">Amazon販売手数料計算機</a>
+<a href="/ja/depop-fee-calculator/">Depop手数料計算機</a>
+<a href="/ja/vinted-fee-calculator/">Vinted手数料計算機</a>
+<a href="/ja/whatnot-fee-calculator/">Whatnot手数料計算機</a>
+<a href="/ja/tiktok-shop-fee-calculator/">TikTok Shop手数料計算機</a>
+<a href="/ja/facebook-marketplace-fee-calculator/">Facebook Marketplace手数料計算機</a>
+<a href="/ja/marketplace-fees-compared/">8プラットフォーム比較</a>
+<a href="/ja/batch-fee-calculator/">バッチ計算機＋CSV</a>
+<a href="/ja/ebay-vs-etsy-fees/">eBay vs Etsy 手数料</a>
+<a href="/ja/fee-changes/">料率変更履歴</a>
+<a href="/ja/guides/ebay-fees-explained/">eBay手数料ガイド</a>
+<a href="/ja/guides/etsy-fees-explained/">Etsy手数料ガイド</a>
+<a href="/ja/guides/mercari-fees-explained/">Mercari手数料ガイド</a>
+<a href="/ja/kdp/">KDP計算機</a>
+<a href="/ja/kdp-cover-calculator/">KDP表紙サイズ計算機</a>
+<a href="/ja/kdp-print-cost-calculator/">KDP印刷コスト計算機</a>
+<a href="/ja/kdp-royalty-calculator/">KDPロイヤルティ計算機</a>
+<a href="/ja/guides/kdp-royalties-explained/">KDPロイヤルティガイド</a>
+<a href="/ja/software/">ソフトウェア料金ハブ</a>
+<a href="/ja/software/email-marketing-cost-calculator/">メール配信コスト計算機</a>
+<a href="/ja/software/crm-cost-calculator/">CRMコスト計算機</a>
+<a href="/ja/software/email-marketing/">メール配信ツール比較</a>
+<a href="/ja/software/crm/">CRM比較</a>
+<a href="/ja/software/mailchimp-pricing/">Mailchimpの料金</a>
+<a href="/ja/software/brevo-pricing/">Brevoの料金</a>
+<a href="/ja/software/kit-pricing/">Kitの料金</a>
+<a href="/ja/software/activecampaign-pricing/">ActiveCampaignの料金</a>
+<a href="/ja/software/mailerlite-pricing/">MailerLiteの料金</a>
+<a href="/ja/software/constantcontact-pricing/">Constant Contactの料金</a>
+<a href="/ja/software/hubspot-pricing/">HubSpotの料金</a>
+<a href="/ja/software/pipedrive-pricing/">Pipedriveの料金</a>
+<a href="/ja/software/zoho-pricing/">Zoho CRMの料金</a>
+<a href="/ja/software/freshsales-pricing/">Freshsalesの料金</a>
+<a href="/ja/software/close-pricing/">Closeの料金</a>
+<a href="/ja/software/monday-pricing/">monday CRMの料金</a>
+<a href="/ja/software/ai-api/">AI API料金比較</a>
+<a href="/ja/software/ai-api-cost-calculator/">AI APIコスト計算機</a>
+<a href="/ja/software/openai-api-pricing/">OpenAI APIの料金</a>
+<a href="/ja/software/claude-api-pricing/">Claude APIの料金</a>
+<a href="/ja/software/gemini-api-pricing/">Gemini APIの料金</a>
+<a href="/ja/about/">このサイトについて・検証方法</a>
+<a href="/ja/disclosure/">広告と収益について</a>
+<a href="/ja/privacy/">プライバシーポリシー</a>
+</nav>
+<p class="disclaimer"><strong>免責：</strong>結果は計画用の見積もりです。価格は変わり、ベンダーのプロモーションは反映していません。契約前に必ずベンダーの公式料金ページで最終価格を確認してください。このページのソフトウェア価格は、2026年11月24日に各ベンダーの公式料金ページで確認しました。</p>
+<p class="disclaimer site-legal"><strong>非提携：</strong>本サイトは、eBay、Etsy、Amazonその他本サイトに記載の各プラットフォーム・ベンダーとは提携していません。各名称は各社の商標です。</p>
+<p class="disclaimer site-legal">運営者：小倉 嵩弘（Takahiro Ogura）。個人で運営する独立したプロジェクトです。</p>
+</div></footer>
+<script src="/assets/nav.js?v=aiapi20261124" defer></script>
+<script src="/assets/events.js?v=aiapi20261124" defer></script>
+</body>
+</html>

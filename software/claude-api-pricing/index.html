@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anthropic API Pricing — Every Model&#x27;s per-Token Rates | Fee Calculator Suite</title>
+<meta name="description" content="Anthropic API pricing for every model: input, cached-input and output rates per 1M tokens, batch discounts and cache-write charges, verified on the official pricing page.">
+<link rel="canonical" href="https://tallyfee.com/software/claude-api-pricing/">
+<link rel="alternate" hreflang="en" href="https://tallyfee.com/software/claude-api-pricing/">
+<link rel="alternate" hreflang="ja" href="https://tallyfee.com/ja/software/claude-api-pricing/">
+<link rel="alternate" hreflang="x-default" href="https://tallyfee.com/software/claude-api-pricing/">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<script>document.documentElement.classList.add('js')</script><link rel="stylesheet" href="/assets/style.css?v=aiapi20261124">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Fee Calculator Suite">
+<meta property="og:title" content="Anthropic API Pricing — Every Model&#x27;s per-Token Rates | Fee Calculator Suite">
+<meta property="og:description" content="Anthropic API pricing for every model: input, cached-input and output rates per 1M tokens, batch discounts and cache-write charges, verified on the official pricing page.">
+<meta property="og:url" content="https://tallyfee.com/software/claude-api-pricing/">
+<meta property="og:image" content="https://tallyfee.com/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Anthropic API Pricing — Every Model&#x27;s per-Token Rates | Fee Calculator Suite">
+<meta name="twitter:description" content="Anthropic API pricing for every model: input, cached-input and output rates per 1M tokens, batch discounts and cache-write charges, verified on the official pricing page.">
+<meta name="twitter:image" content="https://tallyfee.com/assets/og.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is the cheapest current Anthropic API model?", "acceptedAnswer": {"@type": "Answer", "text": "At the reference workload (100,000 requests/mo averaging 1,500 input and 500 output tokens, 40% of input cached) it is Claude Haiku 5.5 at $34.60/month. Re-rank at your own numbers in the <a href=\"/software/ai-api-cost-calculator/\">AI API cost calculator</a>."}}, {"@type": "Question", "name": "Does the Anthropic API have a batch discount?", "acceptedAnswer": {"@type": "Answer", "text": "Batch API is 50% off input and output (stated in the official pricing table); the batch discount also applies on top of cache rates."}}, {"@type": "Question", "name": "When were these Anthropic API prices checked?", "acceptedAnswer": {"@type": "Answer", "text": "Read on Anthropic's official pricing page on November 24, 2026. The source is linked at the foot of this page."}}]}</script>
+</head>
+<body>
+<header class="site-header"><div class="in">
+<a class="brand" href="/"><svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect width="64" height="64" rx="14" fill="#0e7a43"/><g fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round"><circle cx="23.5" cy="21.5" r="6.5"/><circle cx="40.5" cy="42.5" r="6.5"/><path d="M43 15 L21 49"/></g></svg>Fee<span>Calculator</span>Suite</a>
+<button class="nav-burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button><nav class="site-nav" id="site-nav">
+<div class="nav-item has-drop"><a class="nav-top" href="/marketplace-fees-compared/">Marketplace fees<span class="caret">▾</span></a><div class="drop"><a href="/">All fee calculators</a><a href="/marketplace-fees-compared/">Compare all 8 platforms</a><a href="/ebay-vs-etsy-fees/">eBay vs Etsy fees</a><a href="/batch-fee-calculator/">Batch calculator + CSV</a><a href="/fee-changes/">Fee-change history</a></div></div><div class="nav-item has-drop"><a class="nav-top" href="/kdp/">KDP<span class="caret">▾</span></a><div class="drop"><a href="/kdp/">All KDP calculators</a><a href="/kdp-cover-calculator/">Cover size calculator</a><a href="/kdp-print-cost-calculator/">Printing cost calculator</a><a href="/kdp-royalty-calculator/">Royalty calculator</a><a href="/guides/kdp-royalties-explained/">KDP royalties explained</a></div></div><div class="nav-item has-drop"><a class="nav-top active" href="/software/">Software pricing<span class="caret">▾</span></a><div class="drop"><a href="/software/">Software cost hub</a><a href="/software/email-marketing/">Email marketing compared</a><a href="/software/email-marketing-cost-calculator/">Email cost calculator</a><a href="/software/crm/">CRM compared</a><a href="/software/crm-cost-calculator/">CRM cost calculator</a><a href="/software/ai-api/">AI API pricing compared</a><a href="/software/ai-api-cost-calculator/">AI API cost calculator</a><a href="/software/guides/per-seat-pricing-explained/">Per-seat pricing explained</a></div></div><div class="nav-item has-drop"><a class="nav-top" href="/guides/ebay-fees-explained/">Guides<span class="caret">▾</span></a><div class="drop"><a href="/guides/ebay-fees-explained/">eBay fees explained</a><a href="/guides/etsy-fees-explained/">Etsy fees explained</a><a href="/guides/mercari-fees-explained/">Mercari fees explained</a><a href="/guides/kdp-royalties-explained/">KDP royalties explained</a><a href="/software/guides/per-seat-pricing-explained/">Per-seat pricing explained</a></div></div><a class="nav-top" href="/ja/software/claude-api-pricing/">日本語</a>
+</nav></div></header>
+<main class="wrap">
+<div class="ad-banner" data-affiliate-banner data-active="false"><strong>Advertising disclosure:</strong> This page contains affiliate links. If you sign up or buy through them, we may earn a commission from the vendor — at no extra cost to you. Commissions never change the prices we list, our rankings or our verdicts: every figure is read on the vendor's official page and stamped with the date it was checked.</div>
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">›</span><a href="/software/">Software pricing</a><span class="sep">›</span><a href="/software/ai-api/">AI API</a><span class="sep">›</span><span aria-current="page">Anthropic API Pricing</span></nav>
+
+<div class="hero"><h1>Anthropic API pricing — every model's rates</h1>
+<p class="lede">Anthropic bills per token (MTok) with the most explicit cache pricing of the three: cache writes cost 1.25x (5-minute) or 2x (1-hour) the input rate, cache reads are a tenth or less, and the Batch API takes a flat 50% off — all printed in its official table. Below is the full published rate structure — every model, read on Anthropic's official pricing page on November 24, 2026.</p>
+<div class="badge-band"><span class="pill">✓ Prices verified</span><span><strong>November 24, 2026</strong> — every price on this page was read on the vendor's official pricing page. Promotional prices are never used as the list price.</span></div>
+</div>
+<h2>Current models (per 1M tokens)</h2>
+<table class="fees"><tr><th>Model</th><th class="num">Input</th><th class="num">Cached input</th><th class="num">Output</th><th class="num">Batch input</th><th class="num">Batch output</th><th class="num">Cache write (5m / 1h)</th></tr><tr><td>Claude Opus 5.5</td><td class="num">$4.00</td><td class="num">$0.20</td><td class="num">$20.00</td><td class="num">$2.00</td><td class="num">$10.00</td><td class="num">$5.00 / $8.00</td></tr><tr><td>Claude Sonnet 5.5</td><td class="num">$2.00</td><td class="num">$0.10</td><td class="num">$10.00</td><td class="num">$1.00</td><td class="num">$5.00</td><td class="num">$2.50 / $4.00</td></tr><tr><td>Claude Haiku 5.5</td><td class="num">$0.10</td><td class="num">$0.01</td><td class="num">$0.50</td><td class="num">$0.05</td><td class="num">$0.25</td><td class="num">$0.125 / $0.20</td></tr><tr><td>Claude Haiku 5.5 (>100K prompts)</td><td class="num">$0.50</td><td class="num">$0.05</td><td class="num">$2.50</td><td class="num">$0.25</td><td class="num">$1.25</td><td class="num">$0.625 / $1.00</td></tr></table>
+<p class="sub">Source: <a href="https://platform.claude.com/docs/en/about-claude/pricing" rel="nofollow noopener">https://platform.claude.com/docs/en/about-claude/pricing</a> · Checked November 24, 2026. Promotional prices are excluded — these are list prices.</p>
+<p>Claude Opus 5.5 — cached_input_per_1m is the cache READ rate. Cache writes: 5-minute = 1.25x input, 1-hour = 2x input.</p><p>Claude Sonnet 5.5 — cached_input_per_1m is the cache READ rate.</p><p>Claude Haiku 5.5 — Rates for prompts up to 100K tokens. A separate long-context tier applies above 100K (see claude-haiku-5.5-long).</p><p>Claude Haiku 5.5 (>100K prompts) — Long-context tier: applies when the prompt exceeds 100K tokens. The calculator does not switch tiers automatically — pick this row if your prompts are consistently above 100K.</p><p>Claude Opus 5 — cached_input_per_1m is the cache READ rate.</p><p>Claude Sonnet 4.6 / 4.5 — Sonnet 4.6 and Sonnet 4.5 share the same published rates.</p><p>Claude Haiku 4.5 — cached_input_per_1m is the cache READ rate.</p><h2>Batch and background discounts</h2>
+<p>Batch API is 50% off input and output (stated in the official pricing table); the batch discount also applies on top of cache rates.</p>
+<h2>Previous-generation models</h2>
+<table class="fees"><tr><th>Model</th><th class="num">Input</th><th class="num">Cached input</th><th class="num">Output</th><th class="num">Batch input</th><th class="num">Batch output</th><th class="num">Cache write (5m / 1h)</th></tr><tr><td>Claude Opus 5</td><td class="num">$5.00</td><td class="num">$0.50</td><td class="num">$25.00</td><td class="num">$2.50</td><td class="num">$12.50</td><td class="num">$6.25 / $10.00</td></tr><tr><td>Claude Sonnet 4.6 / 4.5</td><td class="num">$3.00</td><td class="num">$0.30</td><td class="num">$15.00</td><td class="num">$1.50</td><td class="num">$7.50</td><td class="num">$3.75 / $6.00</td></tr><tr><td>Claude Haiku 4.5</td><td class="num">$1.00</td><td class="num">$0.10</td><td class="num">$5.00</td><td class="num">$0.50</td><td class="num">$2.50</td><td class="num">$1.25 / $2.00</td></tr></table>
+<h2>What it costs at your scale</h2>
+<p>Per-token rates do not tell you the monthly bill. The calculator re-ranks every provider at your request count and token shape:</p>
+<p><a class="btn" href="/software/ai-api-cost-calculator/">Open the AI API cost calculator</a> <a class="btn ghost" href="/software/ai-api/">Compare all three providers</a></p>
+<p>Other providers: <a href="/software/openai-api-pricing/">OpenAI API</a> · <a href="/software/gemini-api-pricing/">Google Gemini API</a>.</p>
+<div class="vendor-cta" data-cta-vendor="anthropic"><div class="vendor-cta-body"><strong>Next step:</strong> Check Anthropic's final price and signup terms on the official pricing page.</div><div class="vendor-cta-action"><a class="btn" href="https://platform.claude.com/docs/en/about-claude/pricing" target="_blank" rel="nofollow noopener" data-vendor-cta="anthropic">Official pricing &amp; signup ↗</a><span class="ad-label" data-ad-label data-active="false">(Ad)</span></div><p class="cta-note">Commissions never change the prices we list, our rankings or our verdicts.</p></div>
+<h2>Frequently asked questions</h2><div class="faq"><details><summary>What is the cheapest current Anthropic API model?</summary><p>At the reference workload (100,000 requests/mo averaging 1,500 input and 500 output tokens, 40% of input cached) it is Claude Haiku 5.5 at $34.60/month. Re-rank at your own numbers in the <a href="/software/ai-api-cost-calculator/">AI API cost calculator</a>.</p></details><details><summary>Does the Anthropic API have a batch discount?</summary><p>Batch API is 50% off input and output (stated in the official pricing table); the batch discount also applies on top of cache rates.</p></details><details><summary>When were these Anthropic API prices checked?</summary><p>Read on Anthropic's official pricing page on November 24, 2026. The source is linked at the foot of this page.</p></details></div>
+
+</main>
+<footer class="site-footer"><div class="in">
+<h2>All calculators</h2>
+<nav class="foot-links">
+<a href="/ebay-fee-calculator/">eBay fee calculator</a>
+<a href="/etsy-fee-calculator/">Etsy fee calculator</a>
+<a href="/marketplace-fees-compared/">Compare all 8 platforms</a>
+<a href="/kdp/">KDP calculators</a>
+<a href="/software/">Software cost hub</a>
+<a href="/software/email-marketing-cost-calculator/">Email marketing cost calculator</a>
+<a href="/software/crm-cost-calculator/">CRM cost calculator</a>
+<a href="/software/email-marketing/">Email tools compared</a>
+<a href="/software/crm/">CRMs compared</a>
+<a href="/software/mailchimp-pricing/">Mailchimp pricing</a>
+<a href="/software/brevo-pricing/">Brevo pricing</a>
+<a href="/software/kit-pricing/">Kit pricing</a>
+<a href="/software/activecampaign-pricing/">ActiveCampaign pricing</a>
+<a href="/software/mailerlite-pricing/">MailerLite pricing</a>
+<a href="/software/constantcontact-pricing/">Constant Contact pricing</a>
+<a href="/software/hubspot-pricing/">HubSpot pricing</a>
+<a href="/software/pipedrive-pricing/">Pipedrive pricing</a>
+<a href="/software/zoho-pricing/">Zoho CRM pricing</a>
+<a href="/software/freshsales-pricing/">Freshsales pricing</a>
+<a href="/software/close-pricing/">Close pricing</a>
+<a href="/software/monday-pricing/">monday CRM pricing</a>
+<a href="/software/ai-api/">AI API pricing compared</a>
+<a href="/software/ai-api-cost-calculator/">AI API cost calculator</a>
+<a href="/software/openai-api-pricing/">OpenAI API pricing</a>
+<a href="/software/claude-api-pricing/">Claude API pricing</a>
+<a href="/software/gemini-api-pricing/">Gemini API pricing</a>
+<a href="/about/">About &amp; how we verify</a>
+<a href="/disclosure/">Advertising disclosure</a>
+<a href="/privacy/">Privacy policy</a>
+</nav>
+<p class="disclaimer"><strong>Disclaimer:</strong> Results are estimates for planning only. Prices change, and vendors run promotions that are not modelled here. Always confirm the final price on the vendor's official pricing page before subscribing. Software prices on this page were verified on the vendors' official pricing pages on November 24, 2026.</p>
+<p class="disclaimer site-legal"><strong>Not affiliated:</strong> This site is not affiliated with eBay, Etsy, Amazon or any other platform or vendor named on it; all product and company names are trademarks of their respective owners.</p>
+<p class="disclaimer site-legal">Operated by Takahiro Ogura （小倉 嵩弘） as an independent individual project.</p>
+</div></footer>
+<script src="/assets/nav.js?v=aiapi20261124" defer></script>
+<script src="/assets/events.js?v=aiapi20261124" defer></script>
+</body>
+</html>

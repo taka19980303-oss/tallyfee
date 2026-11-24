@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI API料金比較 — OpenAI・Claude・Geminiのトークン単価 | Fee Calculator Suite</title>
+<meta name="description" content="OpenAI・Claude・GeminiのAPI料金をトークン単価で比較：入力・キャッシュ・出力の単価、バッチ割引、告知済みの値上げまで、公式料金ページで確認済み。">
+<link rel="canonical" href="https://tallyfee.com/ja/software/ai-api/">
+<link rel="alternate" hreflang="en" href="https://tallyfee.com/software/ai-api/">
+<link rel="alternate" hreflang="ja" href="https://tallyfee.com/ja/software/ai-api/">
+<link rel="alternate" hreflang="x-default" href="https://tallyfee.com/software/ai-api/">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<script>document.documentElement.classList.add('js')</script><link rel="stylesheet" href="/assets/style.css?v=aiapi20261124">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Fee Calculator Suite">
+<meta property="og:title" content="AI API料金比較 — OpenAI・Claude・Geminiのトークン単価 | Fee Calculator Suite">
+<meta property="og:description" content="OpenAI・Claude・GeminiのAPI料金をトークン単価で比較：入力・キャッシュ・出力の単価、バッチ割引、告知済みの値上げまで、公式料金ページで確認済み。">
+<meta property="og:url" content="https://tallyfee.com/ja/software/ai-api/">
+<meta property="og:image" content="https://tallyfee.com/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI API料金比較 — OpenAI・Claude・Geminiのトークン単価 | Fee Calculator Suite">
+<meta name="twitter:description" content="OpenAI・Claude・GeminiのAPI料金をトークン単価で比較：入力・キャッシュ・出力の単価、バッチ割引、告知済みの値上げまで、公式料金ページで確認済み。">
+<meta name="twitter:image" content="https://tallyfee.com/assets/og.png">
+</head>
+<body>
+<header class="site-header"><div class="in">
+<a class="brand" href="/ja/"><svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect width="64" height="64" rx="14" fill="#0e7a43"/><g fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round"><circle cx="23.5" cy="21.5" r="6.5"/><circle cx="40.5" cy="42.5" r="6.5"/><path d="M43 15 L21 49"/></g></svg>Fee<span>Calculator</span>Suite</a>
+<button class="nav-burger" type="button" aria-label="メニュー" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button><nav class="site-nav" id="site-nav">
+<div class="nav-item has-drop"><a class="nav-top" href="/ja/marketplace-fees-compared/">マーケットプレイス手数料<span class="caret">▾</span></a><div class="drop"><a href="/ja/">全計算機</a><a href="/ja/marketplace-fees-compared/">8プラットフォーム比較</a><a href="/ja/ebay-vs-etsy-fees/">eBay vs Etsy 手数料</a><a href="/ja/batch-fee-calculator/">バッチ計算機＋CSV</a><a href="/ja/fee-changes/">料率変更履歴</a></div></div><div class="nav-item has-drop"><a class="nav-top" href="/ja/kdp/">KDP<span class="caret">▾</span></a><div class="drop"><a href="/ja/kdp/">KDP計算機すべて</a><a href="/ja/kdp-cover-calculator/">表紙サイズ計算機</a><a href="/ja/kdp-print-cost-calculator/">印刷コスト計算機</a><a href="/ja/kdp-royalty-calculator/">ロイヤルティ計算機</a><a href="/ja/guides/kdp-royalties-explained/">KDPロイヤルティ解説</a></div></div><div class="nav-item has-drop"><a class="nav-top active" href="/ja/software/">ソフトウェア料金<span class="caret">▾</span></a><div class="drop"><a href="/ja/software/">ソフトウェア料金ハブ</a><a href="/ja/software/email-marketing/">メール配信ツール比較</a><a href="/ja/software/email-marketing-cost-calculator/">メール配信コスト計算機</a><a href="/ja/software/crm/">CRM比較</a><a href="/ja/software/crm-cost-calculator/">CRMコスト計算機</a><a href="/ja/software/ai-api/">AI API料金比較</a><a href="/ja/software/ai-api-cost-calculator/">AI APIコスト計算機</a><a href="/ja/software/guides/per-seat-pricing-explained/">席課金とは</a></div></div><div class="nav-item has-drop"><a class="nav-top" href="/ja/guides/ebay-fees-explained/">ガイド<span class="caret">▾</span></a><div class="drop"><a href="/ja/guides/ebay-fees-explained/">eBay手数料ガイド</a><a href="/ja/guides/etsy-fees-explained/">Etsy手数料ガイド</a><a href="/ja/guides/mercari-fees-explained/">Mercari手数料ガイド</a><a href="/ja/guides/kdp-royalties-explained/">KDPロイヤルティ解説</a><a href="/ja/software/guides/per-seat-pricing-explained/">席課金とは</a></div></div><a class="nav-top" href="/software/ai-api/">English</a>
+</nav></div></header>
+<main class="wrap">
+<div class="ad-banner" data-affiliate-banner data-active="false"><strong>広告について</strong>：本ページにはアフィリエイトリンク（広告）が含まれます。リンク先の公式サイトで申込みや購入が行われた場合、本サイトの運営者が紹介料を受け取ることがあります。紹介料の有無や金額によって、掲載する価格・順位・比較結果が変わることはありません。掲載する価格はすべて各社の公式ページで確認し、確認日を明記しています。</div>
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/ja/">ホーム</a><span class="sep">›</span><a href="/ja/software/">ソフトウェア料金</a><span class="sep">›</span><span aria-current="page">AI API</span></nav>
+
+<div class="hero"><h1>AI APIの料金を、トークン単価で比較</h1>
+<p class="lede">OpenAI・Claude・GeminiのAPIはすべてトークン単位の課金ですが、単価表の作りは3社で違います。ここでは<strong>入力・キャッシュ入力・出力の単価、バッチ割引、告知済みの値上げ</strong>を、各社の公式料金ページで読み取って横並びにします。基準ワークロードは月10万リクエスト・平均入力1,500トークン・平均出力500トークン・入力の40%がキャッシュです。</p>
+<div class="badge-band"><span class="pill">✓ 価格確認済み</span><span><strong>2026年11月24日</strong> — このページの価格はすべてベンダーの公式料金ページで読み取ったものです。プロモーション価格を定価として使うことはありません。</span></div>
+</div>
+<h2>プロバイダー別</h2>
+<div class="grid">
+<a class="tile" href="/ja/software/openai-api-pricing/"><div class="t-name">OpenAI APIの料金</div><div class="t-rate">基準ワークロード（月10万リクエスト）で最安の現行モデルはGPT-6.2 Sol、月額$686.00。全モデルの単価表はこちら。</div></a>
+<a class="tile" href="/ja/software/claude-api-pricing/"><div class="t-name">Anthropic APIの料金</div><div class="t-rate">基準ワークロード（月10万リクエスト）で最安の現行モデルはClaude Haiku 5.5、月額$34.60。全モデルの単価表はこちら。</div></a>
+<a class="tile" href="/ja/software/gemini-api-pricing/"><div class="t-name">Google Gemini APIの料金</div><div class="t-rate">基準ワークロード（月10万リクエスト）で最安の現行モデルはGemini 3.8 Flash、月額$259.50。全モデルの単価表はこちら。</div></a>
+</div>
+<h2>現行モデルの単価（安い順）</h2>
+<p class="sub">100万トークンあたり（米ドル）。月額は基準ワークロードでの計算です。旧世代モデルは各プロバイダーのページにあります。</p>
+<table class="fees"><tr><th>モデル</th><th class="num">入力</th><th class="num">キャッシュ入力</th><th class="num">出力</th><th class="num">バッチ（入力/出力）</th><th class="num">月額</th></tr><tr><td>Claude Haiku 5.5<br><span class="hint">Anthropic</span></td><td class="num">$0.10</td><td class="num">$0.01</td><td class="num">$0.50</td><td class="num">$0.05 / $0.25</td><td class="num">$34.60</td></tr><tr><td>Claude Haiku 5.5 (>100K prompts)<br><span class="hint">Anthropic</span></td><td class="num">$0.50</td><td class="num">$0.05</td><td class="num">$2.50</td><td class="num">$0.25 / $1.25</td><td class="num">$173.00</td></tr><tr><td>Gemini 3.8 Flash<br><span class="hint">Google Gemini</span></td><td class="num">$0.75</td><td class="num">$0.075</td><td class="num">$3.75</td><td class="num">$0.375 / $1.875</td><td class="num">$259.50</td></tr><tr><td>GPT-6.2 Sol<br><span class="hint">OpenAI</span></td><td class="num">$2.00</td><td class="num">$0.10</td><td class="num">$10.00</td><td class="num">—</td><td class="num">$686.00</td></tr><tr><td>Claude Sonnet 5.5<br><span class="hint">Anthropic</span></td><td class="num">$2.00</td><td class="num">$0.10</td><td class="num">$10.00</td><td class="num">$1.00 / $5.00</td><td class="num">$686.00</td></tr><tr><td>Gemini 4 Carbon<br><span class="hint">Google Gemini</span></td><td class="num">$2.00</td><td class="num">$0.10</td><td class="num">$10.00</td><td class="num">$1.00 / $5.00</td><td class="num">$686.00</td></tr><tr><td>Gemini 4 Argon<br><span class="hint">Google Gemini</span></td><td class="num">$2.00</td><td class="num">$0.10</td><td class="num">$10.00</td><td class="num">$1.00 / $5.00</td><td class="num">$686.00</td></tr><tr><td>Claude Opus 5.5<br><span class="hint">Anthropic</span></td><td class="num">$4.00</td><td class="num">$0.20</td><td class="num">$20.00</td><td class="num">$2.00 / $10.00</td><td class="num">$1,372.00</td></tr><tr><td>GPT-6.2 Astra<br><span class="hint">OpenAI</span></td><td class="num">$8.00</td><td class="num">$0.40</td><td class="num">$40.00</td><td class="num">—</td><td class="num">$2,744.00</td></tr></table>
+<p class="hint">無料枠（ランキング外）：Google Gemini — 対象モデル（Gemini 3.8 Flashなど）はレート制限の範囲内で入力・出力とも無料。フラッグシップのGemini 4は無料枠の対象外です。コンテンツがGoogleの製品改善に使われる場合があります。無料枠は順位・判定には入れていません。</p>
+<h2>告知済み：予定されている値上げ</h2>
+<p>この値上げは、今日すでに公式料金ページに印刷されています — 噂ではありません。計算機は現在の料金で計算し、変更を注記します。適用日以降も使い続けるなら、右端の列で予算を組んでください。</p>
+<table class="fees"><tr><th>モデル</th><th>適用日</th><th class="num">入力 / 100万トークン</th><th class="num">出力 / 100万トークン</th><th class="num">基準ワークロードでの月額</th></tr><tr><td>Gemini 4 Carbon</td><td>2026-12-01</td><td class="num">$2.00 → $4.00</td><td class="num">$10.00 → $20.00</td><td class="num">$686.00 → $1,372.00</td></tr><tr><td>Gemini 4 Argon</td><td>2026-12-01</td><td class="num">$2.00 → $4.00</td><td class="num">$10.00 → $20.00</td><td class="num">$686.00 → $1,372.00</td></tr><tr><td>Gemini 3.8 Flash</td><td>2027-01-01</td><td class="num">$0.75 → $1.50</td><td class="num">$3.75 → $7.50</td><td class="num">$259.50 → $519.00</td></tr></table>
+<h2>自分の数字で計算する</h2>
+<p>リクエスト数とトークン数は事業ごとにまったく違います。あなたの数字で全モデルを並べ替える計算機はこちら：</p>
+<p><a class="btn" href="/ja/software/ai-api-cost-calculator/">AI APIコスト計算機を開く</a> <a class="btn ghost" href="/ja/software/guides/ai-api-pricing-explained/">AI API料金の仕組みを読む</a></p>
+<h2>この表に入れていないもの</h2>
+<p>長コンテキストの追加料金、キャッシュ書き込み料、Geminiのキャッシュ保管料とグラウンディング料金、地域処理の上乗せは、モデルごとの単価表には混ぜていません。各プロバイダーのページと<a href="/ja/software/guides/ai-api-pricing-explained/">解説ガイド</a>に明記しています。</p>
+
+</main>
+<footer class="site-footer"><div class="in">
+<h2>このスイートの全計算機</h2>
+<nav class="foot-links">
+<a href="/ja/ebay-fee-calculator/">eBay手数料計算機</a>
+<a href="/ja/ebay-profit-calculator/">eBay利益計算機</a>
+<a href="/ja/etsy-fee-calculator/">Etsy手数料計算機</a>
+<a href="/ja/poshmark-fee-calculator/">Poshmark手数料計算機</a>
+<a href="/ja/mercari-fee-calculator/">Mercari手数料計算機</a>
+<a href="/ja/mercari-japan-fee-calculator/">メルカリ（日本）手数料計算機</a>
+<a href="/ja/amazon-referral-fee-calculator/">Amazon販売手数料計算機</a>
+<a href="/ja/depop-fee-calculator/">Depop手数料計算機</a>
+<a href="/ja/vinted-fee-calculator/">Vinted手数料計算機</a>
+<a href="/ja/whatnot-fee-calculator/">Whatnot手数料計算機</a>
+<a href="/ja/tiktok-shop-fee-calculator/">TikTok Shop手数料計算機</a>
+<a href="/ja/facebook-marketplace-fee-calculator/">Facebook Marketplace手数料計算機</a>
+<a href="/ja/marketplace-fees-compared/">8プラットフォーム比較</a>
+<a href="/ja/batch-fee-calculator/">バッチ計算機＋CSV</a>
+<a href="/ja/ebay-vs-etsy-fees/">eBay vs Etsy 手数料</a>
+<a href="/ja/fee-changes/">料率変更履歴</a>
+<a href="/ja/guides/ebay-fees-explained/">eBay手数料ガイド</a>
+<a href="/ja/guides/etsy-fees-explained/">Etsy手数料ガイド</a>
+<a href="/ja/guides/mercari-fees-explained/">Mercari手数料ガイド</a>
+<a href="/ja/kdp/">KDP計算機</a>
+<a href="/ja/kdp-cover-calculator/">KDP表紙サイズ計算機</a>
+<a href="/ja/kdp-print-cost-calculator/">KDP印刷コスト計算機</a>
+<a href="/ja/kdp-royalty-calculator/">KDPロイヤルティ計算機</a>
+<a href="/ja/guides/kdp-royalties-explained/">KDPロイヤルティガイド</a>
+<a href="/ja/software/">ソフトウェア料金ハブ</a>
+<a href="/ja/software/email-marketing-cost-calculator/">メール配信コスト計算機</a>
+<a href="/ja/software/crm-cost-calculator/">CRMコスト計算機</a>
+<a href="/ja/software/email-marketing/">メール配信ツール比較</a>
+<a href="/ja/software/crm/">CRM比較</a>
+<a href="/ja/software/mailchimp-pricing/">Mailchimpの料金</a>
+<a href="/ja/software/brevo-pricing/">Brevoの料金</a>
+<a href="/ja/software/kit-pricing/">Kitの料金</a>
+<a href="/ja/software/activecampaign-pricing/">ActiveCampaignの料金</a>
+<a href="/ja/software/mailerlite-pricing/">MailerLiteの料金</a>
+<a href="/ja/software/constantcontact-pricing/">Constant Contactの料金</a>
+<a href="/ja/software/hubspot-pricing/">HubSpotの料金</a>
+<a href="/ja/software/pipedrive-pricing/">Pipedriveの料金</a>
+<a href="/ja/software/zoho-pricing/">Zoho CRMの料金</a>
+<a href="/ja/software/freshsales-pricing/">Freshsalesの料金</a>
+<a href="/ja/software/close-pricing/">Closeの料金</a>
+<a href="/ja/software/monday-pricing/">monday CRMの料金</a>
+<a href="/ja/software/ai-api/">AI API料金比較</a>
+<a href="/ja/software/ai-api-cost-calculator/">AI APIコスト計算機</a>
+<a href="/ja/software/openai-api-pricing/">OpenAI APIの料金</a>
+<a href="/ja/software/claude-api-pricing/">Claude APIの料金</a>
+<a href="/ja/software/gemini-api-pricing/">Gemini APIの料金</a>
+<a href="/ja/about/">このサイトについて・検証方法</a>
+<a href="/ja/disclosure/">広告と収益について</a>
+<a href="/ja/privacy/">プライバシーポリシー</a>
+</nav>
+<p class="disclaimer"><strong>免責：</strong>結果は計画用の見積もりです。価格は変わり、ベンダーのプロモーションは反映していません。契約前に必ずベンダーの公式料金ページで最終価格を確認してください。このページのソフトウェア価格は、2026年11月24日に各ベンダーの公式料金ページで確認しました。</p>
+<p class="disclaimer site-legal"><strong>非提携：</strong>本サイトは、eBay、Etsy、Amazonその他本サイトに記載の各プラットフォーム・ベンダーとは提携していません。各名称は各社の商標です。</p>
+<p class="disclaimer site-legal">運営者：小倉 嵩弘（Takahiro Ogura）。個人で運営する独立したプロジェクトです。</p>
+</div></footer>
+<script src="/assets/nav.js?v=aiapi20261124" defer></script>
+<script src="/assets/events.js?v=aiapi20261124" defer></script>
+</body>
+</html>

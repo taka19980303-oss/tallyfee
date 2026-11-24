@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI API Cost Calculator — Monthly Cost by Requests &amp; Tokens | Fee Calculator Suite</title>
+<meta name="description" content="Free calculator: monthly cost of every OpenAI, Claude and Gemini model at your request count, token shape and cache rate, in Standard or Batch mode. Prices verified on official pricing pages.">
+<link rel="canonical" href="https://tallyfee.com/software/ai-api-cost-calculator/">
+<link rel="alternate" hreflang="en" href="https://tallyfee.com/software/ai-api-cost-calculator/">
+<link rel="alternate" hreflang="ja" href="https://tallyfee.com/ja/software/ai-api-cost-calculator/">
+<link rel="alternate" hreflang="x-default" href="https://tallyfee.com/software/ai-api-cost-calculator/">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<script>document.documentElement.classList.add('js')</script><link rel="stylesheet" href="/assets/style.css?v=aiapi20261124">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Fee Calculator Suite">
+<meta property="og:title" content="AI API Cost Calculator — Monthly Cost by Requests &amp; Tokens | Fee Calculator Suite">
+<meta property="og:description" content="Free calculator: monthly cost of every OpenAI, Claude and Gemini model at your request count, token shape and cache rate, in Standard or Batch mode. Prices verified on official pricing pages.">
+<meta property="og:url" content="https://tallyfee.com/software/ai-api-cost-calculator/">
+<meta property="og:image" content="https://tallyfee.com/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI API Cost Calculator — Monthly Cost by Requests &amp; Tokens | Fee Calculator Suite">
+<meta name="twitter:description" content="Free calculator: monthly cost of every OpenAI, Claude and Gemini model at your request count, token shape and cache rate, in Standard or Batch mode. Prices verified on official pricing pages.">
+<meta name="twitter:image" content="https://tallyfee.com/assets/og.png">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "AI API Cost Calculator", "url": "https://tallyfee.com/software/ai-api-cost-calculator/", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}</script>
+</head>
+<body>
+<header class="site-header"><div class="in">
+<a class="brand" href="/"><svg class="brand-mark" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><rect width="64" height="64" rx="14" fill="#0e7a43"/><g fill="none" stroke="#fff" stroke-width="5.5" stroke-linecap="round"><circle cx="23.5" cy="21.5" r="6.5"/><circle cx="40.5" cy="42.5" r="6.5"/><path d="M43 15 L21 49"/></g></svg>Fee<span>Calculator</span>Suite</a>
+<button class="nav-burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-nav"><span></span><span></span><span></span></button><nav class="site-nav" id="site-nav">
+<div class="nav-item has-drop"><a class="nav-top" href="/marketplace-fees-compared/">Marketplace fees<span class="caret">▾</span></a><div class="drop"><a href="/">All fee calculators</a><a href="/marketplace-fees-compared/">Compare all 8 platforms</a><a href="/ebay-vs-etsy-fees/">eBay vs Etsy fees</a><a href="/batch-fee-calculator/">Batch calculator + CSV</a><a href="/fee-changes/">Fee-change history</a></div></div><div class="nav-item has-drop"><a class="nav-top" href="/kdp/">KDP<span class="caret">▾</span></a><div class="drop"><a href="/kdp/">All KDP calculators</a><a href="/kdp-cover-calculator/">Cover size calculator</a><a href="/kdp-print-cost-calculator/">Printing cost calculator</a><a href="/kdp-royalty-calculator/">Royalty calculator</a><a href="/guides/kdp-royalties-explained/">KDP royalties explained</a></div></div><div class="nav-item has-drop"><a class="nav-top active" href="/software/">Software pricing<span class="caret">▾</span></a><div class="drop"><a href="/software/">Software cost hub</a><a href="/software/email-marketing/">Email marketing compared</a><a href="/software/email-marketing-cost-calculator/">Email cost calculator</a><a href="/software/crm/">CRM compared</a><a href="/software/crm-cost-calculator/">CRM cost calculator</a><a href="/software/ai-api/">AI API pricing compared</a><a href="/software/ai-api-cost-calculator/">AI API cost calculator</a><a href="/software/guides/per-seat-pricing-explained/">Per-seat pricing explained</a></div></div><div class="nav-item has-drop"><a class="nav-top" href="/guides/ebay-fees-explained/">Guides<span class="caret">▾</span></a><div class="drop"><a href="/guides/ebay-fees-explained/">eBay fees explained</a><a href="/guides/etsy-fees-explained/">Etsy fees explained</a><a href="/guides/mercari-fees-explained/">Mercari fees explained</a><a href="/guides/kdp-royalties-explained/">KDP royalties explained</a><a href="/software/guides/per-seat-pricing-explained/">Per-seat pricing explained</a></div></div><a class="nav-top" href="/ja/software/ai-api-cost-calculator/">日本語</a>
+</nav></div></header>
+<main class="wrap">
+<div class="ad-banner" data-affiliate-banner data-active="false"><strong>Advertising disclosure:</strong> This page contains affiliate links. If you sign up or buy through them, we may earn a commission from the vendor — at no extra cost to you. Commissions never change the prices we list, our rankings or our verdicts: every figure is read on the vendor's official page and stamped with the date it was checked.</div>
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span class="sep">›</span><a href="/software/">Software pricing</a><span class="sep">›</span><a href="/software/ai-api/">AI API</a><span class="sep">›</span><span aria-current="page">AI API cost calculator</span></nav>
+
+<div class="hero"><h1>AI API cost calculator</h1>
+<p class="lede">Enter your monthly request count and average token shape, and every model from OpenAI, Anthropic and Google is priced and ranked — including how much of your input is served from cache. Rates were verified on the providers' official pricing pages on November 24, 2026.</p>
+<div class="badge-band"><span class="pill">✓ Prices verified</span><span><strong>November 24, 2026</strong> — every price on this page was read on the vendor's official pricing page. Promotional prices are never used as the list price.</span></div>
+</div>
+<div class="card">
+<div class="cmp-inputs cmp-2">
+<div class="field" style="margin:0"><label for="ai-requests">Requests per month</label><div class="input-wrap"><input id="ai-requests" type="number" min="0" step="1000" value="100000"></div></div>
+<div class="field" style="margin:0"><label for="ai-tin">Average input tokens per request</label><div class="input-wrap"><input id="ai-tin" type="number" min="0" step="50" value="1500"></div></div>
+<div class="field" style="margin:0"><label for="ai-tout">Average output tokens per request</label><div class="input-wrap"><input id="ai-tout" type="number" min="0" step="50" value="500"></div></div>
+<div class="field" style="margin:0"><label for="ai-cache">Share of input served from cache: <span id="ai-cache-val">40%</span></label><div class="input-wrap"><input id="ai-cache" type="range" min="0" max="90" step="5" value="40"></div><p class="hint">The share of your input — system prompts, shared context — that is read back from the provider's cache. Cached input reads cost far less than fresh input.</p></div>
+</div>
+<div class="preset-row" role="group" aria-label="Request presets"><button type="button" data-preset="10000">10K requests/mo</button><button type="button" data-preset="100000">100K</button><button type="button" data-preset="1000000">1M</button><button type="button" data-preset="10000000">10M</button></div>
+<div class="mode-toggle" style="margin-top:16px"><button data-mode="standard" aria-pressed="true">Standard (real-time)</button><button data-mode="batch" aria-pressed="false">Batch (async, discounted)</button></div>
+<p class="hint">Batch mode trades immediacy for a discount. A discount is applied only where the provider publishes batch rates on its official pricing page.</p>
+<div class="preset-row" role="group" aria-label="Providers"><label><input type="checkbox" id="ai-prov-openai" checked> OpenAI</label> <label><input type="checkbox" id="ai-prov-anthropic" checked> Anthropic</label> <label><input type="checkbox" id="ai-prov-gemini" checked> Google Gemini</label></div>
+<table class="fees"><tr><th>Model</th><th class="num">Input /1M</th><th class="num">Cached /1M</th><th class="num">Output /1M</th><th class="num">Per 1,000 requests</th><th class="num">Per month</th><th class="num">Per year</th></tr><tbody id="ai-results"></tbody></table>
+<div class="cmp-verdict" id="ai-verdict" aria-live="polite"></div>
+<p class="hint" id="ai-batchnote" style="display:none">Models whose provider publishes no batch rates on its official pricing page show — and are excluded from the verdict in Batch mode.</p>
+<div id="ai-scheduled"></div>
+<p class="hint" id="ai-freenote">Free tier (not in the ranking): Google Gemini — Selected models (e.g. Gemini 3.8 Flash) free of charge for input and output within rate limits; flagship Gemini 4 models are NOT on the free tier; content may be used to improve Google products.</p>
+<div id="ai-scale"></div>
+<details class="advanced"><summary>Previous-generation models</summary><table class="fees"><tr><th>Model</th><th class="num">Input /1M</th><th class="num">Cached /1M</th><th class="num">Output /1M</th><th class="num">Per 1,000 requests</th><th class="num">Per month</th><th class="num">Per year</th></tr><tbody id="ai-results-legacy"></tbody></table></details>
+<p class="hint">All prices in US dollars at today's list rates. Announced increases are flagged on the models they affect.</p>
+<p class="privacy-note">Nothing you type leaves your browser — every calculation runs on this page, on your device.</p>
+<p><button class="btn ghost" type="button" onclick="window.print()">Print or save this comparison</button></p>
+</div>
+<h2>What this calculator does not include</h2>
+<div class="glossary">
+<p><strong>Long-context surcharges.</strong> Some models charge more once a prompt passes a size threshold (Claude Haiku 5.5's over-100K tier is listed as its own row). The calculator does not switch tiers automatically.</p>
+<p><strong>Cache WRITE charges.</strong> The calculator prices cache reads. Writing to the cache costs extra — OpenAI and Anthropic publish separate write rates, listed on their pages here.</p>
+<p><strong>Gemini cache storage and grounding.</strong> Context-cache storage is $0.50 per 1M tokens per hour; search grounding is free for the first 5,000 requests a month, then $14 per 1,000.</p>
+<p><strong>Regional uplifts.</strong> OpenAI regional endpoints add 10% and Anthropic's US-only inference is 1.1x — both are opt-in, so neither is in the base math.</p>
+</div>
+<h2>Prefer the rate cards?</h2>
+<p>Per-model rates and notes live on the <a href="/software/ai-api/">AI API hub</a> and the provider pages (<a href="/software/openai-api-pricing/">OpenAI</a> · <a href="/software/claude-api-pricing/">Claude</a> · <a href="/software/gemini-api-pricing/">Gemini</a>). The mechanics are explained in <a href="/software/guides/ai-api-pricing-explained/">how AI API pricing works</a>.</p>
+<script src="/assets/saas-data.js?v=aiapi20261124"></script>
+<script src="/assets/pricing.js?v=aiapi20261124"></script>
+<script>
+(function(){
+var JA = document.documentElement.lang === 'ja';
+var S = JA ? {
+  per1k: '1,000リクエストあたり', monthly: '月額', annual: '年額', model: 'モデル',
+  tie: '同額', cheapest: 'が最安', atSettings: '（この設定では月額', perMonth: '）',
+  batchNote: 'バッチ料金を公式ページで公開していないプロバイダーのモデルは「—」表示で、判定からは除外しています。',
+  schedNote: '{d}から：{n}は月額{v}（この設定）に上がります。',
+  schedFlip: '変更後の単価では、最安モデルは{n}に変わります。',
+  scaleHead: '規模を変えると（上位5モデル）', requests: 'リクエスト',
+  noBatch: 'バッチ料金は未公開'
+} : {
+  per1k: 'Per 1,000 requests', monthly: 'Per month', annual: 'Per year', model: 'Model',
+  tie: 'tie', cheapest: 'is cheapest', atSettings: 'at these settings (', perMonth: '/month)',
+  batchNote: 'Models whose provider publishes no batch rates on its official pricing page show — and are excluded from the verdict in Batch mode.',
+  schedNote: 'From {d}: {n} rises to {v} a month at these settings.',
+  schedFlip: 'At the new rates the cheapest model becomes {n}.',
+  scaleHead: 'What scale does to the top 5', requests: 'requests',
+  noBatch: 'No published batch price'
+};
+var D = window.SAAS_DATA.aiapi, E = window.PricingEngine;
+var ORDER = ['openai', 'anthropic', 'gemini'];
+var state = { requests: 100000, tin: 1500, tout: 500, cache: 40, mode: 'standard', providers: { openai: true, anthropic: true, gemini: true } };
+try { var saved = JSON.parse(localStorage.getItem('aiapi-calc') || 'null'); if (saved) { for (var k in saved) state[k] = saved[k]; } } catch (e) {}
+var qs = new URLSearchParams(location.search);
+['requests', 'tin', 'tout', 'cache'].forEach(function(k){ var v = qs.get(k); if (v !== null && v !== '' && !isNaN(+v)) state[k] = +v; });
+if (qs.get('mode') === 'batch' || qs.get('mode') === 'standard') state.mode = qs.get('mode');
+function el(id){ return document.getElementById(id); }
+function fmt(n){ return E.fmt(n); }
+function rates(m){
+  if (state.mode === 'batch') return [m.batch_input_per_1m, m.batch_cached_input_per_1m, m.batch_output_per_1m];
+  return [m.input_per_1m, m.cached_input_per_1m, m.output_per_1m];
+}
+function rateTxt(v){ if (v === null || v === undefined) return '—'; var s = v.toFixed(4).replace(/0+$/, '').replace(/\.$/, ''); var parts = s.split('.'); if (!parts[1]) s += '.00'; else if (parts[1].length === 1) s += '0'; return '$' + s; }
+function cost(m, req, override){ return E.aiModelCost(m, req || state.requests, state.tin, state.tout, state.cache / 100, state.mode, override || null); }
+function rowHtml(item){
+  var m = item.m, r = rates(m), c = item.cost;
+  var note = (!c && state.mode === 'batch') ? '<br><span class="hint">' + S.noBatch + '</span>' : '';
+  return '<tr><td>' + m.name + '<br><span class="hint">' + D[item.pid].name + '</span>' + note + '</td>' +
+    '<td class="num">' + rateTxt(r[0]) + '</td><td class="num">' + rateTxt(r[1]) + '</td><td class="num">' + rateTxt(r[2]) + '</td>' +
+    '<td class="num">' + (c ? fmt(c.per1k) : '—') + '</td><td class="num">' + (c ? fmt(c.monthly) : '—') + '</td><td class="num">' + (c ? fmt(c.annual) : '—') + '</td></tr>';
+}
+function byCost(a, b){ if (a.cost && b.cost) return a.cost.monthly - b.cost.monthly; if (a.cost) return -1; if (b.cost) return 1; return 0; }
+function render(){
+  var cur = [], leg = [];
+  ORDER.forEach(function(pid){
+    if (!state.providers[pid]) return;
+    D[pid].models.forEach(function(m){
+      var item = { pid: pid, m: m, cost: cost(m) };
+      (m.status === 'legacy' ? leg : cur).push(item);
+    });
+  });
+  cur.sort(byCost); leg.sort(byCost);
+  el('ai-results').innerHTML = cur.map(rowHtml).join('');
+  el('ai-results-legacy').innerHTML = leg.map(rowHtml).join('');
+  var priced = cur.filter(function(i){ return i.cost; });
+  var v = el('ai-verdict');
+  if (priced.length) {
+    var min = priced[0].cost.monthly;
+    var tied = priced.filter(function(i){ return Math.abs(i.cost.monthly - min) < 0.01; });
+    if (tied.length > 1) {
+      v.innerHTML = '<strong>' + tied.map(function(i){ return i.m.name; }).join(' · ') + '</strong> ' + S.tie + ' — ' + fmt(min) + (JA ? '／月（この設定）。' : '/month at these settings.');
+    } else {
+      v.innerHTML = '<strong>' + priced[0].m.name + '</strong> ' + S.cheapest + ' ' + S.atSettings + fmt(min) + S.perMonth + (JA ? '。' : '.');
+    }
+  } else { v.innerHTML = ''; }
+  el('ai-batchnote').style.display = (state.mode === 'batch' && cur.some(function(i){ return !i.cost; })) ? '' : 'none';
+  var notes = [];
+  var alt = priced.map(function(i){ return { m: i.m, now: i.cost, alt: i.m.scheduled_change ? cost(i.m, state.requests, i.m.scheduled_change) : i.cost }; });
+  alt.forEach(function(a){
+    if (a.m.scheduled_change && a.alt && Math.abs(a.alt.monthly - a.now.monthly) > 0.005) {
+      notes.push(S.schedNote.replace('{d}', a.m.scheduled_change.effective_date).replace('{n}', a.m.name).replace('{v}', fmt(a.alt.monthly)));
+    }
+  });
+  if (priced.length && alt.length) {
+    var altSorted = alt.slice().sort(function(a, b){ return (a.alt ? a.alt.monthly : 1e18) - (b.alt ? b.alt.monthly : 1e18); });
+    if (altSorted[0].alt && altSorted[0].m.name !== priced[0].m.name) {
+      notes.push(S.schedFlip.replace('{n}', altSorted[0].m.name));
+    }
+  }
+  el('ai-scheduled').innerHTML = notes.length ? '<p class="hint">' + notes.join('<br>') + '</p>' : '';
+  var top = priced.slice(0, 5), factors = [0.1, 1, 10, 100];
+  if (top.length) {
+    var head = '<tr><th>' + S.model + '</th>' + factors.map(function(f){ return '<th class="num">' + Math.round(state.requests * f).toLocaleString('en-US') + ' ' + S.requests + '</th>'; }).join('') + '</tr>';
+    var rows = top.map(function(i){
+      return '<tr><td>' + i.m.name + '</td>' + factors.map(function(f){ var c = cost(i.m, Math.round(state.requests * f)); return '<td class="num">' + (c ? fmt(c.monthly) : '—') + '</td>'; }).join('') + '</tr>';
+    }).join('');
+    el('ai-scale').innerHTML = '<h2>' + S.scaleHead + '</h2><table class="fees">' + head + rows + '</table>';
+  } else { el('ai-scale').innerHTML = ''; }
+  var fn = el('ai-freenote'); if (fn) fn.style.display = state.providers.gemini ? '' : 'none';
+  try { localStorage.setItem('aiapi-calc', JSON.stringify(state)); } catch (e) {}
+  var p = new URLSearchParams({ requests: state.requests, tin: state.tin, tout: state.tout, cache: state.cache, mode: state.mode });
+  history.replaceState(null, '', location.pathname + '?' + p.toString());
+}
+function syncInputs(){
+  el('ai-requests').value = state.requests;
+  el('ai-tin').value = state.tin;
+  el('ai-tout').value = state.tout;
+  el('ai-cache').value = state.cache;
+  el('ai-cache-val').textContent = state.cache + '%';
+  document.querySelectorAll('[data-mode]').forEach(function(b){ b.setAttribute('aria-pressed', b.getAttribute('data-mode') === state.mode ? 'true' : 'false'); });
+  ORDER.forEach(function(pid){ var cb = el('ai-prov-' + pid); if (cb) cb.checked = !!state.providers[pid]; });
+}
+el('ai-requests').addEventListener('input', function(){ state.requests = Math.max(0, +this.value || 0); render(); });
+el('ai-tin').addEventListener('input', function(){ state.tin = Math.max(0, +this.value || 0); render(); });
+el('ai-tout').addEventListener('input', function(){ state.tout = Math.max(0, +this.value || 0); render(); });
+el('ai-cache').addEventListener('input', function(){ state.cache = +this.value; el('ai-cache-val').textContent = state.cache + '%'; render(); });
+document.querySelectorAll('[data-preset]').forEach(function(b){ b.addEventListener('click', function(){ state.requests = +b.getAttribute('data-preset'); el('ai-requests').value = state.requests; render(); }); });
+document.querySelectorAll('[data-mode]').forEach(function(b){ b.addEventListener('click', function(){ state.mode = b.getAttribute('data-mode'); syncInputs(); render(); }); });
+ORDER.forEach(function(pid){ var cb = el('ai-prov-' + pid); if (cb) cb.addEventListener('change', function(){ state.providers[pid] = cb.checked; render(); }); });
+syncInputs();
+render();
+})();
+</script>
+
+
+</main>
+<footer class="site-footer"><div class="in">
+<h2>All calculators</h2>
+<nav class="foot-links">
+<a href="/ebay-fee-calculator/">eBay fee calculator</a>
+<a href="/etsy-fee-calculator/">Etsy fee calculator</a>
+<a href="/marketplace-fees-compared/">Compare all 8 platforms</a>
+<a href="/kdp/">KDP calculators</a>
+<a href="/software/">Software cost hub</a>
+<a href="/software/email-marketing-cost-calculator/">Email marketing cost calculator</a>
+<a href="/software/crm-cost-calculator/">CRM cost calculator</a>
+<a href="/software/email-marketing/">Email tools compared</a>
+<a href="/software/crm/">CRMs compared</a>
+<a href="/software/mailchimp-pricing/">Mailchimp pricing</a>
+<a href="/software/brevo-pricing/">Brevo pricing</a>
+<a href="/software/kit-pricing/">Kit pricing</a>
+<a href="/software/activecampaign-pricing/">ActiveCampaign pricing</a>
+<a href="/software/mailerlite-pricing/">MailerLite pricing</a>
+<a href="/software/constantcontact-pricing/">Constant Contact pricing</a>
+<a href="/software/hubspot-pricing/">HubSpot pricing</a>
+<a href="/software/pipedrive-pricing/">Pipedrive pricing</a>
+<a href="/software/zoho-pricing/">Zoho CRM pricing</a>
+<a href="/software/freshsales-pricing/">Freshsales pricing</a>
+<a href="/software/close-pricing/">Close pricing</a>
+<a href="/software/monday-pricing/">monday CRM pricing</a>
+<a href="/software/ai-api/">AI API pricing compared</a>
+<a href="/software/ai-api-cost-calculator/">AI API cost calculator</a>
+<a href="/software/openai-api-pricing/">OpenAI API pricing</a>
+<a href="/software/claude-api-pricing/">Claude API pricing</a>
+<a href="/software/gemini-api-pricing/">Gemini API pricing</a>
+<a href="/about/">About &amp; how we verify</a>
+<a href="/disclosure/">Advertising disclosure</a>
+<a href="/privacy/">Privacy policy</a>
+</nav>
+<p class="disclaimer"><strong>Disclaimer:</strong> Results are estimates for planning only. Prices change, and vendors run promotions that are not modelled here. Always confirm the final price on the vendor's official pricing page before subscribing. Software prices on this page were verified on the vendors' official pricing pages on November 24, 2026.</p>
+<p class="disclaimer site-legal"><strong>Not affiliated:</strong> This site is not affiliated with eBay, Etsy, Amazon or any other platform or vendor named on it; all product and company names are trademarks of their respective owners.</p>
+<p class="disclaimer site-legal">Operated by Takahiro Ogura （小倉 嵩弘） as an independent individual project.</p>
+</div></footer>
+<script src="/assets/nav.js?v=aiapi20261124" defer></script>
+<script src="/assets/events.js?v=aiapi20261124" defer></script>
+</body>
+</html>
