@@ -46,6 +46,7 @@
 <p class="hint">Annual billing is the default because every one of these vendors discounts it per seat. Switch to monthly to see month-to-month prices — where the vendor publishes them; annual-only plans say so instead of borrowing the annual figure.</p>
 <table class="fees"><tr><th>CRM</th><th class="num">Per month</th><th class="num">Year one</th><th class="num">3 years</th></tr><tbody id="results"></tbody></table>
 <div class="cmp-verdict" id="verdict" aria-live="polite"></div>
+<p class="hint">Free tiers are not in this ranking: <a href="/software/hubspot-pricing/">HubSpot Sales Hub</a> — Up to 2 users, unlimited contacts · <a href="/software/zoho-pricing/">Zoho CRM</a> — Forever free for up to 3 users. The ranking compares paid plans only — free tiers carry the limits shown.</p>
 <div id="vendor-cta"></div>
 <details class="advanced"><summary>All plans at this team size</summary><div id="allplans"></div></details>
 <p class="hint">All prices in US dollars. The 3-year column repeats today's prices for three years — no price rises are modelled.</p>
@@ -108,8 +109,7 @@
     var rows = ids.map(function(id){
       var t = Object.assign({id:id}, D[id]);
       var cost = E.toolCost(t, 0, s, billing), fb = null;
-      if (!cost && billing === 'annual') { var altM = E.toolCost(t, 0, s, 'monthly'); if (altM) { cost = altM; fb = 'monthly'; } }
-      if (!cost && billing === 'monthly') { var altA = E.toolCost(t, 0, s, 'annual'); if (altA) fb = altA; }
+      if (!cost) { var altO = E.toolCost(t, 0, s, billing === 'annual' ? 'monthly' : 'annual'); if (altO) fb = altO; }
       return { name: t.name, id: id, cost: cost, fb: fb, source: t.source };
     });
     rows.sort(function(a,b){ if(!a.cost) return 1; if(!b.cost) return -1; return a.cost.annualTotal - b.cost.annualTotal; });
@@ -117,8 +117,8 @@
     rows.forEach(function(r){ if (r.cost && (minAnnual === null || r.cost.annualTotal < minAnnual)) minAnnual = r.cost.annualTotal; });
     document.getElementById('results').innerHTML = rows.map(function(r){
       if (!r.cost) {
-        var note = r.fb ? 'Annual billing only — from '+E.fmt(r.fb.monthly)+'/month billed annually ('+r.fb.plan+'). No published monthly price.' : 'No published price for this billing period.';
-        return '<tr><td><a href="/software/'+r.id+'-pricing/"><strong>'+r.name+'</strong></a></td><td colspan="3" class="hint">'+note+' See its <a href="/software/'+r.id+'-pricing/">pricing page</a>.</td></tr>';
+        var note = r.fb ? (billing === 'monthly' ? 'Annual billing only — from '+E.fmt(r.fb.monthly)+'/month billed annually ('+r.fb.plan+'). No published monthly price.' : 'Monthly billing only — from '+E.fmt(r.fb.monthly)+'/month billed monthly ('+r.fb.plan+'). No published annual price.') : 'No published price for this billing period.';
+        return '<tr><td><a href="/software/'+r.id+'-pricing/"><strong>'+r.name+'</strong></a><br><span class="hint">'+note+' See its <a href="/software/'+r.id+'-pricing/">pricing page</a>.</span></td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>';
       }
       var isBest = minAnnual !== null && Math.abs(r.cost.annualTotal - minAnnual) < 0.005;
       var note = r.cost.oneTime ? '<br><span class="hint">incl. '+E.fmt(r.cost.oneTime)+' one-time onboarding</span>' : '';

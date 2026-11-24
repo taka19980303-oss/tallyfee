@@ -49,6 +49,7 @@
 <p class="hint">Annual billing is the default because most of these vendors discount it. Switch to monthly to see month-to-month prices — where the vendor publishes them; annual-only tools say so instead of borrowing the annual figure.</p>
 <table class="fees"><tr><th>Tool</th><th class="num">Per month</th><th class="num">Year one</th><th class="num">3 years</th></tr><tbody id="results"></tbody></table>
 <div class="cmp-verdict" id="verdict" aria-live="polite"></div>
+<p class="hint">Free tiers are not in this ranking: <a href="/software/mailchimp-pricing/">Mailchimp</a> — 250 contacts, 500 sends/month · <a href="/software/brevo-pricing/">Brevo</a> — 300 emails/day, up to 100,000 contacts stored · <a href="/software/kit-pricing/">Kit</a> — Up to 10,000 subscribers, unlimited sends · <a href="/software/mailerlite-pricing/">MailerLite</a> — Up to 250 active subscribers, 2,500 emails/month. The ranking compares paid plans only — free tiers carry the limits shown.</p>
 <div id="vendor-cta"></div>
 <p class="hint" id="mismatch" aria-live="polite"></p>
 <details class="advanced"><summary>All plans at these numbers</summary><div id="allplans"></div></details>
@@ -116,8 +117,7 @@
       var t = Object.assign({id:id}, D[id]);
       var usage = t.model === 'send_volume' ? s : c;
       var cost = E.toolCost(t, usage, 1, billing), fb = null;
-      if (!cost && billing === 'annual') { var altM = E.toolCost(t, usage, 1, 'monthly'); if (altM) { cost = altM; fb = 'monthly'; } }
-      if (!cost && billing === 'monthly') { var altA = E.toolCost(t, usage, 1, 'annual'); if (altA) fb = altA; }
+      if (!cost) { var altO = E.toolCost(t, usage, 1, billing === 'annual' ? 'monthly' : 'annual'); if (altO) fb = altO; }
       return { name: t.name, id: id, cost: cost, fb: fb, source: t.source };
     });
     rows.sort(function(a,b){ if(!a.cost) return 1; if(!b.cost) return -1; return a.cost.annualTotal - b.cost.annualTotal; });
@@ -126,8 +126,8 @@
     var tb = document.getElementById('results');
     tb.innerHTML = rows.map(function(r){
       if (!r.cost) {
-        var note = r.fb ? 'Annual billing only — from '+E.fmt(r.fb.monthly)+'/month billed annually ('+r.fb.plan+'). No published monthly price.' : 'No published price for this size / billing period.';
-        return '<tr><td><a href="/software/'+r.id+'-pricing/"><strong>'+r.name+'</strong></a></td><td colspan="3" class="hint">'+note+' See its <a href="/software/'+r.id+'-pricing/">pricing page</a>.</td></tr>';
+        var note = r.fb ? (billing === 'monthly' ? 'Annual billing only — from '+E.fmt(r.fb.monthly)+'/month billed annually ('+r.fb.plan+'). No published monthly price.' : 'Monthly billing only — from '+E.fmt(r.fb.monthly)+'/month billed monthly ('+r.fb.plan+'). No published annual price.') : 'No published price for this size / billing period.';
+        return '<tr><td><a href="/software/'+r.id+'-pricing/"><strong>'+r.name+'</strong></a><br><span class="hint">'+note+' See its <a href="/software/'+r.id+'-pricing/">pricing page</a>.</span></td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>';
       }
       var isBest = minAnnual !== null && Math.abs(r.cost.annualTotal - minAnnual) < 0.005;
       return '<tr'+(isBest?' class="best"':'')+'><td><a href="/software/'+r.id+'-pricing/"><strong>'+r.name+'</strong></a><br><span class="hint">'+r.cost.plan+' plan'+(r.fb === 'monthly' ? ' · billed monthly (no published annual price)' : '')+'</span></td>' +

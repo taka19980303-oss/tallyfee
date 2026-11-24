@@ -49,6 +49,7 @@
 <p class="hint">ベンダーの多くが年額を割り引くため、既定は年額課金です。月額に切り替えると月ごとの価格が出ます — 公開しているベンダーのみ。年額のみのツールは、年額の数字を流用せず、その旨を表示します。</p>
 <table class="fees"><tr><th>ツール</th><th class="num">月額</th><th class="num">初年度</th><th class="num">3年</th></tr><tbody id="results"></tbody></table>
 <div class="cmp-verdict" id="verdict" aria-live="polite"></div>
+<p class="hint">無料枠はこのランキングに入っていません：<a href="/ja/software/mailchimp-pricing/">Mailchimp</a> — 連絡先250件、月500通まで · <a href="/ja/software/brevo-pricing/">Brevo</a> — 1日300通、連絡先は最大100,000件まで保存 · <a href="/ja/software/kit-pricing/">Kit</a> — 購読者10,000件まで、送信無制限 · <a href="/ja/software/mailerlite-pricing/">MailerLite</a> — 有効な購読者250件まで、月2,500通。このランキングは有料プランのみの比較です — 無料枠には表示した上限があります。</p>
 <div id="vendor-cta"></div>
 <p class="hint" id="mismatch" aria-live="polite"></p>
 <details class="advanced"><summary>全プランをこの条件で見る</summary><div id="allplans"></div></details>
@@ -116,8 +117,7 @@
       var t = Object.assign({id:id}, D[id]);
       var usage = t.model === 'send_volume' ? s : c;
       var cost = E.toolCost(t, usage, 1, billing), fb = null;
-      if (!cost && billing === 'annual') { var altM = E.toolCost(t, usage, 1, 'monthly'); if (altM) { cost = altM; fb = 'monthly'; } }
-      if (!cost && billing === 'monthly') { var altA = E.toolCost(t, usage, 1, 'annual'); if (altA) fb = altA; }
+      if (!cost) { var altO = E.toolCost(t, usage, 1, billing === 'annual' ? 'monthly' : 'annual'); if (altO) fb = altO; }
       return { name: t.name, id: id, cost: cost, fb: fb, source: t.source };
     });
     rows.sort(function(a,b){ if(!a.cost) return 1; if(!b.cost) return -1; return a.cost.annualTotal - b.cost.annualTotal; });
@@ -126,8 +126,8 @@
     var tb = document.getElementById('results');
     tb.innerHTML = rows.map(function(r){
       if (!r.cost) {
-        var note = r.fb ? '年額課金のみ — 年額課金で月あたり'+E.fmt(r.fb.monthly)+'（'+r.fb.plan+'プラン）。月額課金の公開価格はありません。' : 'この規模・請求期間の公開価格はありません。';
-        return '<tr><td><a href="/ja/software/'+r.id+'-pricing/"><strong>'+r.name+'</strong></a></td><td colspan="3" class="hint">'+note+' <a href="/ja/software/'+r.id+'-pricing/">料金ページ</a>を見る。</td></tr>';
+        var note = r.fb ? (billing === 'monthly' ? '年額課金のみ — 年額課金で月あたり'+E.fmt(r.fb.monthly)+'（'+r.fb.plan+'プラン）。月額課金の公開価格はありません。' : '月額課金のみ — 月額課金で月あたり'+E.fmt(r.fb.monthly)+'（'+r.fb.plan+'プラン）。年額課金の公開価格はありません。') : 'この規模・請求期間の公開価格はありません。';
+        return '<tr><td><a href="/ja/software/'+r.id+'-pricing/"><strong>'+r.name+'</strong></a><br><span class="hint">'+note+' <a href="/ja/software/'+r.id+'-pricing/">料金ページ</a>を見る。</span></td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>';
       }
       var isBest = minAnnual !== null && Math.abs(r.cost.annualTotal - minAnnual) < 0.005;
       return '<tr'+(isBest?' class="best"':'')+'><td><a href="/ja/software/'+r.id+'-pricing/"><strong>'+r.name+'</strong></a><br><span class="hint">'+r.cost.plan+'プラン'+(r.fb === 'monthly' ? ' · 月額課金（年額の公開価格なし）' : '')+'</span></td>' +

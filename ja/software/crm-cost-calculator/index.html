@@ -46,6 +46,7 @@
 <p class="hint">どのベンダーも席あたり年額を割り引くため、既定は年額課金です。月額に切り替えると月ごとの価格が出ます — 公開しているベンダーのみ。年額のみのプランは、年額の数字を流用せず、その旨を表示します。</p>
 <table class="fees"><tr><th>CRM</th><th class="num">月額</th><th class="num">初年度</th><th class="num">3年</th></tr><tbody id="results"></tbody></table>
 <div class="cmp-verdict" id="verdict" aria-live="polite"></div>
+<p class="hint">無料枠はこのランキングに入っていません：<a href="/ja/software/hubspot-pricing/">HubSpot Sales Hub</a> — ユーザー2人まで、連絡先無制限 · <a href="/ja/software/zoho-pricing/">Zoho CRM</a> — ユーザー3人まで永久無料。このランキングは有料プランのみの比較です — 無料枠には表示した上限があります。</p>
 <div id="vendor-cta"></div>
 <details class="advanced"><summary>全プランをこの人数で見る</summary><div id="allplans"></div></details>
 <p class="hint">価格はすべて米ドル。3年の列は今日の価格を3年分くり返したもので、値上げは織り込んでいません。</p>
@@ -108,8 +109,7 @@
     var rows = ids.map(function(id){
       var t = Object.assign({id:id}, D[id]);
       var cost = E.toolCost(t, 0, s, billing), fb = null;
-      if (!cost && billing === 'annual') { var altM = E.toolCost(t, 0, s, 'monthly'); if (altM) { cost = altM; fb = 'monthly'; } }
-      if (!cost && billing === 'monthly') { var altA = E.toolCost(t, 0, s, 'annual'); if (altA) fb = altA; }
+      if (!cost) { var altO = E.toolCost(t, 0, s, billing === 'annual' ? 'monthly' : 'annual'); if (altO) fb = altO; }
       return { name: t.name, id: id, cost: cost, fb: fb, source: t.source };
     });
     rows.sort(function(a,b){ if(!a.cost) return 1; if(!b.cost) return -1; return a.cost.annualTotal - b.cost.annualTotal; });
@@ -117,8 +117,8 @@
     rows.forEach(function(r){ if (r.cost && (minAnnual === null || r.cost.annualTotal < minAnnual)) minAnnual = r.cost.annualTotal; });
     document.getElementById('results').innerHTML = rows.map(function(r){
       if (!r.cost) {
-        var note = r.fb ? '年額課金のみ — 年額課金で月あたり'+E.fmt(r.fb.monthly)+'（'+r.fb.plan+'プラン）。月額課金の公開価格はありません。' : 'この請求期間の公開価格はありません。';
-        return '<tr><td><a href="/ja/software/'+r.id+'-pricing/"><strong>'+r.name+'</strong></a></td><td colspan="3" class="hint">'+note+' <a href="/ja/software/'+r.id+'-pricing/">料金ページ</a>を見る。</td></tr>';
+        var note = r.fb ? (billing === 'monthly' ? '年額課金のみ — 年額課金で月あたり'+E.fmt(r.fb.monthly)+'（'+r.fb.plan+'プラン）。月額課金の公開価格はありません。' : '月額課金のみ — 月額課金で月あたり'+E.fmt(r.fb.monthly)+'（'+r.fb.plan+'プラン）。年額課金の公開価格はありません。') : 'この請求期間の公開価格はありません。';
+        return '<tr><td><a href="/ja/software/'+r.id+'-pricing/"><strong>'+r.name+'</strong></a><br><span class="hint">'+note+' <a href="/ja/software/'+r.id+'-pricing/">料金ページ</a>を見る。</span></td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>';
       }
       var isBest = minAnnual !== null && Math.abs(r.cost.annualTotal - minAnnual) < 0.005;
       var note = r.cost.oneTime ? '<br><span class="hint">初期導入費用 '+E.fmt(r.cost.oneTime)+'（一度のみ）を含む</span>' : '';
